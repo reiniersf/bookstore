@@ -5,15 +5,22 @@ import cu.pdi.bookstore.domain.shared.ISBN;
 import lombok.Getter;
 import org.springframework.util.Assert;
 
+import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+
 /**
  * Created by taiyou
  * on 8/29/17.
  */
+@Entity
 @Getter
 public class InventoryEntry {
-
+    @EmbeddedId
     private ISBN title;
+    @Embedded
     private Stock currentStock;
+    @Embedded
     private DepartmentCode code;
 
     public InventoryEntry(ISBN title, Stock currentStock, DepartmentCode code) {

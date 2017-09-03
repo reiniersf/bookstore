@@ -8,6 +8,10 @@ import cu.pdi.bookstore.domain.shared.specification.ExternalDepartmentSpecificat
 import cu.pdi.bookstore.domain.shared.specification.StockAvailabilitySpecification;
 import lombok.Getter;
 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+
 import static cu.pdi.bookstore.domain.shared.specification.Specification.not;
 
 import java.util.List;
@@ -18,13 +22,18 @@ import java.util.stream.Collectors;
  * Created by taiyou
  * on 8/28/17.
  */
+@Entity
 public class Department {
+    @EmbeddedId
     @Getter
     private DepartmentCode code;
     @Getter
     private String name;
+    @Transient
     private TransferEntryService transferEntryService;
+    @Transient
     private TitleService titleService;
+    @Transient
     private InventoryEntryRepository inventoryEntryRepository;
 
     Department(DepartmentCode departmentCode, String departmentName) {
