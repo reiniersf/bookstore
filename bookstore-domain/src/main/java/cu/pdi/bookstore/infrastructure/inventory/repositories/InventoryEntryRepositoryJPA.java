@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -22,11 +22,11 @@ import java.util.Set;
 @Repository
 public class InventoryEntryRepositoryJPA implements InventoryEntryRepository{
 
-    @PersistenceContext
-    private EntityManager entityManager;
 
-    public InventoryEntryRepositoryJPA(EntityManager entityManager){
-        this.entityManager = entityManager;
+    private EntityManagerFactory entityManagerFactory;
+
+    public InventoryEntryRepositoryJPA(EntityManagerFactory entityManagerFactory){
+        this.entityManagerFactory = entityManagerFactory;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class InventoryEntryRepositoryJPA implements InventoryEntryRepository{
 
     @Override
     public List<InventoryEntry> searchExistentEntriesAmong(Set<ISBN> isbnList) {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

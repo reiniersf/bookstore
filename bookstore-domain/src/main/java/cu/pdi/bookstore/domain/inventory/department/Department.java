@@ -1,11 +1,12 @@
 package cu.pdi.bookstore.domain.inventory.department;
 
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
-import cu.pdi.bookstore.domain.inventory.supply.TransferEntryService;
+import cu.pdi.bookstore.domain.accounting.document.TransferEntryService;
 import cu.pdi.bookstore.domain.inventory.title.TitleService;
 import cu.pdi.bookstore.domain.shared.ISBN;
 import cu.pdi.bookstore.domain.shared.specification.ExternalDepartmentSpecification;
 import cu.pdi.bookstore.domain.shared.specification.StockAvailabilitySpecification;
+import lombok.Getter;
 
 import static cu.pdi.bookstore.domain.shared.specification.Specification.not;
 
@@ -18,7 +19,9 @@ import java.util.stream.Collectors;
  * on 8/28/17.
  */
 public class Department {
+    @Getter
     private DepartmentCode code;
+    @Getter
     private String name;
     private TransferEntryService transferEntryService;
     private TitleService titleService;
@@ -60,7 +63,7 @@ public class Department {
                     });
 
             //Then log all operations done...
-            transferEntryService.logTransfers(originDepartment, this, titleSupply);
+            transferEntryService.logTransfer(originDepartment.getCode(), this.code, titleSupply);
             //...and update stock on origin department
             if (not(ExternalDepartmentSpecification.INSTANCE).isSatisfiedBy(originDepartment))
                 originDepartment.updateStock(titleSupply);

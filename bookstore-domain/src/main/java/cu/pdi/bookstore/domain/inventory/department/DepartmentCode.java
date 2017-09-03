@@ -2,11 +2,14 @@ package cu.pdi.bookstore.domain.inventory.department;
 
 import org.springframework.util.Assert;
 
+import javax.persistence.Embeddable;
+
 
 /**
  * Created by taiyou
  * on 8/29/17.
  */
+@Embeddable
 public class DepartmentCode {
 
     public final static DepartmentCode WAREHOUSE_CODE = new DepartmentCode("00");

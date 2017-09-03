@@ -1,7 +1,7 @@
 package cu.pdi.bookstore.domain.inventory.department;
 
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
-import cu.pdi.bookstore.domain.inventory.supply.TransferEntryService;
+import cu.pdi.bookstore.domain.accounting.document.TransferEntryService;
 import cu.pdi.bookstore.domain.inventory.title.TitleService;
 import cu.pdi.bookstore.domain.shared.ISBN;
 import org.springframework.stereotype.Component;

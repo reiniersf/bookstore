@@ -2,10 +2,13 @@ package cu.pdi.bookstore.domain.shared;
 
 import org.springframework.util.Assert;
 
+import javax.persistence.Embeddable;
+
 /**
  * Created by taiyou
  * on 8/28/17.
  */
+@Embeddable
 public class Stock {
     private Integer amount;
 

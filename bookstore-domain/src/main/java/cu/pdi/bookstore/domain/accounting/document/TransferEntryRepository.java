@@ -1,4 +1,4 @@
-package cu.pdi.bookstore.domain.inventory.supply;
+package cu.pdi.bookstore.domain.accounting.document;
 
 
 /**
