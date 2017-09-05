@@ -1,8 +1,9 @@
-package cu.pdi.bookstore.domain.shared.specification;
+package cu.pdi.bookstore.domain.inventory.department.specs;
 
 import cu.pdi.bookstore.domain.inventory.department.Department;
 import cu.pdi.bookstore.domain.inventory.department.InventoryEntry;
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
+import cu.pdi.bookstore.domain.shared.specification.Specification;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class StockAvailabilitySpecification implements Specification<Department>
 
     @Override
     public boolean isSatisfiedBy(Department department) {
-        if (ExternalDepartmentSpecification.INSTANCE.isSatisfiedBy(department)) {
+        if (ExternalDepartmentSpecification.instance().isSatisfiedBy(department)) {
             return true;
         } else {
             List<InventoryEntry> inventoryEntries = department.listExistentEntriesForTitles(titleSupply.titlesISBN());

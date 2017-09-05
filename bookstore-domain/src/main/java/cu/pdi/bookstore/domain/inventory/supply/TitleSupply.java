@@ -7,6 +7,7 @@ import cu.pdi.bookstore.domain.shared.Stock;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by taiyou
@@ -14,26 +15,26 @@ import java.util.Set;
  */
 public class TitleSupply {
 
-    private Map<ISBN, TitleTuple> supply;
+    private Map<String, TitleTuple> supply;
 
     public TitleSupply(){
         supply = new HashMap<>();
     }
 
     public Set<ISBN> titlesISBN() {
-        return supply.keySet();
+        return supply.keySet().stream().map(ISBN::new).collect(Collectors.toSet());
     }
 
     public void includeTitle(Title title, Integer amount) {
-        supply.put(title.getIsbn(), new TitleTuple(title, amount));
+        supply.put(title.getIsbn().getCodigoISBN(), new TitleTuple(title, amount));
     }
 
     public Stock getStockForTitle(ISBN title) {
-        return supply.get(title).amount();
+        return supply.get(title.getCodigoISBN()).amount();
     }
 
     public Title getTitleForISBN(ISBN isbn) {
-        return supply.get(isbn).titleInfo();
+        return supply.get(isbn.getCodigoISBN()).titleInfo();
     }
 
     private class TitleTuple {

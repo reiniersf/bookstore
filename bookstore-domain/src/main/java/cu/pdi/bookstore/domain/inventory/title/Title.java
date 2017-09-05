@@ -3,34 +3,44 @@ package cu.pdi.bookstore.domain.inventory.title;
 
 import cu.pdi.bookstore.domain.shared.ISBN;
 import cu.pdi.bookstore.domain.shared.Plan;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * Created by taiyou
  * on 8/27/17.
  */
 @Entity
-@Builder
+@Table(name="title")
 @Getter
-public class Title {
+@RequiredArgsConstructor
+@NoArgsConstructor
+public class Title implements Serializable {
     @EmbeddedId
+    @NonNull
     ISBN isbn;
-
+    @NonNull
     String description;
     @Embedded
+    @NonNull
     Author writtenBy;
     @Embedded
     Editorial editedBy;
     @Embedded
+    @NonNull
     Category category;
     @Embedded
     EditionYear editionYear;
     @Embedded
     Plan plan;
 
+
+    public Title(ISBN isbn) {
+        this.isbn = isbn;
+    }
 }

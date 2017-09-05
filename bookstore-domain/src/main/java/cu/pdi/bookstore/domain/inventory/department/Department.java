@@ -1,19 +1,23 @@
 package cu.pdi.bookstore.domain.inventory.department;
 
+import cu.pdi.bookstore.domain.inventory.department.events.AReceivedTitleSupplyEvent;
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
-import cu.pdi.bookstore.domain.accounting.document.TransferEntryService;
 import cu.pdi.bookstore.domain.inventory.title.TitleService;
 import cu.pdi.bookstore.domain.shared.ISBN;
-import cu.pdi.bookstore.domain.shared.specification.ExternalDepartmentSpecification;
-import cu.pdi.bookstore.domain.shared.specification.StockAvailabilitySpecification;
+import cu.pdi.bookstore.domain.inventory.department.specs.ExternalDepartmentSpecification;
+import cu.pdi.bookstore.domain.inventory.department.specs.StockAvailabilitySpecification;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import static cu.pdi.bookstore.domain.shared.specification.Specification.not;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -23,33 +27,35 @@ import java.util.stream.Collectors;
  * on 8/28/17.
  */
 @Entity
-public class Department {
+@Table(name = "department")
+@NoArgsConstructor
+public class Department implements Serializable {
     @EmbeddedId
     @Getter
     private DepartmentCode code;
     @Getter
-    private String name;
+    private String departmentName;
     @Transient
-    private TransferEntryService transferEntryService;
+    private DepartmentEventHandler departmentEventHandler;
     @Transient
     private TitleService titleService;
     @Transient
-    private InventoryEntryRepository inventoryEntryRepository;
+    private InventoryEntryService inventoryEntryService;
 
     Department(DepartmentCode departmentCode, String departmentName) {
         this.code = departmentCode;
-        this.name = departmentName;
+        this.departmentName = departmentName;
     }
 
     Department(DepartmentCode departmentCode, String departmentName,
-               TransferEntryService transferEntryService,
+               DepartmentEventHandler departmentEventHandler,
                TitleService titleService,
-               InventoryEntryRepository inventoryEntryRepository) {
+               InventoryEntryService inventoryEntryService) {
         this.code = departmentCode;
-        this.name = departmentName;
-        this.transferEntryService = transferEntryService;
+        this.departmentName = departmentName;
+        this.departmentEventHandler = departmentEventHandler;
         this.titleService = titleService;
-        this.inventoryEntryRepository = inventoryEntryRepository;
+        this.inventoryEntryService = inventoryEntryService;
     }
 
     public void receiveTitles(Department originDepartment, TitleSupply titleSupply) {
@@ -57,39 +63,54 @@ public class Department {
         if (StockAvailabilitySpecification.of(titleSupply).isSatisfiedBy(originDepartment)) {
             Set<ISBN> supplyISBNList = titleSupply.titlesISBN();
             //Update existent inventory entries stock
-            List<InventoryEntry> existentInventoryEntries = inventoryEntryRepository.searchExistentEntriesAmong(supplyISBNList);
+            List<InventoryEntry> existentInventoryEntries = inventoryEntryService.searchEntriesForTitlesIn(supplyISBNList, this.code);
             existentInventoryEntries
                     .forEach((InventoryEntry inventoryEntry)
-                            -> inventoryEntryRepository.increaseStock(inventoryEntry, titleSupply.getStockForTitle(inventoryEntry.getTitle())));
+                            -> inventoryEntryService
+                            .increaseStock(inventoryEntry, titleSupply.getStockForTitle(inventoryEntry.getTitle())));
 
             //Register the new titles
-            List<ISBN> existentISBN = existentInventoryEntries.stream().map(InventoryEntry::getTitle).collect(Collectors.toList());
+            List<ISBN> existentISBNInventoryEntries = existentInventoryEntries.stream()
+                    .map(InventoryEntry::getTitle)
+                    .collect(Collectors.toList());
+
+            List<ISBN> registeredTitles = titleService.getRegisteredTitlesIn(supplyISBNList);
+
             supplyISBNList.stream()
-                    .filter((ISBN isbn) -> !existentISBN.contains(isbn))
+                    .filter((ISBN isbn) -> !existentISBNInventoryEntries.contains(isbn))
                     .forEach((ISBN isbn) -> {
-                        titleService.registerNewTitle(titleSupply.getTitleForISBN(isbn));
-                        inventoryEntryRepository.saveEntryForNewTitle(isbn, titleSupply.getStockForTitle(isbn), this.code);
+                        if (!registeredTitles.contains(isbn)) {
+                            titleService.registerNewTitle(titleSupply.getTitleForISBN(isbn));
+                        }
+                        inventoryEntryService
+                                .saveEntryForNewTitle(InventoryEntryFactory
+                                        .createEntryForTitle(isbn, titleSupply.getStockForTitle(isbn), this.code));
                     });
 
-            //Then log all operations done...
-            transferEntryService.logTransfer(originDepartment.getCode(), this.code, titleSupply);
-            //...and update stock on origin department
-            if (not(ExternalDepartmentSpecification.INSTANCE).isSatisfiedBy(originDepartment))
+            // update stock on origin department
+            if (not(ExternalDepartmentSpecification.instance()).isSatisfiedBy(originDepartment))
                 originDepartment.updateStock(titleSupply);
+
+            //...and notifies that all operations was done...
+            departmentEventHandler.handle(
+                    AReceivedTitleSupplyEvent.withInfo(originDepartment.getCode(), this.code, titleSupply.titlesISBN()));
         }
     }
 
     private void updateStock(TitleSupply titleSupply) {
-        List<InventoryEntry> selectedInventoryEntries = inventoryEntryRepository.getEntriesForTitlesIn(titleSupply.titlesISBN());
-        selectedInventoryEntries.forEach((InventoryEntry inventoryEntry) -> inventoryEntryRepository.decreaseStock(inventoryEntry, titleSupply.getStockForTitle(inventoryEntry.getTitle())));
+        List<InventoryEntry> selectedInventoryEntries = inventoryEntryService
+                .searchEntriesForTitlesIn(titleSupply.titlesISBN(), this.code);
+
+        selectedInventoryEntries.forEach((InventoryEntry inventoryEntry)
+                -> inventoryEntryService.decreaseStock(inventoryEntry,
+                titleSupply.getStockForTitle(inventoryEntry.getTitle())));
     }
 
     public boolean hasEntriesForTitles(Set<ISBN> isbnList) {
-        return inventoryEntryRepository.hasEntriesForAllTitlesIn(isbnList);
+        return inventoryEntryService.hasEntriesForAllTitlesIn(isbnList, this.code);
     }
 
-
     public List<InventoryEntry> listExistentEntriesForTitles(Set<ISBN> isbnList) {
-        return inventoryEntryRepository.searchExistentEntriesAmong(isbnList);
+        return inventoryEntryService.searchEntriesForTitlesIn(isbnList, this.code);
     }
 }

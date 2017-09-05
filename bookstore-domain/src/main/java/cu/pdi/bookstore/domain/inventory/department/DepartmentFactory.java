@@ -28,17 +28,17 @@ public class DepartmentFactory {
 
 
     };
-    private final TransferEntryService transferEntryService;
+    private final DepartmentEventHandler departmentEventHandler;
     private final TitleService titleService;
-    private final InventoryEntryRepository inventoryEntryRepository;
+    private final InventoryEntryService inventoryEntryService;
 
-    public DepartmentFactory(TransferEntryService transferEntryService, TitleService titleService, InventoryEntryRepository inventoryEntryRepository) {
-        this.transferEntryService = transferEntryService;
+    public DepartmentFactory(DepartmentEventHandler departmentEventHandler, TitleService titleService, InventoryEntryService inventoryEntryService) {
+        this.departmentEventHandler = departmentEventHandler;
         this.titleService = titleService;
-        this.inventoryEntryRepository = inventoryEntryRepository;
+        this.inventoryEntryService = inventoryEntryService;
     }
 
     public Department createDepartment(DepartmentCode departmentCode, String departmentName) {
-        return new Department(departmentCode, departmentName, this.transferEntryService, this.titleService, this.inventoryEntryRepository);
+        return new Department(departmentCode, departmentName, this.departmentEventHandler, this.titleService, this.inventoryEntryService);
     }
 }
