@@ -38,8 +38,8 @@ public class InventoryDomainTest {
                 .createDepartment(DepartmentCode.BOOKDEPOT_CODE, "Books Depot");
         Department warehouse = DepartmentFactory.WAREHOUSE;
         TitleSupply titleSupply = new TitleSupply();
-        titleSupply.includeTitle(Title.builder().isbn(new ISBN("90238127823")).build(), 5);
-        titleSupply.includeTitle(Title.builder().isbn(new ISBN("937238292201")).build(), 7);
+        titleSupply.includeTitle(new Title(new ISBN("90238127823")), 5);
+        titleSupply.includeTitle(new Title(new ISBN("937238292201")), 7);
 
         //WHEN
         bookDepot.receiveTitles(warehouse, titleSupply);
@@ -62,10 +62,10 @@ public class InventoryDomainTest {
         Department bookDepot = departmentFactory
                 .createDepartment(DepartmentCode.BOOKDEPOT_CODE, "Books Depot");
         Department salesRoom = departmentFactory
-                .createDepartment(DepartmentCode.SALESROOM_CODE, "Books Depot");;
+                .createDepartment(DepartmentCode.SALESROOM_CODE, "Sales Room");;
         TitleSupply titleSupply = new TitleSupply();
-        titleSupply.includeTitle(Title.builder().isbn(new ISBN("90238127823")).build(), 5);
-        titleSupply.includeTitle(Title.builder().isbn(new ISBN("937238292201")).build(), 7);
+        titleSupply.includeTitle(new Title(new ISBN("90230007823")), 5);
+        titleSupply.includeTitle(new Title(new ISBN("93720002201")), 7);
 
         bookDepot.receiveTitles(DepartmentFactory.WAREHOUSE, titleSupply);
 
