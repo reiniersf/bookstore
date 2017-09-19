@@ -1,12 +1,9 @@
 package cu.pdi.bookstore.domain.assertions;
 
 import cu.pdi.bookstore.domain.inventory.department.Department;
-import cu.pdi.bookstore.domain.inventory.department.InventoryEntry;
+import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntry;
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
-import cu.pdi.bookstore.domain.shared.ISBN;
 import org.assertj.core.api.AbstractAssert;
-
-import java.util.function.Consumer;
 
 /**
  * Created by taiyou

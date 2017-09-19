@@ -1,4 +1,4 @@
-package cu.pdi.bookstore.infraestructura;
+package cu.pdi.bookstore.infrastructure;
 
 import cu.pdi.bookstore.config.AppConfig;
 import cu.pdi.bookstore.domain.inventory.title.*;

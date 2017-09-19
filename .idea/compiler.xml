@@ -12,7 +12,6 @@
     <bytecodeTargetLevel target="1.8">
       <module name="bookstore-domain" target="1.8" />
       <module name="bookstore-root" target="1.8" />
-      <module name="booktore-root" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

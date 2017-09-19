@@ -1,8 +1,8 @@
 package cu.pdi.bookstore.infrastructure.inventory.repositories;
 
 import cu.pdi.bookstore.domain.inventory.department.DepartmentCode;
-import cu.pdi.bookstore.domain.inventory.department.InventoryEntry;
-import cu.pdi.bookstore.domain.inventory.department.InventoryEntryRepository;
+import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntry;
+import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntryRepository;
 import cu.pdi.bookstore.domain.shared.ISBN;
 import org.springframework.stereotype.Repository;
 
@@ -33,6 +33,16 @@ public class InventoryEntryRepositoryJPA implements InventoryEntryRepository{
                 .setParameter("isbnList", isbnList.stream()
                         .map(ISBN::getCodigoISBN).collect(Collectors.toList()))
                 .setParameter("departmentCode", departmentCode)
+                .getResultList();
+    }
+
+    @Override
+    public List<InventoryEntry> getEntriesForDepartment(DepartmentCode departmentCode) {
+        return entityManager
+                .createQuery("select ie " +
+                        "from InventoryEntry ie " +
+                        "where ie.inventoryEntryId.department.code = :code", InventoryEntry.class)
+                .setParameter("code", departmentCode.getCode())
                 .getResultList();
     }
 

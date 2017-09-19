@@ -1,9 +1,9 @@
 package cu.pdi.bookstore.infrastructure.inventory.service;
 
 import cu.pdi.bookstore.domain.inventory.department.DepartmentCode;
-import cu.pdi.bookstore.domain.inventory.department.InventoryEntry;
-import cu.pdi.bookstore.domain.inventory.department.InventoryEntryRepository;
-import cu.pdi.bookstore.domain.inventory.department.InventoryEntryService;
+import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntry;
+import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntryRepository;
+import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntryService;
 import cu.pdi.bookstore.domain.shared.ISBN;
 import cu.pdi.bookstore.domain.shared.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +36,11 @@ public class LocalInventoryEntryService implements InventoryEntryService {
     @Override
     public List<InventoryEntry> searchEntriesForTitlesIn(Set<ISBN> isbnList, DepartmentCode departmentCode) {
         return inventoryEntryRepository.getEntriesForTitlesIn(isbnList, departmentCode);
+    }
+
+    @Override
+    public List<InventoryEntry> allEntriesInDepartment(DepartmentCode departmentCode) {
+        return inventoryEntryRepository.getEntriesForDepartment(departmentCode);
     }
 
     @Override

@@ -2,7 +2,10 @@ package cu.pdi.bookstore.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -24,7 +27,8 @@ import java.util.Properties;
 public class AppPersistenceConfig {
 
 
-    @Bean public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
+    @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 
@@ -46,6 +50,7 @@ public class AppPersistenceConfig {
     }
 
     @Bean
+    @Profile("dev")
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         adapter.setDatabase(Database.POSTGRESQL);
@@ -56,6 +61,7 @@ public class AppPersistenceConfig {
     }
 
     @Bean
+    @Profile("dev")
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setDriverClassName("org.postgresql.Driver");
@@ -63,6 +69,23 @@ public class AppPersistenceConfig {
         ds.setUsername("postgres");
         ds.setPassword("sqlpq");
         return ds;
+    }
+
+    @Bean
+    @Profile("test")
+    public JpaVendorAdapter jpaVendorAdapterTest() {
+        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+        adapter.setDatabase(Database.H2);
+        adapter.setShowSql(true);
+        adapter.setGenerateDdl(false);
+        adapter.setDatabasePlatform("org.hibernate.dialect.H2Dialect");
+        return adapter;
+    }
+
+    @Bean
+    @Profile("test")
+    public DataSource dataSourceTest() {
+        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();
     }
 
 }

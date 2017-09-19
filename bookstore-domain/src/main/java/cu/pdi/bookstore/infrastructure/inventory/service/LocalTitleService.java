@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -37,5 +38,10 @@ public class LocalTitleService implements TitleService {
         return titleRepository.findRegisteredTitlesIn(supplyISBNList)
                 .stream().map(Title::getIsbn)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Title> getTitlesInfo(List<ISBN> isbnList) {
+        return titleRepository.findRegisteredTitlesIn(new HashSet<>(isbnList));
     }
 }
