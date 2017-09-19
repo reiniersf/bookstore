@@ -1,7 +1,7 @@
-package cu.pdi.bookstore.domain.inventory.department;
+package cu.pdi.bookstore.domain.inventory.department.entry;
 
+import cu.pdi.bookstore.domain.inventory.department.DepartmentCode;
 import cu.pdi.bookstore.domain.shared.ISBN;
-import cu.pdi.bookstore.domain.shared.Stock;
 
 import java.util.List;
 import java.util.Set;
@@ -15,6 +15,8 @@ public interface InventoryEntryRepository {
     void saveInventoryEntry(InventoryEntry inventoryEntry);
 
     List<InventoryEntry> getEntriesForTitlesIn(Set<ISBN> isbnList, DepartmentCode departmentCode);
+
+    List<InventoryEntry> getEntriesForDepartment(DepartmentCode departmentCode);
 
     void updateInventoryEntry(InventoryEntry inventoryEntry);
 

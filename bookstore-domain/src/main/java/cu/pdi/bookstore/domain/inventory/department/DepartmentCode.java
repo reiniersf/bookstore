@@ -1,5 +1,6 @@
 package cu.pdi.bookstore.domain.inventory.department;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
@@ -14,6 +15,7 @@ import java.io.Serializable;
  */
 @Embeddable
 @NoArgsConstructor
+@EqualsAndHashCode
 public class DepartmentCode implements Serializable {
 
     public final static DepartmentCode WAREHOUSE_CODE = new DepartmentCode("00");
@@ -23,9 +25,13 @@ public class DepartmentCode implements Serializable {
     @Getter
     private String code;
 
-    DepartmentCode(String code) {
+    private DepartmentCode(String code) {
         Assert.notNull(code, "Department code must not be null");
 
         this.code = code;
+    }
+
+    public static DepartmentCode forCode(String codeValue){
+        return new DepartmentCode(codeValue);
     }
 }

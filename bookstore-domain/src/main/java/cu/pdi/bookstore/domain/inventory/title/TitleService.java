@@ -14,4 +14,6 @@ public interface TitleService {
     void registerNewTitle(Title title);
 
     List<ISBN> getRegisteredTitlesIn(Set<ISBN> supplyISBNList);
+
+    List<Title> getTitlesInfo(List<ISBN> isbnList);
 }

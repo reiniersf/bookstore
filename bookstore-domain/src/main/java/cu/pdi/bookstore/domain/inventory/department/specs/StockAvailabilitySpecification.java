@@ -1,7 +1,7 @@
 package cu.pdi.bookstore.domain.inventory.department.specs;
 
 import cu.pdi.bookstore.domain.inventory.department.Department;
-import cu.pdi.bookstore.domain.inventory.department.InventoryEntry;
+import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntry;
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
 import cu.pdi.bookstore.domain.shared.specification.Specification;
 

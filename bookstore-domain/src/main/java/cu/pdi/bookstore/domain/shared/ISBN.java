@@ -1,5 +1,6 @@
 package cu.pdi.bookstore.domain.shared;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
@@ -14,6 +15,7 @@ import java.io.Serializable;
 @Embeddable
 @NoArgsConstructor
 @Getter
+@EqualsAndHashCode
 public class ISBN implements Serializable {
     private String codigoISBN;
 
@@ -22,8 +24,9 @@ public class ISBN implements Serializable {
         this.codigoISBN = codigoISBN;
     }
 
+    /*
     @Override
     public boolean equals(Object isbn) {
         return isbn instanceof ISBN && this.codigoISBN.equals(((ISBN)isbn).getCodigoISBN());
-    }
+    }*/
 }

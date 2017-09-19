@@ -1,7 +1,7 @@
 package cu.pdi.bookstore.domain.inventory.department;
 
+import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntryService;
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
-import cu.pdi.bookstore.domain.accounting.document.TransferEntryService;
 import cu.pdi.bookstore.domain.inventory.title.TitleService;
 import cu.pdi.bookstore.domain.shared.ISBN;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import java.util.Set;
 @Component
 public class DepartmentFactory {
 
-    public final static Department WAREHOUSE = new Department(DepartmentCode.WAREHOUSE_CODE, "Warehouse"){
+    public final static Department WAREHOUSE = new Department(DepartmentCode.WAREHOUSE_CODE, "Warehouse") {
         @Override
         public void receiveTitles(Department from, TitleSupply titleSupply) {
             throw new UnsupportedOperationException("This operation is unsupported by this department");
@@ -39,6 +39,13 @@ public class DepartmentFactory {
     }
 
     public Department createDepartment(DepartmentCode departmentCode, String departmentName) {
-        return new Department(departmentCode, departmentName, this.departmentEventHandler, this.titleService, this.inventoryEntryService);
+        return new Department(departmentCode, departmentName,
+                this.departmentEventHandler, this.titleService, this.inventoryEntryService);
+    }
+
+    public Department createDepartmentFrom(Department department) {
+        return new Department(department.getCode(), department.getDepartmentName(),
+                this.departmentEventHandler, this.titleService, this.inventoryEntryService);
+
     }
 }

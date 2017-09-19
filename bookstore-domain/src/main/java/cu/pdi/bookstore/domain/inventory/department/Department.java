@@ -1,6 +1,11 @@
 package cu.pdi.bookstore.domain.inventory.department;
 
+import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntry;
+import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntryFactory;
+import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntryService;
 import cu.pdi.bookstore.domain.inventory.department.events.AReceivedTitleSupplyEvent;
+import cu.pdi.bookstore.domain.inventory.department.sheet.AnInventorySheet;
+import cu.pdi.bookstore.domain.inventory.department.sheet.InventorySheet;
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
 import cu.pdi.bookstore.domain.inventory.title.TitleService;
 import cu.pdi.bookstore.domain.shared.ISBN;
@@ -8,12 +13,8 @@ import cu.pdi.bookstore.domain.inventory.department.specs.ExternalDepartmentSpec
 import cu.pdi.bookstore.domain.inventory.department.specs.StockAvailabilitySpecification;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import static cu.pdi.bookstore.domain.shared.specification.Specification.not;
 
@@ -34,6 +35,7 @@ public class Department implements Serializable {
     @Getter
     private DepartmentCode code;
     @Getter
+    @Column(name = "department_name")
     private String departmentName;
     @Transient
     private DepartmentEventHandler departmentEventHandler;
@@ -112,5 +114,9 @@ public class Department implements Serializable {
 
     public List<InventoryEntry> listExistentEntriesForTitles(Set<ISBN> isbnList) {
         return inventoryEntryService.searchEntriesForTitlesIn(isbnList, this.code);
+    }
+
+    public InventorySheet generateCurrentInventorySheet() {
+        return AnInventorySheet.instance(inventoryEntryService, titleService).forDepartmentWihCode(this.code);
     }
 }

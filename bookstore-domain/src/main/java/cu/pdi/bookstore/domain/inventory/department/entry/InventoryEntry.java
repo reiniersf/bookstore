@@ -1,5 +1,6 @@
-package cu.pdi.bookstore.domain.inventory.department;
+package cu.pdi.bookstore.domain.inventory.department.entry;
 
+import cu.pdi.bookstore.domain.inventory.department.DepartmentCode;
 import cu.pdi.bookstore.domain.shared.Stock;
 import cu.pdi.bookstore.domain.shared.ISBN;
 import lombok.Getter;
