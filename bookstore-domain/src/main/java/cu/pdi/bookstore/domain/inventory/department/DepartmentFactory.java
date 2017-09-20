@@ -3,7 +3,7 @@ package cu.pdi.bookstore.domain.inventory.department;
 import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntryService;
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
 import cu.pdi.bookstore.domain.inventory.title.TitleService;
-import cu.pdi.bookstore.domain.shared.ISBN;
+import cu.pdi.bookstore.domain.kernel.ISBN;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;

@@ -1,6 +1,6 @@
 package cu.pdi.bookstore.domain.inventory.title;
 
-import cu.pdi.bookstore.domain.shared.ISBN;
+import cu.pdi.bookstore.domain.kernel.ISBN;
 
 import java.util.List;
 import java.util.Set;

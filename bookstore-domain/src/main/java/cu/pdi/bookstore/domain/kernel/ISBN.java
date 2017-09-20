@@ -1,4 +1,4 @@
-package cu.pdi.bookstore.domain.shared;
+package cu.pdi.bookstore.domain.kernel;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

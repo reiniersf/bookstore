@@ -1,9 +1,8 @@
 package cu.pdi.bookstore.domain.inventory.department.events;
 
 import cu.pdi.bookstore.domain.inventory.department.DepartmentCode;
-import cu.pdi.bookstore.domain.shared.ISBN;
+import cu.pdi.bookstore.domain.kernel.ISBN;
 
-import java.util.Collections;
 import java.util.Set;
 
 /**

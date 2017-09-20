@@ -5,12 +5,11 @@ import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntry;
 import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntryService;
 import cu.pdi.bookstore.domain.inventory.title.Title;
 import cu.pdi.bookstore.domain.inventory.title.TitleService;
-import cu.pdi.bookstore.domain.shared.ISBN;
-import cu.pdi.bookstore.domain.shared.Stock;
+import cu.pdi.bookstore.domain.kernel.ISBN;
+import cu.pdi.bookstore.domain.kernel.Stock;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class AnInventorySheet {

@@ -8,7 +8,7 @@ import cu.pdi.bookstore.domain.inventory.department.sheet.AnInventorySheet;
 import cu.pdi.bookstore.domain.inventory.department.sheet.InventorySheet;
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
 import cu.pdi.bookstore.domain.inventory.title.TitleService;
-import cu.pdi.bookstore.domain.shared.ISBN;
+import cu.pdi.bookstore.domain.kernel.ISBN;
 import cu.pdi.bookstore.domain.inventory.department.specs.ExternalDepartmentSpecification;
 import cu.pdi.bookstore.domain.inventory.department.specs.StockAvailabilitySpecification;
 import lombok.Getter;
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-import static cu.pdi.bookstore.domain.shared.specification.Specification.not;
+import static cu.pdi.bookstore.domain.kernel.specification.Specification.not;
 
 import java.io.Serializable;
 import java.util.List;

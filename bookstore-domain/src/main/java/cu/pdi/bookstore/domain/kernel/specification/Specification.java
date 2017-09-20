@@ -1,4 +1,4 @@
-package cu.pdi.bookstore.domain.shared.specification;
+package cu.pdi.bookstore.domain.kernel.specification;
 
 /**
  * Created by taiyou

@@ -1,4 +1,4 @@
-package cu.pdi.bookstore.domain.shared.event;
+package cu.pdi.bookstore.domain.kernel.event;
 
 /**
  * Created by taiyou

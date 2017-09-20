@@ -1,8 +1,8 @@
 package cu.pdi.bookstore.domain.builders;
 
 import cu.pdi.bookstore.domain.inventory.title.*;
-import cu.pdi.bookstore.domain.shared.ISBN;
-import cu.pdi.bookstore.domain.shared.Plan;
+import cu.pdi.bookstore.domain.kernel.ISBN;
+import cu.pdi.bookstore.domain.kernel.Plan;
 
 import java.util.Random;
 

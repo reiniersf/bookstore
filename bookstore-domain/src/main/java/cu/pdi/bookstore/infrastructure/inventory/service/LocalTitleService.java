@@ -3,7 +3,7 @@ package cu.pdi.bookstore.infrastructure.inventory.service;
 import cu.pdi.bookstore.domain.inventory.title.Title;
 import cu.pdi.bookstore.domain.inventory.title.TitleRepository;
 import cu.pdi.bookstore.domain.inventory.title.TitleService;
-import cu.pdi.bookstore.domain.shared.ISBN;
+import cu.pdi.bookstore.domain.kernel.ISBN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

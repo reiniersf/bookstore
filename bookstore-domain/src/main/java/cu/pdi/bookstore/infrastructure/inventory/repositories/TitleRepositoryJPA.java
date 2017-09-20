@@ -2,7 +2,7 @@ package cu.pdi.bookstore.infrastructure.inventory.repositories;
 
 import cu.pdi.bookstore.domain.inventory.title.Title;
 import cu.pdi.bookstore.domain.inventory.title.TitleRepository;
-import cu.pdi.bookstore.domain.shared.ISBN;
+import cu.pdi.bookstore.domain.kernel.ISBN;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

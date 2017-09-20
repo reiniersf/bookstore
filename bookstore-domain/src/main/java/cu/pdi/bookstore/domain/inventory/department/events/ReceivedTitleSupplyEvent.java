@@ -1,8 +1,8 @@
 package cu.pdi.bookstore.domain.inventory.department.events;
 
 import cu.pdi.bookstore.domain.inventory.department.DepartmentCode;
-import cu.pdi.bookstore.domain.shared.ISBN;
-import cu.pdi.bookstore.domain.shared.event.BookstoreEvent;
+import cu.pdi.bookstore.domain.kernel.ISBN;
+import cu.pdi.bookstore.domain.kernel.event.BookstoreEvent;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

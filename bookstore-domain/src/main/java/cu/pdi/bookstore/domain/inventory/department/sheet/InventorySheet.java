@@ -1,9 +1,8 @@
 package cu.pdi.bookstore.domain.inventory.department.sheet;
 
 import cu.pdi.bookstore.domain.inventory.department.DepartmentCode;
-import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntry;
 import cu.pdi.bookstore.domain.inventory.title.Title;
-import cu.pdi.bookstore.domain.shared.Stock;
+import cu.pdi.bookstore.domain.kernel.Stock;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;

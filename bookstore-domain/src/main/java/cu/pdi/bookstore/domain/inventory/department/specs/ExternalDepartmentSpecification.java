@@ -2,7 +2,7 @@ package cu.pdi.bookstore.domain.inventory.department.specs;
 
 import cu.pdi.bookstore.domain.inventory.department.Department;
 import cu.pdi.bookstore.domain.inventory.department.DepartmentFactory;
-import cu.pdi.bookstore.domain.shared.specification.Specification;
+import cu.pdi.bookstore.domain.kernel.specification.Specification;
 
 /**
  * Created by taiyou

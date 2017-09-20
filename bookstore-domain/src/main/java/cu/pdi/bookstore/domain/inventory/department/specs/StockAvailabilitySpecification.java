@@ -3,7 +3,7 @@ package cu.pdi.bookstore.domain.inventory.department.specs;
 import cu.pdi.bookstore.domain.inventory.department.Department;
 import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntry;
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
-import cu.pdi.bookstore.domain.shared.specification.Specification;
+import cu.pdi.bookstore.domain.kernel.specification.Specification;
 
 import java.util.List;
 

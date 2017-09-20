@@ -2,8 +2,8 @@ package cu.pdi.bookstore.domain.accounting.document;
 
 
 import cu.pdi.bookstore.domain.inventory.department.DepartmentCode;
-import cu.pdi.bookstore.domain.shared.Stock;
-import cu.pdi.bookstore.domain.shared.ISBN;
+import cu.pdi.bookstore.domain.kernel.Stock;
+import cu.pdi.bookstore.domain.kernel.ISBN;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

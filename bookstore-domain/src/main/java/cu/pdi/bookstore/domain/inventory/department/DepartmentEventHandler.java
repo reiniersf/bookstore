@@ -1,7 +1,7 @@
 package cu.pdi.bookstore.domain.inventory.department;
 
-import cu.pdi.bookstore.domain.shared.event.BookstoreEvent;
-import cu.pdi.bookstore.domain.shared.event.EventHandler;
+import cu.pdi.bookstore.domain.kernel.event.BookstoreEvent;
+import cu.pdi.bookstore.domain.kernel.event.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;

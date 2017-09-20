@@ -1,8 +1,8 @@
 package cu.pdi.bookstore.domain.inventory.supply;
 
 import cu.pdi.bookstore.domain.inventory.title.Title;
-import cu.pdi.bookstore.domain.shared.ISBN;
-import cu.pdi.bookstore.domain.shared.Stock;
+import cu.pdi.bookstore.domain.kernel.ISBN;
+import cu.pdi.bookstore.domain.kernel.Stock;
 
 import java.util.HashMap;
 import java.util.Map;

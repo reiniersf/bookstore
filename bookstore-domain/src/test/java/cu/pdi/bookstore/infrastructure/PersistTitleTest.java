@@ -2,7 +2,7 @@ package cu.pdi.bookstore.infrastructure;
 
 import cu.pdi.bookstore.config.AppConfig;
 import cu.pdi.bookstore.domain.inventory.title.*;
-import cu.pdi.bookstore.domain.shared.ISBN;
+import cu.pdi.bookstore.domain.kernel.ISBN;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

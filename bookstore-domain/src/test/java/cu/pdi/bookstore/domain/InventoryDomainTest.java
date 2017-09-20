@@ -8,7 +8,7 @@ import cu.pdi.bookstore.domain.inventory.department.sheet.InventorySheet;
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
 import cu.pdi.bookstore.domain.inventory.title.Author;
 import cu.pdi.bookstore.domain.inventory.title.Category;
-import cu.pdi.bookstore.domain.shared.ISBN;
+import cu.pdi.bookstore.domain.kernel.ISBN;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
