@@ -18,6 +18,7 @@ import java.io.Serializable;
 @Entity
 @Table(name="title")
 @Getter
+@AllArgsConstructor
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class Title implements Serializable {
@@ -30,10 +31,10 @@ public class Title implements Serializable {
     @NonNull
     Author writtenBy;
     @Embedded
-    Editorial editedBy;
-    @Embedded
     @NonNull
     Category category;
+    @Embedded
+    Editorial editedBy;
     @Embedded
     EditionYear editionYear;
     @Embedded

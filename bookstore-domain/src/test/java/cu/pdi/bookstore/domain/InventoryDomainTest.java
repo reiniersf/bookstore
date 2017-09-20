@@ -1,6 +1,8 @@
 package cu.pdi.bookstore.domain;
 
 import cu.pdi.bookstore.config.AppConfig;
+import cu.pdi.bookstore.domain.builders.TitleBuilder;
+import cu.pdi.bookstore.domain.builders.TitleSupplyFactory;
 import cu.pdi.bookstore.domain.inventory.department.*;
 import cu.pdi.bookstore.domain.inventory.department.sheet.InventorySheet;
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
@@ -64,9 +66,14 @@ public class InventoryDomainTest {
         Department bookDepot = departmentFactory
                 .createDepartment(DepartmentCode.BOOKDEPOT_CODE, "Books Depot");
         Department warehouse = DepartmentFactory.WAREHOUSE;
-        TitleSupply titleSupply = new TitleSupply();
-        titleSupply.includeTitle(new Title(new ISBN("90238127823")), 5);
-        titleSupply.includeTitle(new Title(new ISBN("937238292201")), 7);
+        TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
+                TitleBuilder.createTitle().withISBN(new ISBN("90238127823"))
+                .withTitle("The Hollow")
+                .build(),
+                TitleBuilder.createTitle().withISBN(new ISBN("937238292201"))
+                .withTitle("The Lighter")
+                .build()
+        );
 
         //WHEN
         bookDepot.receiveTitles(warehouse, titleSupply);
@@ -90,9 +97,14 @@ public class InventoryDomainTest {
                 .createDepartment(DepartmentCode.BOOKDEPOT_CODE, "Books Depot");
         Department salesRoom = departmentFactory
                 .createDepartment(DepartmentCode.SALESROOM_CODE, "Sales Room");
-        TitleSupply titleSupply = new TitleSupply();
-        titleSupply.includeTitle(new Title(new ISBN("90230007823")), 5);
-        titleSupply.includeTitle(new Title(new ISBN("93720002201")), 7);
+        TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
+                TitleBuilder.createTitle().withISBN(new ISBN("90230007823"))
+                        .withTitle("The Book")
+                        .build(),
+                TitleBuilder.createTitle().withISBN(new ISBN("93720002201"))
+                        .withTitle("The Newspaper")
+                        .build()
+        );
 
         bookDepot.receiveTitles(DepartmentFactory.WAREHOUSE, titleSupply);
 
@@ -118,9 +130,14 @@ public class InventoryDomainTest {
                 .createDepartment(DepartmentCode.BOOKDEPOT_CODE, "Books Depot");
         Department salesRoom = departmentFactory
                 .createDepartment(DepartmentCode.SALESROOM_CODE, "Sales Room");
-        TitleSupply titleSupply = new TitleSupply();
-        titleSupply.includeTitle(new Title(new ISBN("90230707823")), 5);
-        titleSupply.includeTitle(new Title(new ISBN("93720702201")), 7);
+        TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
+                TitleBuilder.createTitle().withISBN(new ISBN("90230707823"))
+                        .withTitle("The Moon")
+                        .build(),
+                TitleBuilder.createTitle().withISBN(new ISBN("93720702201"))
+                        .withTitle("The Sun")
+                        .build()
+        );
 
         bookDepot.receiveTitles(DepartmentFactory.WAREHOUSE, titleSupply);
         salesRoom.receiveTitles(bookDepot, titleSupply);
@@ -139,19 +156,22 @@ public class InventoryDomainTest {
         //GIVEN
         DepartmentCode newDepartmentCode = DepartmentCode.forCode("04");
         departmentService.enableDepartment(departmentFactory.createDepartment(newDepartmentCode, "Coffee Saloon"));
-        Department cofeeSaloon = departmentService.getDepartmentByCode(newDepartmentCode);
-        TitleSupply titleSupply = new TitleSupply();
-        titleSupply.includeTitle(new Title(new ISBN("90231707823"),
-                "Who fear the wolf",
-                new Author("Anonymous"),
-                new Category("Infantil")), 5);
-        titleSupply.includeTitle(new Title(new ISBN("93721702201"),
-                "A great reward",
-                new Author("Finn Clive, Sarah Monk"),
-                new Category("Policial")), 7);
-        cofeeSaloon.receiveTitles(DepartmentFactory.WAREHOUSE, titleSupply);
+        Department coffeeSaloon = departmentService.getDepartmentByCode(newDepartmentCode);
+        TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
+                TitleBuilder.createTitle().withISBN(new ISBN("90231707823"))
+                        .withTitle("Who fear the wolf")
+                        .inCategory(new Category("Infantil"))
+                        .build(),
+                TitleBuilder.createTitle().withISBN(new ISBN("93721702201"))
+                        .withTitle("A great reward")
+                        .writtenBy(new Author("Finn Clive, Sarah Monk"))
+                        .inCategory(new Category("Policial"))
+                        .build()
+        );
+
+        coffeeSaloon.receiveTitles(DepartmentFactory.WAREHOUSE, titleSupply);
         //WHEN
-        InventorySheet inventorySheet= cofeeSaloon.generateCurrentInventorySheet();
+        InventorySheet inventorySheet= coffeeSaloon.generateCurrentInventorySheet();
         //THEN
         Assertions.assertThat(inventorySheet).isNotNull();
         Assertions.assertThat(inventorySheet.entries()).hasSize(2);
