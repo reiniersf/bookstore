@@ -158,7 +158,7 @@ public class InventoryDomainTest {
         Department coffeeSaloon = departmentService.getDepartmentByCode(newDepartmentCode);
         TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
                 TitleBuilder.createTitle().withISBN(new ISBN("90231707823"))
-                        .withTitle("Who fear the wolf")
+                        .withTitle("Who's afraid of the wolf")
                         .inCategory(new Category("Infantil"))
                         .build(),
                 TitleBuilder.createTitle().withISBN(new ISBN("93721702201"))
