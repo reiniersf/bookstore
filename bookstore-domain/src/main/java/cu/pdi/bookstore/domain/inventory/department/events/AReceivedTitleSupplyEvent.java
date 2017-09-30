@@ -1,7 +1,7 @@
 package cu.pdi.bookstore.domain.inventory.department.events;
 
-import cu.pdi.bookstore.domain.inventory.department.DepartmentCode;
-import cu.pdi.bookstore.domain.kernel.ISBN;
+import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
+import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 
 import java.util.Set;
 
@@ -10,7 +10,7 @@ import java.util.Set;
  * on 9/3/17.
  */
 public class AReceivedTitleSupplyEvent {
-    public static ReceivedTitleSupplyEvent withInfo(DepartmentCode from, DepartmentCode to, Set<ISBN> titles){
+    public static ReceivedTitleSupplyEvent withInfo(DepartmentCode from, DepartmentCode to, TitleSupply titles){
         return new ReceivedTitleSupplyEvent(from, to, titles);
     }
 }

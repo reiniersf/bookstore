@@ -1,6 +1,6 @@
 package cu.pdi.bookstore.domain.inventory.department.entry;
 
-import cu.pdi.bookstore.domain.inventory.department.DepartmentCode;
+import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.kernel.ISBN;
 
 import java.util.List;

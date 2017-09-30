@@ -1,10 +1,9 @@
 package cu.pdi.bookstore.infrastructure.inventory.repositories;
 
 import cu.pdi.bookstore.domain.inventory.department.Department;
-import cu.pdi.bookstore.domain.inventory.department.DepartmentCode;
+import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.inventory.department.DepartmentRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

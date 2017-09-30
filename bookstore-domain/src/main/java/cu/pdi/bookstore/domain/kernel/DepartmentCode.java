@@ -1,4 +1,4 @@
-package cu.pdi.bookstore.domain.inventory.department;
+package cu.pdi.bookstore.domain.kernel;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,6 +21,7 @@ public class DepartmentCode implements Serializable {
     public final static DepartmentCode WAREHOUSE_CODE = new DepartmentCode("00");
     public final static DepartmentCode BOOKDEPOT_CODE = new DepartmentCode("01");
     public final static DepartmentCode SALESROOM_CODE = new DepartmentCode("02");
+    public static final DepartmentCode SOLD = new DepartmentCode("-1");
 
     @Getter
     private String code;

@@ -1,4 +1,4 @@
-package cu.pdi.bookstore.domain.inventory.department;
+package cu.pdi.bookstore.domain.inventory.department.events;
 
 import cu.pdi.bookstore.domain.kernel.event.BookstoreEvent;
 import cu.pdi.bookstore.domain.kernel.event.EventHandler;
@@ -20,7 +20,7 @@ public class DepartmentEventHandler implements EventHandler {
     }
 
     @Override
-    public void handle(BookstoreEvent bookstoreEvent) {
+    public void notify(BookstoreEvent bookstoreEvent) {
         applicationEventPublisher.publishEvent(bookstoreEvent);
     }
 }

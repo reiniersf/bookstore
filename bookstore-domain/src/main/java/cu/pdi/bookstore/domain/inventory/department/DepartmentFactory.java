@@ -1,8 +1,10 @@
 package cu.pdi.bookstore.domain.inventory.department;
 
 import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntryService;
+import cu.pdi.bookstore.domain.inventory.department.events.DepartmentEventHandler;
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
 import cu.pdi.bookstore.domain.inventory.title.TitleService;
+import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.kernel.ISBN;
 import org.springframework.stereotype.Component;
 
@@ -43,7 +45,7 @@ public class DepartmentFactory {
                 this.departmentEventHandler, this.titleService, this.inventoryEntryService);
     }
 
-    public Department createDepartmentFrom(Department department) {
+    public Department reassembleDepartment(Department department) {
         return new Department(department.getCode(), department.getDepartmentName(),
                 this.departmentEventHandler, this.titleService, this.inventoryEntryService);
 

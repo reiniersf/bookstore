@@ -1,6 +1,6 @@
 package cu.pdi.bookstore.domain.inventory.department.sheet;
 
-import cu.pdi.bookstore.domain.inventory.department.DepartmentCode;
+import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.inventory.title.Title;
 import cu.pdi.bookstore.domain.kernel.Stock;
 import lombok.NoArgsConstructor;
@@ -34,7 +34,7 @@ public class InventorySheet {
     }
 
     void addEntry(Stock inventoryEntryStock, Title title) {
-        entries.add(new InventorySheetEntry(title.getIsbn().getCodigoISBN(),
+        entries.add(new InventorySheetEntry(title.getIsbn().getIsbnCode(),
                 title.getDescription(),
                 title.getWrittenBy().getAuthors(),
                 title.getCategory().getCategoryName(),

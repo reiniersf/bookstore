@@ -1,9 +1,10 @@
-package cu.pdi.bookstore.infrastructure;
+package cu.pdi.bookstore.domain;
 
 import cu.pdi.bookstore.config.AppConfig;
-import cu.pdi.bookstore.domain.inventory.department.*;
-import static org.assertj.core.api.Assertions.*;
-
+import cu.pdi.bookstore.domain.inventory.department.Bookstore;
+import cu.pdi.bookstore.domain.inventory.department.Department;
+import cu.pdi.bookstore.domain.inventory.department.DepartmentFactory;
+import cu.pdi.bookstore.domain.inventory.department.DepartmentRepository;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,14 +13,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-/**
- * Created by taiyou
- * on 9/6/17.
- */
+import static cu.pdi.bookstore.domain.assertions.InventoryAssert.assertThat;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
-@ActiveProfiles("test")
-public class InventoryInfrastructureTest {
+@ActiveProfiles("dev")
+public class BookstoreTest {
 
     @Autowired
     private DepartmentFactory departmentFactory;
@@ -30,21 +29,18 @@ public class InventoryInfrastructureTest {
     @Autowired
     private Bookstore bookstore;
 
+
+    /**
+     * This happen when a new place is ready to receive books.
+     * It should be created and added to the Department list, identified by its department code.
+     */
     @Test
-    public void shouldReconstituteDepartmentWithAllDependencies(){
+    public void shouldEnableANewDepartment() {
         //GIVEN
         Department bookDepot = departmentFactory.createDepartment(DepartmentCode.BOOKDEPOT_CODE, "Book Depot");
-        bookstore.enableDepartment(bookDepot);
-
         //WHEN
-        Department restoredDepartmentThroughService = bookstore.getDepartmentByCode(DepartmentCode.BOOKDEPOT_CODE);
-        Department restoredDepartment = departmentFactory.reassembleDepartment(
-                departmentRepository.findDepartmentByCode(DepartmentCode.BOOKDEPOT_CODE));
-
+        bookstore.enableDepartment(bookDepot);
         //THEN
-        assertThat(restoredDepartment).hasNoNullFieldsOrProperties();
-        assertThat(restoredDepartmentThroughService).hasNoNullFieldsOrProperties();
-
+        assertThat(departmentRepository.findDepartmentByCode(bookDepot.getCode())).isNotNull();
     }
-
 }

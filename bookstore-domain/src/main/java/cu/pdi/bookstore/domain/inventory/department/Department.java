@@ -4,10 +4,12 @@ import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntry;
 import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntryFactory;
 import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntryService;
 import cu.pdi.bookstore.domain.inventory.department.events.AReceivedTitleSupplyEvent;
+import cu.pdi.bookstore.domain.inventory.department.events.DepartmentEventHandler;
 import cu.pdi.bookstore.domain.inventory.department.sheet.AnInventorySheet;
 import cu.pdi.bookstore.domain.inventory.department.sheet.InventorySheet;
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
 import cu.pdi.bookstore.domain.inventory.title.TitleService;
+import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.kernel.ISBN;
 import cu.pdi.bookstore.domain.inventory.department.specs.ExternalDepartmentSpecification;
 import cu.pdi.bookstore.domain.inventory.department.specs.StockAvailabilitySpecification;
@@ -94,8 +96,8 @@ public class Department implements Serializable {
                 originDepartment.updateStock(titleSupply);
 
             //...and notifies that all operations was done...
-            departmentEventHandler.handle(
-                    AReceivedTitleSupplyEvent.withInfo(originDepartment.getCode(), this.code, titleSupply.titlesISBN()));
+            departmentEventHandler.notify(
+                    AReceivedTitleSupplyEvent.withInfo(originDepartment.getCode(), this.code, titleSupply));
         }
     }
 

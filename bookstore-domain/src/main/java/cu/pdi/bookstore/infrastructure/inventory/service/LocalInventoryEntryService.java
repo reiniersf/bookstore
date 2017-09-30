@@ -1,6 +1,6 @@
 package cu.pdi.bookstore.infrastructure.inventory.service;
 
-import cu.pdi.bookstore.domain.inventory.department.DepartmentCode;
+import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntry;
 import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntryRepository;
 import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntryService;

@@ -1,6 +1,6 @@
 package cu.pdi.bookstore.infrastructure.inventory.repositories;
 
-import cu.pdi.bookstore.domain.inventory.department.DepartmentCode;
+import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntry;
 import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntryRepository;
 import cu.pdi.bookstore.domain.kernel.ISBN;
@@ -31,7 +31,7 @@ public class InventoryEntryRepositoryJPA implements InventoryEntryRepository{
         return entityManager
                 .createNamedQuery("AllEntriesInTitleList", InventoryEntry.class)
                 .setParameter("isbnList", isbnList.stream()
-                        .map(ISBN::getCodigoISBN).collect(Collectors.toList()))
+                        .map(ISBN::getIsbnCode).collect(Collectors.toList()))
                 .setParameter("departmentCode", departmentCode)
                 .getResultList();
     }

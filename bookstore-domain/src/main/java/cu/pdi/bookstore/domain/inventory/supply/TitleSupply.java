@@ -26,15 +26,15 @@ public class TitleSupply {
     }
 
     public void includeTitle(Title title, Integer amount) {
-        supply.put(title.getIsbn().getCodigoISBN(), new TitleTuple(title, amount));
+        supply.put(title.getIsbn().getIsbnCode(), new TitleTuple(title, amount));
     }
 
     public Stock getStockForTitle(ISBN title) {
-        return supply.get(title.getCodigoISBN()).amount();
+        return supply.get(title.getIsbnCode()).amount();
     }
 
     public Title getTitleForISBN(ISBN isbn) {
-        return supply.get(isbn.getCodigoISBN()).titleInfo();
+        return supply.get(isbn.getIsbnCode()).titleInfo();
     }
 
     private class TitleTuple {

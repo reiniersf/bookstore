@@ -5,5 +5,5 @@ package cu.pdi.bookstore.domain.kernel.event;
  * on 9/3/17.
  */
 public interface EventHandler {
-    void handle(BookstoreEvent bookstoreEvent);
+    void notify(BookstoreEvent bookstoreEvent);
 }

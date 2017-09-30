@@ -8,6 +8,7 @@ import cu.pdi.bookstore.domain.inventory.department.sheet.InventorySheet;
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
 import cu.pdi.bookstore.domain.inventory.title.Author;
 import cu.pdi.bookstore.domain.inventory.title.Category;
+import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.kernel.ISBN;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -36,22 +37,7 @@ public class InventoryDomainTest {
     private DepartmentRepository departmentRepository;
 
     @Autowired
-    private DepartmentService departmentService;
-
-
-    /**
-     * This happen when a new place is ready to receive books.
-     * It should be created and added to the Department list, identified by its department code.
-     */
-    @Test
-    public void shouldEnableANewDepartment() {
-        //GIVEN
-        Department bookDepot = departmentFactory.createDepartment(DepartmentCode.BOOKDEPOT_CODE, "Book Depot");
-        //WHEN
-        departmentService.enableDepartment(bookDepot);
-        //THEN
-        assertThat(departmentRepository.findDepartmentByCode(bookDepot.getCode())).isNotNull();
-    }
+    private Bookstore bookstore;
 
     /**
      * This happen when Book Depot department is supplied by the main Warehouse,
@@ -67,10 +53,10 @@ public class InventoryDomainTest {
         Department warehouse = DepartmentFactory.WAREHOUSE;
         TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
                 TitleBuilder.createTitle().withISBN(new ISBN("90238127823"))
-                .withTitle("The Hollow")
+                .withDescription("The Hollow")
                 .build(),
                 TitleBuilder.createTitle().withISBN(new ISBN("937238292201"))
-                .withTitle("The Lighter")
+                .withDescription("The Lighter")
                 .build()
         );
 
@@ -98,10 +84,10 @@ public class InventoryDomainTest {
                 .createDepartment(DepartmentCode.SALESROOM_CODE, "Sales Room");
         TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
                 TitleBuilder.createTitle().withISBN(new ISBN("90230007823"))
-                        .withTitle("The Book")
+                        .withDescription("The Book")
                         .build(),
                 TitleBuilder.createTitle().withISBN(new ISBN("93720002201"))
-                        .withTitle("The Newspaper")
+                        .withDescription("The Newspaper")
                         .build()
         );
 
@@ -131,10 +117,10 @@ public class InventoryDomainTest {
                 .createDepartment(DepartmentCode.SALESROOM_CODE, "Sales Room");
         TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
                 TitleBuilder.createTitle().withISBN(new ISBN("90230707823"))
-                        .withTitle("The Moon")
+                        .withDescription("The Moon")
                         .build(),
                 TitleBuilder.createTitle().withISBN(new ISBN("93720702201"))
-                        .withTitle("The Sun")
+                        .withDescription("The Sun")
                         .build()
         );
 
@@ -154,15 +140,15 @@ public class InventoryDomainTest {
 
         //GIVEN
         DepartmentCode newDepartmentCode = DepartmentCode.forCode("04");
-        departmentService.enableDepartment(departmentFactory.createDepartment(newDepartmentCode, "Coffee Saloon"));
-        Department coffeeSaloon = departmentService.getDepartmentByCode(newDepartmentCode);
+        bookstore.enableDepartment(departmentFactory.createDepartment(newDepartmentCode, "Coffee Saloon"));
+        Department coffeeSaloon = bookstore.getDepartmentByCode(newDepartmentCode);
         TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
                 TitleBuilder.createTitle().withISBN(new ISBN("90231707823"))
-                        .withTitle("Who's afraid of the wolf")
+                        .withDescription("Who's afraid of the wolf")
                         .inCategory(new Category("Infantil"))
                         .build(),
                 TitleBuilder.createTitle().withISBN(new ISBN("93721702201"))
-                        .withTitle("A great reward")
+                        .withDescription("A great reward")
                         .writtenBy(new Author("Finn Clive, Sarah Monk"))
                         .inCategory(new Category("Policial"))
                         .build()

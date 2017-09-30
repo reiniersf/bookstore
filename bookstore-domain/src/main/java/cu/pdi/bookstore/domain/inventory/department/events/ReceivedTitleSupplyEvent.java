@@ -1,6 +1,7 @@
 package cu.pdi.bookstore.domain.inventory.department.events;
 
-import cu.pdi.bookstore.domain.inventory.department.DepartmentCode;
+import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
+import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.kernel.ISBN;
 import cu.pdi.bookstore.domain.kernel.event.BookstoreEvent;
 import lombok.Getter;
@@ -21,5 +22,5 @@ public class ReceivedTitleSupplyEvent implements BookstoreEvent{
     @NonNull
     DepartmentCode to;
     @NonNull
-    Set<ISBN> isbnList;
+    TitleSupply titleSupply;
 }

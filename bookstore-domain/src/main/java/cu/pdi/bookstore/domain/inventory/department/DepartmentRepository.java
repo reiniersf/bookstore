@@ -1,5 +1,7 @@
 package cu.pdi.bookstore.domain.inventory.department;
 
+import cu.pdi.bookstore.domain.kernel.DepartmentCode;
+
 import java.util.List;
 
 /**

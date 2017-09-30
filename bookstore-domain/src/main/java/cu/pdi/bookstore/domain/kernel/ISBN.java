@@ -17,16 +17,16 @@ import java.io.Serializable;
 @Getter
 @EqualsAndHashCode
 public class ISBN implements Serializable {
-    private String codigoISBN;
+    private String isbnCode;
 
     public ISBN(String codigoISBN){
-        Assert.notNull(codigoISBN,"El ISBN ");
-        this.codigoISBN = codigoISBN;
+        Assert.notNull(codigoISBN,"ISBN must not be null");
+        this.isbnCode = codigoISBN;
     }
 
     /*
     @Override
     public boolean equals(Object isbn) {
-        return isbn instanceof ISBN && this.codigoISBN.equals(((ISBN)isbn).getCodigoISBN());
+        return isbn instanceof ISBN && this.isbnCode.equals(((ISBN)isbn).getIsbnCode());
     }*/
 }

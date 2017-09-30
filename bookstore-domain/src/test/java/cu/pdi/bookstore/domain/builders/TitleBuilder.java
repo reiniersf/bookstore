@@ -35,7 +35,7 @@ public class TitleBuilder {
         return this;
     }
 
-    public TitleBuilder withTitle(String description) {
+    public TitleBuilder withDescription(String description) {
         this.description = description;
         return this;
     }
