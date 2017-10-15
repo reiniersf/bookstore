@@ -1,7 +1,7 @@
-package cu.pdi.bookstore.domain.accounting.document.transfer;
+package cu.pdi.bookstore.domain.accounting.document.logs;
 
 
-import cu.pdi.bookstore.domain.accounting.document.AccountingDocument;
+import cu.pdi.bookstore.domain.accounting.document.transfer.DeliveryVoucher;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.kernel.Stock;
 import cu.pdi.bookstore.domain.kernel.ISBN;
@@ -41,7 +41,7 @@ public class TransferLog {
 
     @Setter
     @ManyToOne
-    AccountingDocument accountingDocument;
+    DeliveryVoucher accountingDocument;
 
 
     TransferLog(DepartmentCode from, DepartmentCode to, ISBN isbn, Stock stockForTitle) {

@@ -1,9 +1,9 @@
 package cu.pdi.bookstore.domain;
 
 import cu.pdi.bookstore.config.AppConfig;
-import cu.pdi.bookstore.domain.accounting.document.AccountingDocument;
+import cu.pdi.bookstore.domain.accounting.document.transfer.DeliveryVoucher;
 import cu.pdi.bookstore.domain.accounting.document.AccountingDocumentService;
-import cu.pdi.bookstore.domain.accounting.document.transfer.TransferLogService;
+import cu.pdi.bookstore.domain.accounting.document.logs.TransferLogService;
 import cu.pdi.bookstore.domain.builders.TitleBuilder;
 import cu.pdi.bookstore.domain.builders.TitleSupplyFactory;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
@@ -62,11 +62,11 @@ public class AccountingDomainTest {
                 titleSupply
         ));
         //THEN
-        List<AccountingDocument> accountingDocuments = documentService.listDocuments();
-        assertThat(accountingDocuments).hasSize(currentDocumentAmount+1);
+        List<DeliveryVoucher> deliveryVouchers = documentService.listDocuments();
+        assertThat(deliveryVouchers).hasSize(currentDocumentAmount+1);
 
-        AccountingDocument accountingDocument = accountingDocuments.get(0);
-        assertThat(accountingDocument.associatedTransferLogs()).hasSize(2);
+        DeliveryVoucher deliveryVoucher = deliveryVouchers.get(0);
+        assertThat(deliveryVoucher.associatedTransferLogs()).hasSize(2);
 
     }
 

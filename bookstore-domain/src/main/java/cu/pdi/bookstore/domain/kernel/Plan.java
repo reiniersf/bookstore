@@ -19,4 +19,8 @@ import java.io.Serializable;
 public class Plan implements Serializable {
     @NonNull
     String planName;
+
+    public static Plan withName(String planName) {
+        return new Plan(planName);
+    }
 }

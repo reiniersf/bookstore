@@ -1,8 +1,8 @@
 package cu.pdi.bookstore.infrastructure.accounting.transfer;
 
-import cu.pdi.bookstore.domain.accounting.document.transfer.ATransferLog;
-import cu.pdi.bookstore.domain.accounting.document.transfer.TransferLog;
-import cu.pdi.bookstore.domain.accounting.document.transfer.TransferLogRepository;
+import cu.pdi.bookstore.domain.accounting.document.logs.ATransferLog;
+import cu.pdi.bookstore.domain.accounting.document.logs.TransferLog;
+import cu.pdi.bookstore.domain.accounting.document.logs.TransferLogRepository;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.kernel.ISBN;
 import cu.pdi.bookstore.domain.kernel.Stock;

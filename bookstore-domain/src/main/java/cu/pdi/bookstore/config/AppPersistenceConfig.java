@@ -39,7 +39,7 @@ public class AppPersistenceConfig {
                 new LocalContainerEntityManagerFactoryBean();
         emfb.setDataSource(dataSource);
         emfb.setJpaVendorAdapter(jpaVendorAdapter);
-        emfb.setPackagesToScan("cu.pdi.bookstore.domain");
+        emfb.setPackagesToScan("cu.pdi.bookstore.domain","cu.pdi.bookstore.infrastructure.mapping.converter");
 
         Properties jpaProperties = new Properties();
         jpaProperties.put("hibernate.hbm2ddl.auto", "create");

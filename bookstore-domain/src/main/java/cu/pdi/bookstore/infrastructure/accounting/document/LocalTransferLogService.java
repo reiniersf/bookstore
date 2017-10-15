@@ -1,10 +1,10 @@
 package cu.pdi.bookstore.infrastructure.accounting.document;
 
-import cu.pdi.bookstore.domain.accounting.document.transfer.TransferLog;
-import cu.pdi.bookstore.domain.accounting.document.transfer.TransferLogRepository;
+import cu.pdi.bookstore.domain.accounting.document.logs.TransferLog;
+import cu.pdi.bookstore.domain.accounting.document.logs.TransferLogRepository;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
-import cu.pdi.bookstore.domain.accounting.document.transfer.TransferLogService;
+import cu.pdi.bookstore.domain.accounting.document.logs.TransferLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

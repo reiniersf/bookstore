@@ -1,13 +1,14 @@
 package cu.pdi.bookstore.infrastructure.accounting.document;
 
-import cu.pdi.bookstore.domain.accounting.document.AccountingDocument;
+import cu.pdi.bookstore.domain.accounting.document.Consecutive;
+import cu.pdi.bookstore.domain.accounting.document.transfer.DeliveryVoucher;
 import cu.pdi.bookstore.domain.accounting.document.AccountingDocumentRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -16,18 +17,31 @@ public class DocumentRepositoryJPA implements AccountingDocumentRepository {
     @PersistenceContext private EntityManager entityManager;
 
     @Override
-    public List<AccountingDocument> findAll() {
-        return entityManager.createQuery("SELECT d FROM AccountingDocument d", AccountingDocument.class).getResultList();
+    public List<DeliveryVoucher> findAll() {
+        return entityManager.createQuery("SELECT d FROM DeliveryVoucher d", DeliveryVoucher.class).getResultList();
     }
 
     @Override
-    public AccountingDocument saveAccountingDocument(AccountingDocument accountingDocument) {
-        entityManager.persist(accountingDocument);
-        return accountingDocument;
+    public DeliveryVoucher saveAccountingDocument(DeliveryVoucher deliveryVoucher) {
+        entityManager.persist(deliveryVoucher);
+        return deliveryVoucher;
     }
 
     @Override
-    public AccountingDocument updateTransferLogs(AccountingDocument accountingDocument) {
-        return entityManager.merge(accountingDocument);
+    public DeliveryVoucher updateAccountingDocument(DeliveryVoucher deliveryVoucher) {
+        return entityManager.merge(deliveryVoucher);
     }
+
+    @Override
+    public Optional<DeliveryVoucher> findByConsecutive(Consecutive consecutive) {
+        List<DeliveryVoucher> deliveryVouchers = entityManager
+                .createQuery("SELECT d FROM DeliveryVoucher d WHERE d.consecutive = :consecutive", DeliveryVoucher.class)
+                .setParameter("consecutive", consecutive)
+                .getResultList();
+
+        return Optional.of(deliveryVouchers.get(0));
+
+    }
+
+
 }

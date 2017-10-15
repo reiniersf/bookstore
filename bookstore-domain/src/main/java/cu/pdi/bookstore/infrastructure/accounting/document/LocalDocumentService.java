@@ -1,7 +1,8 @@
 package cu.pdi.bookstore.infrastructure.accounting.document;
 
 import cu.pdi.bookstore.domain.accounting.document.*;
-import cu.pdi.bookstore.domain.accounting.document.transfer.TransferLog;
+import cu.pdi.bookstore.domain.accounting.document.logs.TransferLog;
+import cu.pdi.bookstore.domain.accounting.document.transfer.DeliveryVoucher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,20 +20,32 @@ public class LocalDocumentService implements AccountingDocumentService {
     }
 
     @Override
-    public List<AccountingDocument> listDocuments() {
+    public List<DeliveryVoucher> listDocuments() {
         return accountingDocumentRepository.findAll();
     }
 
     @Transactional
     @Override
-    public AccountingDocument registerAccountingDocumentForTransferLogs(List<TransferLog> transferLogs) {
-        AccountingDocument accountingDocument = AccountingDocumentFactory.createAccountingDocument(
-                AccountingDocumentType.forTransfersLike(transferLogs.get(0)));
-        accountingDocument = accountingDocumentRepository.saveAccountingDocument(accountingDocument);
-        accountingDocument.includeTransferLogs(transferLogs);
-        accountingDocument = accountingDocumentRepository.updateTransferLogs(accountingDocument);
+    public DeliveryVoucher registerAccountingDocumentForTransferLogs(List<TransferLog> transferLogs) {
+        DeliveryVoucher deliveryVoucher = AccountingDocumentType.forTransfersLike(transferLogs.get(0)).createAccountingDocument();
+        deliveryVoucher = accountingDocumentRepository.saveAccountingDocument(deliveryVoucher);
+        deliveryVoucher.includeTransferLogs(transferLogs);
+        deliveryVoucher = accountingDocumentRepository.updateAccountingDocument(deliveryVoucher);
 
-        return accountingDocument;
+        return deliveryVoucher;
+    }
+
+    @Transactional
+    @Override
+    public void completeDocument(DeliveryVoucher deliveryVoucher, AccountingInfo accountingInfo) {
+        deliveryVoucher.includeAccountingInfo(accountingInfo);
+        accountingDocumentRepository.updateAccountingDocument(deliveryVoucher);
+    }
+
+    @Override
+    public DeliveryVoucher findDocumentWithConsecutive(Consecutive consecutive) {
+        return accountingDocumentRepository.findByConsecutive(consecutive)
+                .get();
     }
 
 

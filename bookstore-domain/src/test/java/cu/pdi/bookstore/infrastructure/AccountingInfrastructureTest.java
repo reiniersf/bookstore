@@ -1,7 +1,7 @@
 package cu.pdi.bookstore.infrastructure;
 
 import cu.pdi.bookstore.domain.accounting.document.AccountingDocumentType;
-import cu.pdi.bookstore.domain.accounting.document.transfer.TransferLog;
+import cu.pdi.bookstore.domain.accounting.document.logs.TransferLog;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.infrastructure.exceptions.InvalidTransferException;
 import org.junit.Test;
@@ -23,7 +23,7 @@ public class AccountingInfrastructureTest {
         AccountingDocumentType accountingDocumentType_INTERNAL = AccountingDocumentType.forTransfersLike(transferLog_INTERNAL);
 
         //THEN
-        assertThat(accountingDocumentType_INTERNAL).isEqualTo(AccountingDocumentType.INTERNAL_TRANSFER);
+        assertThat(accountingDocumentType_INTERNAL).isEqualTo(AccountingDocumentType.DELIVERY_VOUCHER);
     }
 
     @Test
@@ -37,7 +37,7 @@ public class AccountingInfrastructureTest {
         AccountingDocumentType accountingDocumentType_RECEPTION = AccountingDocumentType.forTransfersLike(transferLog_RECEPTION);
 
         //THEN
-        assertThat(accountingDocumentType_RECEPTION).isEqualTo(AccountingDocumentType.RECEPTION_INFORM);
+        assertThat(accountingDocumentType_RECEPTION).isEqualTo(AccountingDocumentType.RECEPTION_REPORT);
     }
 
     @Test
