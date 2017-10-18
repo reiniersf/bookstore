@@ -92,7 +92,7 @@ public class BookstoreTest {
         assertThat(bookDepot).hasInventoryEntriesForAllTitles(titleSupply);
 
         List<DeliveryVoucher> deliveryVouchers = documentService.listDocuments();
-        Assertions.assertThat(deliveryVouchers).hasSize(currentDocumentAmount+1);
+        Assertions.assertThat(deliveryVouchers).hasSize(currentDocumentAmount + 1);
 
         DeliveryVoucher receptionReport = deliveryVouchers.get(lastDocumentIndex);
         Assertions.assertThat(receptionReport.associatedTransferLogs()).hasSize(2);
@@ -107,6 +107,26 @@ public class BookstoreTest {
                         SourceWarehouse.withName("Central")));
         //THEN
         receptionReport = documentService.findDocumentWithConsecutive(receptionReport.getConsecutive());
-        Assertions.assertThat(((ReceptionReport)receptionReport).getInvoiceNumber()).isEqualTo(InvoiceNumber.of("21938123"));
+        Assertions.assertThat(((ReceptionReport) receptionReport).getInvoiceNumber()).isEqualTo(InvoiceNumber.of("21938123"));
+    }
+
+
+    /**
+     * This happen when Sales Room department is supplied by the Book Depot department or vice versa,
+     * the supply comes with an amount of books for each Title and Titles info.
+     * As a result each title get its own Transfer Entry
+     * in Sales Room and Inventory Entry department depending on if the Title is new or has a previous inventory entry.
+     * Beside a Delivery Voucher is created as evidence of the transfer between departments
+     */
+    @Test
+    public void shouldTransferTitlesFromOneDepartmentToAnother() {
+
+
+    }
+
+    @Test
+    public void shouldRegisterSoldTitlesFromSalesDepartment() {
+
+
     }
 }

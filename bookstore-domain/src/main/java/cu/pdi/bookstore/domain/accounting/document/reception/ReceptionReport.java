@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "reception_report")
-@DiscriminatorValue("1")
+@DiscriminatorValue("2")
 public class ReceptionReport extends DeliveryVoucher implements AccountingInfoHolder {
 
     @Column(name = "invoice_number")

@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "document")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "accountingDocumentType", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn( discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue("0")
 @NoArgsConstructor
 public class DeliveryVoucher implements Serializable, AccountingInfoHolder {
@@ -39,7 +39,7 @@ public class DeliveryVoucher implements Serializable, AccountingInfoHolder {
     @OneToMany(mappedBy = "accountingDocument",
             fetch = FetchType.EAGER,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-    List<TransferLog> associatedTransfers;
+    private List<TransferLog> associatedTransfers;
 
 
     protected DeliveryVoucher(AccountingDocumentType accountingDocumentType) {
