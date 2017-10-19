@@ -20,7 +20,7 @@ public enum AccountingDocumentType {
 
         @Override
         public DeliveryVoucher createAccountingDocument() {
-            return null;
+            return new DeliveryVoucher();
         }
     },
     SALES_SUMMARY {

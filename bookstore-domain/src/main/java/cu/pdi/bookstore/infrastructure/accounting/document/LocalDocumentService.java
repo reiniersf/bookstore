@@ -27,7 +27,9 @@ public class LocalDocumentService implements AccountingDocumentService {
     @Transactional
     @Override
     public DeliveryVoucher registerAccountingDocumentForTransferLogs(List<TransferLog> transferLogs) {
-        DeliveryVoucher deliveryVoucher = AccountingDocumentType.forTransfersLike(transferLogs.get(0)).createAccountingDocument();
+        DeliveryVoucher deliveryVoucher = AccountingDocumentType
+                .forTransfersLike(transferLogs.get(0))
+                .createAccountingDocument();
         deliveryVoucher = accountingDocumentRepository.saveAccountingDocument(deliveryVoucher);
         deliveryVoucher.includeTransferLogs(transferLogs);
         deliveryVoucher = accountingDocumentRepository.updateAccountingDocument(deliveryVoucher);

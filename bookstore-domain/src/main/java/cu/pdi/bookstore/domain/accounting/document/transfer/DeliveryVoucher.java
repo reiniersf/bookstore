@@ -18,7 +18,6 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn( discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue("0")
-@NoArgsConstructor
 public class DeliveryVoucher implements Serializable, AccountingInfoHolder {
 
     @Getter
@@ -42,6 +41,10 @@ public class DeliveryVoucher implements Serializable, AccountingInfoHolder {
     private List<TransferLog> associatedTransfers;
 
 
+    public DeliveryVoucher() {
+        this(AccountingDocumentType.DELIVERY_VOUCHER);
+    }
+
     protected DeliveryVoucher(AccountingDocumentType accountingDocumentType) {
         this.accountingDocumentType = accountingDocumentType;
         this.createdAt = LocalDateTime.now();
@@ -64,6 +67,7 @@ public class DeliveryVoucher implements Serializable, AccountingInfoHolder {
 
     @Override
     public void includeAccountingInfo(AccountingInfo accountingInfo) {
-
+        DeliveryVoucherInfo deliveryVoucherInfo = (DeliveryVoucherInfo) accountingInfo;
+        this.consecutive = deliveryVoucherInfo.getConsecutive();
     }
 }
