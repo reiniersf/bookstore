@@ -1,4 +1,4 @@
-package cu.pdi.bookstore.config;
+package cu.pdi.bookstore.application.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

@@ -84,7 +84,7 @@ public class Department implements Serializable {
                     .filter((ISBN isbn) -> !existentISBNInventoryEntries.contains(isbn))
                     .forEach((ISBN isbn) -> {
                         if (!registeredTitles.contains(isbn)) {
-                            titleService.registerNewTitle(titleSupply.getTitleForISBN(isbn));
+                            titleService.registerNewTitle(titleSupply.getTitleInfoForISBN(isbn));
                         }
                         inventoryEntryService
                                 .saveEntryForNewTitle(InventoryEntryFactory

@@ -1,8 +1,8 @@
 package cu.pdi.bookstore.domain.inventory.supply;
 
-import cu.pdi.bookstore.domain.inventory.title.Title;
 import cu.pdi.bookstore.domain.kernel.ISBN;
 import cu.pdi.bookstore.domain.kernel.Stock;
+import cu.pdi.bookstore.domain.kernel.TitleInfo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,33 +25,33 @@ public class TitleSupply {
         return supply.keySet().stream().map(ISBN::new).collect(Collectors.toSet());
     }
 
-    public void includeTitle(Title title, Integer amount) {
-        supply.put(title.getIsbn().getIsbnCode(), new TitleTuple(title, amount));
+    public void includeTitleInfo(TitleInfo titleInfo, Integer amount) {
+        supply.put(titleInfo.getIsbn().getIsbnCode(), new TitleTuple(titleInfo, amount));
     }
 
     public Stock getStockForTitle(ISBN title) {
-        return supply.get(title.getIsbnCode()).amount();
+        return supply.get(title.getIsbnCode()).stock();
     }
 
-    public Title getTitleForISBN(ISBN isbn) {
+    public TitleInfo getTitleInfoForISBN(ISBN isbn) {
         return supply.get(isbn.getIsbnCode()).titleInfo();
     }
 
     private class TitleTuple {
         private Stock amount;
-        private Title title;
+        private TitleInfo titleInfo;
 
-        TitleTuple(Title title, Integer amount){
+        TitleTuple(TitleInfo titleInfo, Integer amount){
             this.amount = new Stock(amount);
-            this.title = title;
+            this.titleInfo = titleInfo;
         }
 
-        Stock amount(){
+        Stock stock(){
             return amount;
         }
 
-        Title titleInfo(){
-            return title;
+        TitleInfo titleInfo(){
+            return titleInfo;
         }
     }
 }

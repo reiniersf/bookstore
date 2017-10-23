@@ -1,10 +1,10 @@
 package cu.pdi.bookstore.domain;
 
-import cu.pdi.bookstore.config.AppConfig;
-import cu.pdi.bookstore.domain.accounting.document.transfer.DeliveryVoucher;
+import cu.pdi.bookstore.application.config.AppConfig;
+import cu.pdi.bookstore.domain.accounting.transfer.DeliveryVoucher;
 import cu.pdi.bookstore.domain.accounting.document.AccountingDocumentService;
 import cu.pdi.bookstore.domain.accounting.document.logs.TransferLogService;
-import cu.pdi.bookstore.domain.builders.TitleBuilder;
+import cu.pdi.bookstore.domain.builders.TitleInfoBuilder;
 import cu.pdi.bookstore.domain.builders.TitleSupplyFactory;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.inventory.department.events.DepartmentEventHandler;
@@ -45,12 +45,12 @@ public class AccountingDomainTest {
     public void shouldCreateADocumentWhenATransferHappen() {
         //GIVEN
         TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
-                TitleBuilder.createTitle()
+                TitleInfoBuilder.createTitle()
                         .withISBN(new ISBN("901238381293"))
                         .withDescription("A new way")
                         .editedInYear(new EditionYear(2000))
                         .build(),
-                TitleBuilder.createTitle()
+                TitleInfoBuilder.createTitle()
                         .withDescription("A new word")
                         .writtenBy(new Author("Allens et al"))
                         .build());

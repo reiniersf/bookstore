@@ -1,6 +1,6 @@
-package cu.pdi.bookstore.domain.accounting.document.reception;
+package cu.pdi.bookstore.domain.accounting.reception;
 
-import cu.pdi.bookstore.domain.accounting.document.AccountingInfo;
+import cu.pdi.bookstore.domain.accounting.document.AccountingDocumentInfo;
 import cu.pdi.bookstore.domain.accounting.document.Consecutive;
 import cu.pdi.bookstore.domain.kernel.Plan;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import javax.persistence.Embeddable;
 
 @Getter
 @Embeddable
-public class ReceptionReportInfo extends AccountingInfo{
+public class ReceptionReportInfo extends AccountingDocumentInfo {
 
     private final InvoiceNumber invoiceNumber;
     private final Plan plan;

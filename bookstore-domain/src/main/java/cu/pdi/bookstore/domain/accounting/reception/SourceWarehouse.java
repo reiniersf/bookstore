@@ -1,4 +1,4 @@
-package cu.pdi.bookstore.domain.accounting.document.reception;
+package cu.pdi.bookstore.domain.accounting.reception;
 
 import lombok.Value;
 import org.springframework.util.Assert;

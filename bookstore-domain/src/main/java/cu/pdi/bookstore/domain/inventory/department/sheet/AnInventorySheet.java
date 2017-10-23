@@ -3,7 +3,7 @@ package cu.pdi.bookstore.domain.inventory.department.sheet;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntry;
 import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntryService;
-import cu.pdi.bookstore.domain.inventory.title.Title;
+import cu.pdi.bookstore.domain.inventory.title.TitleInventoryInfo;
 import cu.pdi.bookstore.domain.inventory.title.TitleService;
 import cu.pdi.bookstore.domain.kernel.ISBN;
 import cu.pdi.bookstore.domain.kernel.Stock;
@@ -35,11 +35,11 @@ public class AnInventorySheet {
                 .stream()
                 .collect(Collectors.toMap(InventoryEntry::getTitle, InventoryEntry::getCurrentStock));
 
-        Map<ISBN, Title> registeredTitlesInDepartment = titleService.getTitlesInfo(inventoryEntries.stream()
+        Map<ISBN, TitleInventoryInfo> registeredTitlesInDepartment = titleService.getTitlesInfo(inventoryEntries.stream()
                 .map(InventoryEntry::getTitle)
                 .collect(Collectors.toList()))
                 .stream()
-                .collect(Collectors.toMap(Title::getIsbn, __ -> __));
+                .collect(Collectors.toMap(TitleInventoryInfo::getIsbn, __ -> __));
 
 
 

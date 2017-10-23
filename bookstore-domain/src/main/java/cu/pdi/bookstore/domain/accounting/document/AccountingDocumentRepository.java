@@ -1,7 +1,7 @@
 package cu.pdi.bookstore.domain.accounting.document;
 
 
-import cu.pdi.bookstore.domain.accounting.document.transfer.DeliveryVoucher;
+import cu.pdi.bookstore.domain.accounting.transfer.DeliveryVoucher;
 
 import java.util.List;
 import java.util.Optional;

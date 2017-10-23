@@ -1,7 +1,7 @@
 package cu.pdi.bookstore.infrastructure.accounting.document;
 
 import cu.pdi.bookstore.domain.accounting.document.Consecutive;
-import cu.pdi.bookstore.domain.accounting.document.transfer.DeliveryVoucher;
+import cu.pdi.bookstore.domain.accounting.transfer.DeliveryVoucher;
 import cu.pdi.bookstore.domain.accounting.document.AccountingDocumentRepository;
 import org.springframework.stereotype.Repository;
 

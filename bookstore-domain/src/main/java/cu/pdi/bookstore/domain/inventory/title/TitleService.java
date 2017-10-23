@@ -1,6 +1,7 @@
 package cu.pdi.bookstore.domain.inventory.title;
 
 import cu.pdi.bookstore.domain.kernel.ISBN;
+import cu.pdi.bookstore.domain.kernel.TitleInfo;
 
 import java.util.List;
 import java.util.Set;
@@ -11,9 +12,9 @@ import java.util.Set;
  */
 public interface TitleService {
 
-    void registerNewTitle(Title title);
+    void registerNewTitle(TitleInfo titleInfo);
 
     List<ISBN> getRegisteredTitlesIn(Set<ISBN> supplyISBNList);
 
-    List<Title> getTitlesInfo(List<ISBN> isbnList);
+    List<TitleInventoryInfo> getTitlesInfo(List<ISBN> isbnList);
 }

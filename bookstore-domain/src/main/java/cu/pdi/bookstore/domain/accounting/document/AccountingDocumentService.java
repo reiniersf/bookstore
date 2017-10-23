@@ -1,7 +1,7 @@
 package cu.pdi.bookstore.domain.accounting.document;
 
 import cu.pdi.bookstore.domain.accounting.document.logs.TransferLog;
-import cu.pdi.bookstore.domain.accounting.document.transfer.DeliveryVoucher;
+import cu.pdi.bookstore.domain.accounting.transfer.DeliveryVoucher;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public interface AccountingDocumentService {
 
     DeliveryVoucher registerAccountingDocumentForTransferLogs(List<TransferLog> transferLogs);
 
-    void completeDocument(DeliveryVoucher deliveryVoucher, AccountingInfo accountingInfo);
+    void completeDocument(DeliveryVoucher deliveryVoucher, AccountingDocumentInfo accountingDocumentInfo);
 
     DeliveryVoucher findDocumentWithConsecutive(Consecutive consecutive);
 }

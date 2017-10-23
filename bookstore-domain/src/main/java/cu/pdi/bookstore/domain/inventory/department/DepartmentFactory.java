@@ -30,6 +30,20 @@ public class DepartmentFactory {
 
 
     };
+    public final static Department SOLD = new Department(DepartmentCode.SOLD, "Sold") {
+        @Override
+        public void receiveTitles(Department from, TitleSupply titleSupply) {
+            throw new UnsupportedOperationException("This operation is unsupported by this department");
+        }
+
+        @Override
+        public boolean hasEntriesForTitles(Set<ISBN> isbnList) {
+            throw new UnsupportedOperationException("This operation is unsupported by this department");
+        }
+
+
+    };
+
     private final DepartmentEventHandler departmentEventHandler;
     private final TitleService titleService;
     private final InventoryEntryService inventoryEntryService;

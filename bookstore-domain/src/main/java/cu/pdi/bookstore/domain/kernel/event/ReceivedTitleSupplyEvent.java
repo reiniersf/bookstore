@@ -1,4 +1,4 @@
-package cu.pdi.bookstore.domain.inventory.department.events;
+package cu.pdi.bookstore.domain.kernel.event;
 
 import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;

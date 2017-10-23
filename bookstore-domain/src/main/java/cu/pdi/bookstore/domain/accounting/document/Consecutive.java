@@ -1,5 +1,6 @@
 package cu.pdi.bookstore.domain.accounting.document;
 
+import lombok.EqualsAndHashCode;
 import lombok.Value;
 import org.springframework.util.Assert;
 
@@ -8,6 +9,7 @@ import java.util.Objects;
 
 @Value
 @Embeddable
+@EqualsAndHashCode
 public class Consecutive {
 
     private String consecutiveValue;

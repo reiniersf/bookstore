@@ -1,13 +1,13 @@
 package cu.pdi.bookstore.domain;
 
-import cu.pdi.bookstore.config.AppConfig;
+import cu.pdi.bookstore.application.config.AppConfig;
 import cu.pdi.bookstore.domain.accounting.document.*;
-import cu.pdi.bookstore.domain.accounting.document.reception.InvoiceNumber;
-import cu.pdi.bookstore.domain.accounting.document.reception.ReceptionReport;
-import cu.pdi.bookstore.domain.accounting.document.reception.SourceWarehouse;
-import cu.pdi.bookstore.domain.accounting.document.sales.SalesSummary;
-import cu.pdi.bookstore.domain.accounting.document.transfer.DeliveryVoucher;
-import cu.pdi.bookstore.domain.builders.TitleBuilder;
+import cu.pdi.bookstore.domain.accounting.reception.InvoiceNumber;
+import cu.pdi.bookstore.domain.accounting.reception.ReceptionReport;
+import cu.pdi.bookstore.domain.accounting.reception.SourceWarehouse;
+import cu.pdi.bookstore.domain.accounting.sales.SalesSummary;
+import cu.pdi.bookstore.domain.accounting.transfer.DeliveryVoucher;
+import cu.pdi.bookstore.domain.builders.TitleInfoBuilder;
 import cu.pdi.bookstore.domain.builders.TitleSupplyFactory;
 import cu.pdi.bookstore.domain.inventory.department.Bookstore;
 import cu.pdi.bookstore.domain.inventory.department.Department;
@@ -63,9 +63,9 @@ public class BookstoreTest {
 
     /**
      * This happen when Book Depot department is supplied by the main Warehouse,
-     * the supply comes forReceptionReport an amount of books for each Title and Titles info.
+     * the supply comes forReceptionReport an amount of books for each TitleInventoryInfo and Titles info.
      * As a result each title get its own Inventory Entry and Transfer Entry
-     * in Book Depot department depending on if the Title is new or has a previous inventory entry.
+     * in Book Depot department depending on if the TitleInventoryInfo is new or has a previous inventory entry.
      * Beside a Reception Report is created as evidence of the reception at the Bookstore
      */
     @Test
@@ -77,10 +77,10 @@ public class BookstoreTest {
         Department warehouse = DepartmentFactory.WAREHOUSE;
 
         TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
-                TitleBuilder.createTitle().withISBN(new ISBN("90238127823"))
+                TitleInfoBuilder.createTitle().withISBN(new ISBN("90238127823"))
                         .withDescription("The Hollow")
                         .build(),
-                TitleBuilder.createTitle().withISBN(new ISBN("937238292201"))
+                TitleInfoBuilder.createTitle().withISBN(new ISBN("937238292201"))
                         .withDescription("The Lighter")
                         .build()
         );
@@ -105,7 +105,7 @@ public class BookstoreTest {
 
         //AND WHEN
         documentService.completeDocument(receptionReport,
-                AccountingInfo.forReceptionReport(Consecutive.of("1"),
+                AccountingDocumentInfo.forReceptionReport(Consecutive.of("1"),
                         InvoiceNumber.of("21938123"),
                         Plan.withName("Regular"),
                         SourceWarehouse.withName("Central")));
@@ -118,9 +118,9 @@ public class BookstoreTest {
 
     /**
      * This happen when Sales Room department is supplied by the Book Depot department or vice versa,
-     * the supply comes with an amount of books for each Title and Titles info.
+     * the supply comes with an amount of books for each TitleInventoryInfo and Titles info.
      * As a result each title get its own Transfer Entry in Sales Room department and an Inventory Entry
-     * depending on if the Title is new or has a previous inventory entry.
+     * depending on if the TitleInventoryInfo is new or has a previous inventory entry.
      * Beside a Delivery Voucher is created as evidence of the transfer between departments
      */
     @Test
@@ -135,10 +135,75 @@ public class BookstoreTest {
         Department warehouse = DepartmentFactory.WAREHOUSE;
 
         TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
-                TitleBuilder.createTitle().withISBN(new ISBN("90238127823"))
+                TitleInfoBuilder.createTitle().withISBN(new ISBN("90238127823"))
                         .withDescription("The Hollow")
                         .build(),
-                TitleBuilder.createTitle().withISBN(new ISBN("937238292201"))
+                TitleInfoBuilder.createTitle().withISBN(new ISBN("937238292201"))
+                        .withDescription("The Lighter")
+                        .build()
+        );
+
+        bookDepot.receiveTitles(warehouse, titleSupply);
+
+        int lastDocumentIndex, currentDocumentAmount;
+        List<DeliveryVoucher> deliveryVouchers = documentService.listDocuments();
+        lastDocumentIndex = currentDocumentAmount = deliveryVouchers.size();
+
+        DeliveryVoucher receptionReport = deliveryVouchers.get(lastDocumentIndex - 1);
+        documentService.completeDocument(receptionReport,
+                AccountingDocumentInfo.forReceptionReport(Consecutive.of("1"),
+                        InvoiceNumber.of("21938123"),
+                        Plan.withName("Regular"),
+                        SourceWarehouse.withName("Central")));
+        //WHEN
+        salesRoom.receiveTitles(bookDepot, titleSupply);
+
+        //THEN
+        assertThat(salesRoom).hasInventoryEntriesForAllTitles(titleSupply);
+
+        //AND WHEN
+        deliveryVouchers = documentService.listDocuments();
+        DeliveryVoucher deliveryVoucher = deliveryVouchers.get(lastDocumentIndex);
+
+        //THEN
+        Assertions.assertThat(deliveryVouchers).hasSize(currentDocumentAmount + 1);
+        Assertions.assertThat(deliveryVoucher.associatedTransferLogs()).hasSize(2);
+        Assertions.assertThat(deliveryVoucher).isNotInstanceOfAny(ReceptionReport.class, SalesSummary.class);
+        Assertions.assertThat(deliveryVoucher.getAccountingDocumentType()).isEqualTo(AccountingDocumentType.DELIVERY_VOUCHER);
+
+        //AND WHEN
+        documentService.completeDocument(deliveryVoucher,
+                AccountingDocumentInfo.forDeliveryVoucher(Consecutive.of("2")));
+        //THEN
+        deliveryVoucher = documentService.findDocumentWithConsecutive(deliveryVoucher.getConsecutive());
+        Assertions.assertThat(deliveryVoucher.getConsecutive()).isEqualTo(Consecutive.of("2"));
+
+    }
+
+
+    /**
+     * This happen when in Sales Room department ends a day and summarize the Titles sales through
+     * the Sales Vouchers created each time a sale is executed.Then a Sales Summary is created as
+     * evidence of the sales of that day. A Sales Summary hold the number of the start and end
+     * Sales Voucher including the total amount for each Plan available. For each sale a Transfer
+     * is registered.
+     */
+    @Test
+    public void shouldRegisterSoldTitlesFromSalesDepartment() {
+        //GIVEN
+        Department bookDepot = departmentFactory.createDepartment(DepartmentCode.BOOKDEPOT_CODE, "Book Depot");
+        bookstore.enableDepartment(bookDepot);
+
+        Department salesRoom = departmentFactory.createDepartment(DepartmentCode.SALESROOM_CODE, "Sales Room");
+        bookstore.enableDepartment(salesRoom);
+
+        Department warehouse = DepartmentFactory.WAREHOUSE;
+
+        TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
+                TitleInfoBuilder.createTitle().withISBN(new ISBN("90238127823"))
+                        .withDescription("The Hollow")
+                        .build(),
+                TitleInfoBuilder.createTitle().withISBN(new ISBN("937238292201"))
                         .withDescription("The Lighter")
                         .build()
         );
@@ -146,11 +211,13 @@ public class BookstoreTest {
 
         bookDepot.receiveTitles(warehouse, titleSupply);
 
+        salesRoom.receiveTitles(bookDepot, titleSupply);
+
         int lastDocumentIndex, currentDocumentAmount;
         lastDocumentIndex = currentDocumentAmount = documentService.listDocuments().size();
 
         //WHEN
-        salesRoom.receiveTitles(bookDepot, titleSupply);
+
 
         //THEN
         assertThat(salesRoom).hasInventoryEntriesForAllTitles(titleSupply);
@@ -167,12 +234,10 @@ public class BookstoreTest {
 
         //AND WHEN
         documentService.completeDocument(deliveryVoucher,
-                AccountingInfo.forDeliveryVoucher(Consecutive.of("2")));
+                AccountingDocumentInfo.forDeliveryVoucher(Consecutive.of("2")));
         //THEN
         deliveryVoucher = documentService.findDocumentWithConsecutive(deliveryVoucher.getConsecutive());
         Assertions.assertThat(deliveryVoucher.getConsecutive()).isEqualTo(Consecutive.of("2"));
 
     }
-
-
 }

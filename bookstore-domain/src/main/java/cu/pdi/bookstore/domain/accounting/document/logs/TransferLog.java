@@ -1,7 +1,7 @@
 package cu.pdi.bookstore.domain.accounting.document.logs;
 
 
-import cu.pdi.bookstore.domain.accounting.document.transfer.DeliveryVoucher;
+import cu.pdi.bookstore.domain.accounting.transfer.DeliveryVoucher;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.kernel.Stock;
 import cu.pdi.bookstore.domain.kernel.ISBN;

@@ -1,6 +1,7 @@
 package cu.pdi.bookstore.infrastructure.inventory.repositories;
 
-import cu.pdi.bookstore.domain.inventory.title.Title;
+import cu.pdi.bookstore.domain.accounting.title.TitleAccountingInfo;
+import cu.pdi.bookstore.domain.inventory.title.TitleInventoryInfo;
 import cu.pdi.bookstore.domain.inventory.title.TitleRepository;
 import cu.pdi.bookstore.domain.kernel.ISBN;
 import org.springframework.stereotype.Repository;
@@ -21,14 +22,19 @@ public class TitleRepositoryJPA implements TitleRepository {
     private EntityManager entityManager;
 
     @Override
-    public void saveTitle(Title titleForISBN) {
-        entityManager.persist(titleForISBN);
+    public List<TitleInventoryInfo> findRegisteredTitlesIn(Set<ISBN> supplyISBNList) {
+        return entityManager.createQuery("select title from TitleInventoryInfo title where title.isbn in :isbnList", TitleInventoryInfo.class)
+                .setParameter("isbnList", supplyISBNList)
+                .getResultList();
     }
 
     @Override
-    public List<Title> findRegisteredTitlesIn(Set<ISBN> supplyISBNList) {
-        return entityManager.createQuery("select title from Title title where title.isbn in :isbnList", Title.class)
-                .setParameter("isbnList", supplyISBNList)
-                .getResultList();
+    public void saveInventoryInfo(TitleInventoryInfo titleInventoryInfo) {
+        entityManager.persist(titleInventoryInfo);
+    }
+
+    @Override
+    public void saveAccountingInfo(TitleAccountingInfo titleAccountingInfo) {
+        entityManager.persist(titleAccountingInfo);
     }
 }

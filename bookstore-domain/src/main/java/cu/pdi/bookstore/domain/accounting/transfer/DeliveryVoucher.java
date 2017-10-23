@@ -1,12 +1,11 @@
-package cu.pdi.bookstore.domain.accounting.document.transfer;
+package cu.pdi.bookstore.domain.accounting.transfer;
 
 import cu.pdi.bookstore.domain.accounting.document.AccountingDocumentType;
-import cu.pdi.bookstore.domain.accounting.document.AccountingInfo;
+import cu.pdi.bookstore.domain.accounting.document.AccountingDocumentInfo;
 import cu.pdi.bookstore.domain.accounting.document.AccountingInfoHolder;
 import cu.pdi.bookstore.domain.accounting.document.Consecutive;
 import cu.pdi.bookstore.domain.accounting.document.logs.TransferLog;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -66,8 +65,8 @@ public class DeliveryVoucher implements Serializable, AccountingInfoHolder {
     }
 
     @Override
-    public void includeAccountingInfo(AccountingInfo accountingInfo) {
-        DeliveryVoucherInfo deliveryVoucherInfo = (DeliveryVoucherInfo) accountingInfo;
+    public void includeAccountingInfo(AccountingDocumentInfo accountingDocumentInfo) {
+        DeliveryVoucherInfo deliveryVoucherInfo = (DeliveryVoucherInfo) accountingDocumentInfo;
         this.consecutive = deliveryVoucherInfo.getConsecutive();
     }
 }

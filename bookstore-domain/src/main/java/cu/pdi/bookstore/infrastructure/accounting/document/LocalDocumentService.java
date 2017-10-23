@@ -2,7 +2,7 @@ package cu.pdi.bookstore.infrastructure.accounting.document;
 
 import cu.pdi.bookstore.domain.accounting.document.*;
 import cu.pdi.bookstore.domain.accounting.document.logs.TransferLog;
-import cu.pdi.bookstore.domain.accounting.document.transfer.DeliveryVoucher;
+import cu.pdi.bookstore.domain.accounting.transfer.DeliveryVoucher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,8 +39,8 @@ public class LocalDocumentService implements AccountingDocumentService {
 
     @Transactional
     @Override
-    public void completeDocument(DeliveryVoucher deliveryVoucher, AccountingInfo accountingInfo) {
-        deliveryVoucher.includeAccountingInfo(accountingInfo);
+    public void completeDocument(DeliveryVoucher deliveryVoucher, AccountingDocumentInfo accountingDocumentInfo) {
+        deliveryVoucher.includeAccountingInfo(accountingDocumentInfo);
         accountingDocumentRepository.updateAccountingDocument(deliveryVoucher);
     }
 

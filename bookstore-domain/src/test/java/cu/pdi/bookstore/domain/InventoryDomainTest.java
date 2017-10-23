@@ -1,7 +1,7 @@
 package cu.pdi.bookstore.domain;
 
-import cu.pdi.bookstore.config.AppConfig;
-import cu.pdi.bookstore.domain.builders.TitleBuilder;
+import cu.pdi.bookstore.application.config.AppConfig;
+import cu.pdi.bookstore.domain.builders.TitleInfoBuilder;
 import cu.pdi.bookstore.domain.builders.TitleSupplyFactory;
 import cu.pdi.bookstore.domain.inventory.department.*;
 import cu.pdi.bookstore.domain.inventory.department.sheet.InventorySheet;
@@ -41,9 +41,9 @@ public class InventoryDomainTest {
 
     /**
      * This happen when Book Depot department is supplied by the main Warehouse,
-     * the supply comes with an amount of books for each Title and Titles info.
+     * the supply comes with an amount of books for each TitleInventoryInfo and Titles info.
      * As a result each title get its own Inventory Entry and Transfer Entry
-     * in Book Depot department depending on if the Title is new or has a previous inventory entry.
+     * in Book Depot department depending on if the TitleInventoryInfo is new or has a previous inventory entry.
      */
     @Test
     public void shouldReceiveASupplyOfTitlesFromMainWarehouse() {
@@ -52,10 +52,10 @@ public class InventoryDomainTest {
                 .createDepartment(DepartmentCode.BOOKDEPOT_CODE, "Books Depot");
         Department warehouse = DepartmentFactory.WAREHOUSE;
         TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
-                TitleBuilder.createTitle().withISBN(new ISBN("90238127823"))
+                TitleInfoBuilder.createTitle().withISBN(new ISBN("90238127823"))
                 .withDescription("The Hollow")
                 .build(),
-                TitleBuilder.createTitle().withISBN(new ISBN("937238292201"))
+                TitleInfoBuilder.createTitle().withISBN(new ISBN("937238292201"))
                 .withDescription("The Lighter")
                 .build()
         );
@@ -70,10 +70,10 @@ public class InventoryDomainTest {
 
     /**
      * This happen when Book Depot department supply the Sales Room department,
-     * the supply comes with an amount of books for each Title and Titles info.
+     * the supply comes with an amount of books for each TitleInventoryInfo and Titles info.
      * As a result each title get its own Inventory Entry and Transfer Entry
-     * in Sales Room department depending on if the Title is new or has a previous inventory entry,
-     * also Book Depot department must update stock for each Title transferred.
+     * in Sales Room department depending on if the TitleInventoryInfo is new or has a previous inventory entry,
+     * also Book Depot department must update stock for each TitleInventoryInfo transferred.
      */
     @Test
     public void shouldReceiveASupplyOfTitlesFromBookDepot() {
@@ -83,10 +83,10 @@ public class InventoryDomainTest {
         Department salesRoom = departmentFactory
                 .createDepartment(DepartmentCode.SALESROOM_CODE, "Sales Room");
         TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
-                TitleBuilder.createTitle().withISBN(new ISBN("90230007823"))
+                TitleInfoBuilder.createTitle().withISBN(new ISBN("90230007823"))
                         .withDescription("The Book")
                         .build(),
-                TitleBuilder.createTitle().withISBN(new ISBN("93720002201"))
+                TitleInfoBuilder.createTitle().withISBN(new ISBN("93720002201"))
                         .withDescription("The Newspaper")
                         .build()
         );
@@ -104,9 +104,9 @@ public class InventoryDomainTest {
 
     /**
      * This happen when Sales Room department supply in a devolution way the Book Depot department,
-     * the supply comes with an amount of books for each Title.
+     * the supply comes with an amount of books for each TitleInventoryInfo.
      * As a result each title get a Transfer Entry from Sales Room department to Book Depot department
-     * and update stock for each Title transferred.
+     * and update stock for each TitleInventoryInfo transferred.
      */
     @Test
     public void shouldReceiveASupplyOfTitlesFromSalesRoom() {
@@ -116,10 +116,10 @@ public class InventoryDomainTest {
         Department salesRoom = departmentFactory
                 .createDepartment(DepartmentCode.SALESROOM_CODE, "Sales Room");
         TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
-                TitleBuilder.createTitle().withISBN(new ISBN("90230707823"))
+                TitleInfoBuilder.createTitle().withISBN(new ISBN("90230707823"))
                         .withDescription("The Moon")
                         .build(),
-                TitleBuilder.createTitle().withISBN(new ISBN("93720702201"))
+                TitleInfoBuilder.createTitle().withISBN(new ISBN("93720702201"))
                         .withDescription("The Sun")
                         .build()
         );
@@ -143,11 +143,11 @@ public class InventoryDomainTest {
         bookstore.enableDepartment(departmentFactory.createDepartment(newDepartmentCode, "Coffee Saloon"));
         Department coffeeSaloon = bookstore.getDepartmentByCode(newDepartmentCode);
         TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
-                TitleBuilder.createTitle().withISBN(new ISBN("90231707823"))
+                TitleInfoBuilder.createTitle().withISBN(new ISBN("90231707823"))
                         .withDescription("Who's afraid of the wolf")
                         .inCategory(new Category("Infantil"))
                         .build(),
-                TitleBuilder.createTitle().withISBN(new ISBN("93721702201"))
+                TitleInfoBuilder.createTitle().withISBN(new ISBN("93721702201"))
                         .withDescription("A great reward")
                         .writtenBy(new Author("Finn Clive, Sarah Monk"))
                         .inCategory(new Category("Policial"))

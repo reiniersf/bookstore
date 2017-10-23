@@ -1,6 +1,6 @@
 package cu.pdi.bookstore.infrastructure;
 
-import cu.pdi.bookstore.config.AppConfig;
+import cu.pdi.bookstore.application.config.AppConfig;
 import cu.pdi.bookstore.domain.inventory.department.*;
 import static org.assertj.core.api.Assertions.*;
 

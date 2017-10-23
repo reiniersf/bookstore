@@ -1,10 +1,10 @@
-package cu.pdi.bookstore.domain.accounting.document.reception;
+package cu.pdi.bookstore.domain.accounting.reception;
 
 
 import cu.pdi.bookstore.domain.accounting.document.AccountingDocumentType;
-import cu.pdi.bookstore.domain.accounting.document.AccountingInfo;
+import cu.pdi.bookstore.domain.accounting.document.AccountingDocumentInfo;
 import cu.pdi.bookstore.domain.accounting.document.AccountingInfoHolder;
-import cu.pdi.bookstore.domain.accounting.document.transfer.DeliveryVoucher;
+import cu.pdi.bookstore.domain.accounting.transfer.DeliveryVoucher;
 import cu.pdi.bookstore.domain.kernel.Plan;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,8 +32,8 @@ public class ReceptionReport extends DeliveryVoucher implements AccountingInfoHo
     }
 
     @Override
-    public void includeAccountingInfo(AccountingInfo accountingInfo) {
-        ReceptionReportInfo receptionReportInfo = ((ReceptionReportInfo) accountingInfo);
+    public void includeAccountingInfo(AccountingDocumentInfo accountingDocumentInfo) {
+        ReceptionReportInfo receptionReportInfo = ((ReceptionReportInfo) accountingDocumentInfo);
         this.invoiceNumber = receptionReportInfo.getInvoiceNumber();
         this.plan = receptionReportInfo.getPlan();
         this.sourceWarehouse = receptionReportInfo.getSourceWarehouse();

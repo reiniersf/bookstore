@@ -1,9 +1,6 @@
 package cu.pdi.bookstore.domain.inventory.title;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Embeddable;
 import java.io.Serializable;
@@ -16,6 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Getter
+@EqualsAndHashCode
 public class EditionYear implements Serializable {
     @NonNull
     Integer editionYear;

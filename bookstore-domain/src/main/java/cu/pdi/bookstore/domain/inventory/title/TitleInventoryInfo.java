@@ -13,12 +13,12 @@ import java.io.Serializable;
  * on 8/27/17.
  */
 @Entity
-@Table(name = "title")
+@Table(name = "title_inventory_info")
 @Getter
 @AllArgsConstructor
 @RequiredArgsConstructor
 @NoArgsConstructor
-public class Title implements Serializable {
+public class TitleInventoryInfo implements Serializable {
     @EmbeddedId
     @NonNull
     @AttributeOverride(name = "isbnCode", column = @Column(name = "isbn_code"))
@@ -43,7 +43,7 @@ public class Title implements Serializable {
     Plan plan;
 
 
-    public Title(ISBN isbn) {
+    public TitleInventoryInfo(ISBN isbn) {
         this.isbn = isbn;
     }
 }

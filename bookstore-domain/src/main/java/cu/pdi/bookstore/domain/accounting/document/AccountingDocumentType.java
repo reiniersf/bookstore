@@ -1,11 +1,11 @@
 package cu.pdi.bookstore.domain.accounting.document;
 
-import cu.pdi.bookstore.domain.accounting.document.reception.ReceptionReport;
+import cu.pdi.bookstore.domain.accounting.reception.ReceptionReport;
 import cu.pdi.bookstore.domain.accounting.document.specs.DeliveryVoucherSpecification;
 import cu.pdi.bookstore.domain.accounting.document.specs.ReceptionReportSpecification;
 import cu.pdi.bookstore.domain.accounting.document.specs.SalesSummarySpecification;
 import cu.pdi.bookstore.domain.accounting.document.logs.TransferLog;
-import cu.pdi.bookstore.domain.accounting.document.transfer.DeliveryVoucher;
+import cu.pdi.bookstore.domain.accounting.transfer.DeliveryVoucher;
 import cu.pdi.bookstore.domain.kernel.specification.Specification;
 import cu.pdi.bookstore.infrastructure.exceptions.InvalidTransferException;
 
