@@ -11,12 +11,10 @@ import java.util.List;
 @Service
 public class Bookstore {
     private final DepartmentRepository departmentRepository;
-    private DepartmentFactory departmentFactory;
 
     @Autowired
     public Bookstore(DepartmentRepository departmentRepository, DepartmentFactory departmentFactory) {
         this.departmentRepository = departmentRepository;
-        this.departmentFactory = departmentFactory;
     }
 
     @Transactional
@@ -29,8 +27,7 @@ public class Bookstore {
     }
 
     public Department getDepartmentByCode(DepartmentCode departmentCode) {
-        return departmentFactory.reassembleDepartment(
-                departmentRepository.findDepartmentByCode(departmentCode));
+        return departmentRepository.findDepartmentByCode(departmentCode);
     }
 }
 

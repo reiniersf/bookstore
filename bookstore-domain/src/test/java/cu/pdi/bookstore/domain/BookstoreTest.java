@@ -60,11 +60,11 @@ public class BookstoreTest {
     public void shouldEnableANewDepartment() {
         //ToDo: Create Sales Room and Book Depot as default departments
         //GIVEN
-        Department bookDepot = departmentFactory.createDepartment(DepartmentCode.BOOKDEPOT_CODE, "Book Depot");
+        Department coffeeSaloon = departmentFactory.createDepartment(DepartmentCode.forCode("07"), "Coffee Saloon");
         //WHEN
-        bookstore.enableDepartment(bookDepot);
+        bookstore.enableDepartment(coffeeSaloon);
         //THEN
-        assertThat(departmentRepository.findDepartmentByCode(bookDepot.getCode())).isNotNull();
+        assertThat(departmentRepository.findDepartmentByCode(coffeeSaloon.getCode())).isNotNull();
     }
 
     /**
@@ -77,8 +77,7 @@ public class BookstoreTest {
     @Test
     public void shouldReceiveASupplyOfTitlesFromMainWarehouse() {
         //GIVEN
-        Department bookDepot = departmentFactory.createDepartment(DepartmentCode.BOOKDEPOT_CODE, "Book Depot");
-        bookstore.enableDepartment(bookDepot);
+        Department bookDepot = departmentFactory.bookDepotDepartment();
 
         Department warehouse = DepartmentFactory.WAREHOUSE;
 
@@ -132,11 +131,9 @@ public class BookstoreTest {
     @Test
     public void shouldTransferTitlesFromOneDepartmentToAnother() {
         //GIVEN
-        Department bookDepot = departmentFactory.createDepartment(DepartmentCode.BOOKDEPOT_CODE, "Book Depot");
-        bookstore.enableDepartment(bookDepot);
+        Department bookDepot = departmentFactory.bookDepotDepartment();
 
-        Department salesRoom = departmentFactory.createDepartment(DepartmentCode.SALESROOM_CODE, "Sales Room");
-        bookstore.enableDepartment(salesRoom);
+        Department salesRoom = departmentFactory.salesRoomDepartment();
 
         Department warehouse = DepartmentFactory.WAREHOUSE;
 
@@ -157,7 +154,7 @@ public class BookstoreTest {
 
         DeliveryVoucher receptionReport = deliveryVouchers.get(lastDocumentIndex - 1);
         documentService.completeDocument(receptionReport,
-                AccountingDocumentInfo.forReceptionReport(Consecutive.of("1"),
+                AccountingDocumentInfo.forReceptionReport(Consecutive.of("2"),
                         InvoiceNumber.of("21938123"),
                         Plan.withName("Regular"),
                         SourceWarehouse.withName("Central")));
@@ -179,10 +176,10 @@ public class BookstoreTest {
 
         //AND WHEN
         documentService.completeDocument(deliveryVoucher,
-                AccountingDocumentInfo.forDeliveryVoucher(Consecutive.of("2")));
+                AccountingDocumentInfo.forDeliveryVoucher(Consecutive.of("3")));
         //THEN
         deliveryVoucher = documentService.findDocumentWithConsecutive(deliveryVoucher.getConsecutive());
-        Assertions.assertThat(deliveryVoucher.getConsecutive()).isEqualTo(Consecutive.of("2"));
+        Assertions.assertThat(deliveryVoucher.getConsecutive()).isEqualTo(Consecutive.of("3"));
 
     }
 
@@ -197,11 +194,9 @@ public class BookstoreTest {
     @Test
     public void shouldRegisterSoldTitlesFromSalesDepartment() {
         //GIVEN
-        Department bookDepot = departmentFactory.createDepartment(DepartmentCode.BOOKDEPOT_CODE, "Book Depot");
-        bookstore.enableDepartment(bookDepot);
+        Department bookDepot = departmentFactory.bookDepotDepartment();
 
-        Department salesRoom = departmentFactory.createDepartment(DepartmentCode.SALESROOM_CODE, "Sales Room");
-        bookstore.enableDepartment(salesRoom);
+        Department salesRoom = departmentFactory.salesRoomDepartment();
 
         Department warehouse = DepartmentFactory.WAREHOUSE;
 
@@ -223,7 +218,7 @@ public class BookstoreTest {
 
         DeliveryVoucher receptionReport = deliveryVouchers.get(lastDocumentIndex - 1);
         documentService.completeDocument(receptionReport,
-                AccountingDocumentInfo.forReceptionReport(Consecutive.of("1"),
+                AccountingDocumentInfo.forReceptionReport(Consecutive.of("4"),
                         InvoiceNumber.of("21938123"),
                         Plan.withName("Regular"),
                         SourceWarehouse.withName("Central")));
@@ -235,7 +230,7 @@ public class BookstoreTest {
         currentDocumentAmount = lastDocumentIndex = deliveryVouchers.size();
 
         documentService.completeDocument(deliveryVoucher,
-                AccountingDocumentInfo.forDeliveryVoucher(Consecutive.of("2")));
+                AccountingDocumentInfo.forDeliveryVoucher(Consecutive.of("5")));
 
         TitleSale titleSale = TitleSetFactory.createTitleSaleBasedOnSupply(titleSupply);
 
@@ -254,12 +249,12 @@ public class BookstoreTest {
 
         //AND WHEN
         documentService.completeDocument(salesSummary,
-                AccountingDocumentInfo.forSalesSumary(Consecutive.of("3"),
+                AccountingDocumentInfo.forSalesSumary(Consecutive.of("6"),
                         SaleVoucherNumber.of("4"),
                         SaleVoucherNumber.of("8")));
         //THEN
         deliveryVoucher = documentService.findDocumentWithConsecutive(salesSummary.getConsecutive());
-        Assertions.assertThat(deliveryVoucher.getConsecutive()).isEqualTo(Consecutive.of("3"));
+        Assertions.assertThat(deliveryVoucher.getConsecutive()).isEqualTo(Consecutive.of("6"));
 
 
 

@@ -43,6 +43,8 @@ public class DepartmentFactory {
 
 
     };
+    public final static Department BOOK_DEPOT = new Department(DepartmentCode.BOOKDEPOT_CODE, "Book Depot");
+    public final static Department SALES_ROOM = new Department(DepartmentCode.SALESROOM_CODE, "Sales Room");
 
     private final DepartmentEventHandler departmentEventHandler;
     private final TitleService titleService;
@@ -52,6 +54,14 @@ public class DepartmentFactory {
         this.departmentEventHandler = departmentEventHandler;
         this.titleService = titleService;
         this.inventoryEntryService = inventoryEntryService;
+    }
+
+    public Department bookDepotDepartment() {
+        return reassembleDepartment(DepartmentFactory.BOOK_DEPOT);
+    }
+
+    public Department salesRoomDepartment() {
+        return reassembleDepartment(DepartmentFactory.SALES_ROOM);
     }
 
     public Department createDepartment(DepartmentCode departmentCode, String departmentName) {

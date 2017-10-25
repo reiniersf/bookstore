@@ -1,5 +1,6 @@
 package cu.pdi.bookstore.domain.accounting.reception;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Value;
@@ -10,6 +11,7 @@ import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
+@EqualsAndHashCode
 @Embeddable
 public class SourceWarehouse {
     private String warehouseName;

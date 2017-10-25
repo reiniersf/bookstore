@@ -1,9 +1,6 @@
 package cu.pdi.bookstore.domain.accounting.sales;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Value;
+import lombok.*;
 import org.springframework.util.Assert;
 
 import javax.persistence.Embeddable;
@@ -12,6 +9,7 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 @Embeddable
 public class SaleVoucherNumber {
     private String saleVoucherNumber;
