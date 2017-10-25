@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "document")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn( discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn( name = "document_type", discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue("0")
 public class DeliveryVoucher implements Serializable, AccountingInfoHolder {
 
@@ -28,10 +28,10 @@ public class DeliveryVoucher implements Serializable, AccountingInfoHolder {
     @Column(name = "created_at")
     protected LocalDateTime createdAt;
     @Getter
-    @AttributeOverride(name = "consecutiveValue", column = @Column(name = "consecutive"))
+    @AttributeOverride(name = "consecutiveValue", column = @Column(name = "consecutive",unique = true))
     protected Consecutive consecutive;
     @Getter
-    @Column(name = "document_type")
+    @Column(name = "accounting_document_type")
     protected AccountingDocumentType accountingDocumentType;
 
     @OneToMany(mappedBy = "accountingDocument",

@@ -1,6 +1,6 @@
 package cu.pdi.bookstore.domain.inventory.department.events;
 
-import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
+import cu.pdi.bookstore.domain.kernel.title.TitleSupply;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.kernel.event.ReceivedTitleSupplyEvent;
 

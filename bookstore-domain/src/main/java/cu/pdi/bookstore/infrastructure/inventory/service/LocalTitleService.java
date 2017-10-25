@@ -1,10 +1,11 @@
 package cu.pdi.bookstore.infrastructure.inventory.service;
 
+import cu.pdi.bookstore.domain.accounting.title.TitleAccountingInfo;
 import cu.pdi.bookstore.domain.inventory.title.TitleInventoryInfo;
 import cu.pdi.bookstore.domain.inventory.title.TitleRepository;
 import cu.pdi.bookstore.domain.inventory.title.TitleService;
 import cu.pdi.bookstore.domain.kernel.ISBN;
-import cu.pdi.bookstore.domain.kernel.TitleInfo;
+import cu.pdi.bookstore.domain.kernel.title.TitleInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,5 +46,10 @@ public class LocalTitleService implements TitleService {
     @Override
     public List<TitleInventoryInfo> getTitlesInfo(List<ISBN> isbnList) {
         return titleRepository.findRegisteredTitlesIn(new HashSet<>(isbnList));
+    }
+
+    @Override
+    public TitleAccountingInfo accountingInfoForTitle(ISBN isbn) {
+        return titleRepository.getAccountingInfoByIsbn(isbn);
     }
 }

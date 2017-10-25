@@ -3,9 +3,10 @@
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
-        <fileset id="fileset" name="Spring Application Context" removed="false" profiles="dev">
-          <file>file://$MODULE_DIR$/src/main/java/cu/pdi/bookstore/config/AppConfig.java</file>
-          <file>file://$MODULE_DIR$/src/main/java/cu/pdi/bookstore/config/AppPersistenceConfig.java</file>
+        <fileset id="fileset" name="Spring Application Context" removed="false" profiles="dev" />
+        <fileset id="fileset2" name="Spring Application Context (2)" removed="false">
+          <file>file://$MODULE_DIR$/src/main/java/cu/pdi/bookstore/application/config/AppConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/cu/pdi/bookstore/application/config/AppPersistenceConfig.java</file>
         </fileset>
       </configuration>
     </facet>

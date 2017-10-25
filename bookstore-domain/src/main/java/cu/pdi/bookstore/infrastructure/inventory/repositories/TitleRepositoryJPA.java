@@ -37,4 +37,9 @@ public class TitleRepositoryJPA implements TitleRepository {
     public void saveAccountingInfo(TitleAccountingInfo titleAccountingInfo) {
         entityManager.persist(titleAccountingInfo);
     }
+
+    @Override
+    public TitleAccountingInfo getAccountingInfoByIsbn(ISBN isbn) {
+        return entityManager.find(TitleAccountingInfo.class, isbn);
+    }
 }

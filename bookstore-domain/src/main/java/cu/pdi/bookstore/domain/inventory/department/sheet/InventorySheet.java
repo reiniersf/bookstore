@@ -38,6 +38,6 @@ public class InventorySheet {
                 titleInventoryInfo.getDescription(),
                 titleInventoryInfo.getWrittenBy().getAuthors(),
                 titleInventoryInfo.getCategory().getCategoryName(),
-                inventoryEntryStock.getAmount()));
+                inventoryEntryStock.getStockAmount()));
     }
 }

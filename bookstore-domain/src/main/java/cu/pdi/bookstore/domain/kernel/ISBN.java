@@ -19,14 +19,12 @@ import java.io.Serializable;
 public class ISBN implements Serializable {
     private String isbnCode;
 
-    public ISBN(String codigoISBN){
-        Assert.notNull(codigoISBN,"ISBN must not be null");
-        this.isbnCode = codigoISBN;
+    public ISBN(String isbnCode){
+        Assert.notNull(isbnCode,"ISBN must not be null");
+        this.isbnCode = isbnCode;
     }
 
-    /*
-    @Override
-    public boolean equals(Object isbn) {
-        return isbn instanceof ISBN && this.isbnCode.equals(((ISBN)isbn).getIsbnCode());
-    }*/
+    public static ISBN of(String isbnCode){
+        return new ISBN(isbnCode);
+    }
 }

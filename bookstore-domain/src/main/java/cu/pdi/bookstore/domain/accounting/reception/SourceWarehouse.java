@@ -1,21 +1,20 @@
 package cu.pdi.bookstore.domain.accounting.reception;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 import org.springframework.util.Assert;
 
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
-@Value
+@Getter
+@NoArgsConstructor
 @Embeddable
 public class SourceWarehouse {
     private String warehouseName;
 
-    public SourceWarehouse() {
-        this.warehouseName = "";
-    }
-
-    public SourceWarehouse(String warehouseName) {
+    private SourceWarehouse(String warehouseName) {
         this.warehouseName = warehouseName;
     }
 

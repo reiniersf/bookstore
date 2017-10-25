@@ -2,7 +2,7 @@ package cu.pdi.bookstore.domain.inventory.department.specs;
 
 import cu.pdi.bookstore.domain.inventory.department.Department;
 import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntry;
-import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
+import cu.pdi.bookstore.domain.kernel.title.TitleSet;
 import cu.pdi.bookstore.domain.kernel.specification.Specification;
 
 import java.util.List;
@@ -13,13 +13,13 @@ import java.util.List;
  */
 public class StockAvailabilitySpecification implements Specification<Department> {
 
-    private TitleSupply titleSupply;
+    private TitleSet titleSet;
 
-    private StockAvailabilitySpecification(TitleSupply titleSupply) {
-        this.titleSupply = titleSupply;
+    private StockAvailabilitySpecification(TitleSet titleSet) {
+        this.titleSet = titleSet;
     }
 
-    public static StockAvailabilitySpecification of(TitleSupply titleSupply) {
+    public static StockAvailabilitySpecification of(TitleSet titleSupply) {
         return new StockAvailabilitySpecification(titleSupply);
     }
 
@@ -28,11 +28,11 @@ public class StockAvailabilitySpecification implements Specification<Department>
         if (ExternalDepartmentSpecification.instance().isSatisfiedBy(department)) {
             return true;
         } else {
-            List<InventoryEntry> inventoryEntries = department.listExistentEntriesForTitles(titleSupply.titlesISBN());
+            List<InventoryEntry> inventoryEntries = department.listExistentEntriesForTitles(titleSet.titlesISBN());
 
             return inventoryEntries.stream()
                     .anyMatch((InventoryEntry inventoryEntry) ->
-                            inventoryEntry.getCurrentStock().isGreaterEqualThan(titleSupply.getStockForTitle(inventoryEntry.getTitle())));
+                            inventoryEntry.getCurrentStock().isGreaterEqualThan(titleSet.getStockForTitle(inventoryEntry.getTitle())));
         }
     }
 }

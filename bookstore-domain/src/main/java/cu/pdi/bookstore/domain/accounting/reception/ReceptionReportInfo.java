@@ -5,10 +5,7 @@ import cu.pdi.bookstore.domain.accounting.document.Consecutive;
 import cu.pdi.bookstore.domain.kernel.Plan;
 import lombok.Getter;
 
-import javax.persistence.Embeddable;
-
 @Getter
-@Embeddable
 public class ReceptionReportInfo extends AccountingDocumentInfo {
 
     private final InvoiceNumber invoiceNumber;

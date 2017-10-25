@@ -1,11 +1,14 @@
 package cu.pdi.bookstore.domain.accounting.document.logs;
 
 
+
+import cu.pdi.bookstore.domain.accounting.sales.IncomeCalculator;
 import cu.pdi.bookstore.domain.accounting.transfer.DeliveryVoucher;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.kernel.Stock;
 import cu.pdi.bookstore.domain.kernel.ISBN;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,7 +22,7 @@ import java.time.LocalDateTime;
 @Table(name = "transfer_entry")
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@FieldDefaults(level = AccessLevel.PROTECTED)
 public class TransferLog {
     @Setter
     @Id
@@ -35,7 +38,8 @@ public class TransferLog {
     @AttributeOverride(name = "isbnCode", column = @Column(name = "isbn_code"))
     ISBN title;
     @Embedded
-    Stock amount;
+    @AttributeOverride(name = "stockAmount", column = @Column(name = "stock_quantity"))
+    Stock stock;
     @Column(name = "created_at")
     LocalDateTime createdAt;
 
@@ -43,12 +47,21 @@ public class TransferLog {
     @ManyToOne
     DeliveryVoucher accountingDocument;
 
+    @Transient
+    IncomeCalculator saleIncomeCalculator;
 
-    TransferLog(DepartmentCode from, DepartmentCode to, ISBN isbn, Stock stockForTitle) {
+    @Builder
+    TransferLog(DepartmentCode from, DepartmentCode to,
+                ISBN isbn, Stock stockForTitle, IncomeCalculator incomeCalculator) {
         this.from = from;
         this.to = to;
         this.title = isbn;
-        this.amount = stockForTitle;
+        this.stock = stockForTitle;
         this.createdAt = LocalDateTime.now();
+        this.saleIncomeCalculator = incomeCalculator;
+    }
+
+    public double saleIncome() {
+        return saleIncomeCalculator.ofTransfer(this);
     }
 }

@@ -7,12 +7,13 @@ import cu.pdi.bookstore.domain.inventory.department.events.AReceivedTitleSupplyE
 import cu.pdi.bookstore.domain.inventory.department.events.DepartmentEventHandler;
 import cu.pdi.bookstore.domain.inventory.department.sheet.AnInventorySheet;
 import cu.pdi.bookstore.domain.inventory.department.sheet.InventorySheet;
-import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
+import cu.pdi.bookstore.domain.kernel.title.TitleSupply;
 import cu.pdi.bookstore.domain.inventory.title.TitleService;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.kernel.ISBN;
 import cu.pdi.bookstore.domain.inventory.department.specs.ExternalDepartmentSpecification;
 import cu.pdi.bookstore.domain.inventory.department.specs.StockAvailabilitySpecification;
+import cu.pdi.bookstore.domain.kernel.title.TitleSet;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -93,7 +94,7 @@ public class Department implements Serializable {
 
             // update stock on origin department
             if (not(ExternalDepartmentSpecification.instance()).isSatisfiedBy(originDepartment))
-                originDepartment.updateStock(titleSupply);
+                originDepartment.decreaseDepartmentStock(titleSupply);
 
             //...and notifies that all operations was done...
             departmentEventHandler.notify(
@@ -101,13 +102,13 @@ public class Department implements Serializable {
         }
     }
 
-    private void updateStock(TitleSupply titleSupply) {
+    public void decreaseDepartmentStock(TitleSet titleSet) {
         List<InventoryEntry> selectedInventoryEntries = inventoryEntryService
-                .searchEntriesForTitlesIn(titleSupply.titlesISBN(), this.code);
+                .searchEntriesForTitlesIn(titleSet.titlesISBN(), this.code);
 
         selectedInventoryEntries.forEach((InventoryEntry inventoryEntry)
                 -> inventoryEntryService.decreaseStock(inventoryEntry,
-                titleSupply.getStockForTitle(inventoryEntry.getTitle())));
+                titleSet.getStockForTitle(inventoryEntry.getTitle())));
     }
 
     public boolean hasEntriesForTitles(Set<ISBN> isbnList) {

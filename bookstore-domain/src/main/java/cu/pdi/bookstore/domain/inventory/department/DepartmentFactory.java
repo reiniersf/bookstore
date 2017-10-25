@@ -2,7 +2,7 @@ package cu.pdi.bookstore.domain.inventory.department;
 
 import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntryService;
 import cu.pdi.bookstore.domain.inventory.department.events.DepartmentEventHandler;
-import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
+import cu.pdi.bookstore.domain.kernel.title.TitleSupply;
 import cu.pdi.bookstore.domain.inventory.title.TitleService;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.kernel.ISBN;

@@ -9,6 +9,6 @@ import cu.pdi.bookstore.domain.kernel.Stock;
  * Created by taiyou
  * on 8/29/17.
  */
-public interface TransferLogRepository {
+public interface BookstoreLogRepository {
     TransferLog logTransfer(DepartmentCode from, DepartmentCode to, ISBN isbn, Stock stockForTitle);
 }

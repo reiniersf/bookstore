@@ -1,22 +1,20 @@
 package cu.pdi.bookstore.domain.kernel.event;
 
-import cu.pdi.bookstore.domain.kernel.title.TitleSupply;
+import cu.pdi.bookstore.domain.kernel.title.TitleSale;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-/**
- * Created by taiyou
- * on 9/3/17.
- */
-@Getter
+import java.time.LocalDateTime;
+
 @RequiredArgsConstructor
-public class ReceivedTitleSupplyEvent implements BookstoreEvent{
+@Getter
+public class SoldTitleEvent implements BookstoreEvent{
     @NonNull
-    DepartmentCode from;
+    private DepartmentCode from;
     @NonNull
-    DepartmentCode to;
+    private TitleSale titleSale;
     @NonNull
-    TitleSupply titleSupply;
+    LocalDateTime soldAt;
 }

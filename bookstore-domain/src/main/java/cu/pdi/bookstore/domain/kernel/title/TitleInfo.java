@@ -1,7 +1,9 @@
-package cu.pdi.bookstore.domain.kernel;
+package cu.pdi.bookstore.domain.kernel.title;
 
 import cu.pdi.bookstore.domain.accounting.title.*;
 import cu.pdi.bookstore.domain.inventory.title.*;
+import cu.pdi.bookstore.domain.kernel.ISBN;
+import cu.pdi.bookstore.domain.kernel.Plan;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

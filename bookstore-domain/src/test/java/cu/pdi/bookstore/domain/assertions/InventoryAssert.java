@@ -2,7 +2,7 @@ package cu.pdi.bookstore.domain.assertions;
 
 import cu.pdi.bookstore.domain.inventory.department.Department;
 import cu.pdi.bookstore.domain.inventory.department.entry.InventoryEntry;
-import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
+import cu.pdi.bookstore.domain.kernel.title.TitleSupply;
 import org.assertj.core.api.AbstractAssert;
 
 /**

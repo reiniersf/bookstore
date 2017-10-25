@@ -4,7 +4,7 @@ import cu.pdi.bookstore.application.config.AppConfig;
 import cu.pdi.bookstore.domain.builders.TitleInfoBuilder;
 import cu.pdi.bookstore.domain.inventory.title.*;
 import cu.pdi.bookstore.domain.kernel.ISBN;
-import cu.pdi.bookstore.domain.kernel.TitleInfo;
+import cu.pdi.bookstore.domain.kernel.title.TitleInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class PersistTitleTest {
     @Test
     public void shouldPersistTheTitle() {
         TitleInfo titleInfo = TitleInfoBuilder.createTitle()
-                .withISBN(new ISBN("5648795214354"))
+                .withISBN(ISBN.of("5648795214354"))
                 .withDescription("Marvelous World")
                 .writtenBy(new Author("Sam Hustling"))
                 .inCategory(new Category("Infantil"))

@@ -26,6 +26,7 @@ public class InventoryEntry implements Serializable {
     @EmbeddedId
     private InventoryEntryId inventoryEntryId;
     @Embedded
+    @AttributeOverride(name = "stockAmount", column = @Column(name = "stock_quantity"))
     private Stock currentStock;
 
 

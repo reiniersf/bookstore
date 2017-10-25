@@ -5,10 +5,13 @@ import cu.pdi.bookstore.domain.accounting.title.Price;
 import cu.pdi.bookstore.domain.inventory.title.*;
 import cu.pdi.bookstore.domain.kernel.ISBN;
 import cu.pdi.bookstore.domain.kernel.Plan;
-import cu.pdi.bookstore.domain.kernel.TitleInfo;
+import cu.pdi.bookstore.domain.kernel.title.TitleInfo;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 
 import java.util.Random;
 
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class TitleInfoBuilder {
 
     private ISBN isbn;
@@ -22,7 +25,7 @@ public class TitleInfoBuilder {
     Amount amount;
 
     private TitleInfoBuilder() {
-        this.isbn = new ISBN(String.valueOf(new Random(11111111111L).nextLong()));
+        this.isbn = ISBN.of(String.valueOf(new Random(11111111111L).nextLong()));
         this.description = "The Book TitleInventoryInfo";
         this.writtenBy = new Author("Anonymous");
         this.editedBy = new Editorial("Cannaime");

@@ -17,4 +17,6 @@ public interface TitleRepository {
     void saveInventoryInfo(TitleInventoryInfo titleInventoryInfo);
 
     void saveAccountingInfo(TitleAccountingInfo titleAccountingInfo);
+
+    TitleAccountingInfo getAccountingInfoByIsbn(ISBN isbn);
 }

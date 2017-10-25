@@ -3,13 +3,13 @@ package cu.pdi.bookstore.domain;
 import cu.pdi.bookstore.application.config.AppConfig;
 import cu.pdi.bookstore.domain.accounting.transfer.DeliveryVoucher;
 import cu.pdi.bookstore.domain.accounting.document.AccountingDocumentService;
-import cu.pdi.bookstore.domain.accounting.document.logs.TransferLogService;
+import cu.pdi.bookstore.domain.accounting.document.logs.BookstoreLogService;
 import cu.pdi.bookstore.domain.builders.TitleInfoBuilder;
-import cu.pdi.bookstore.domain.builders.TitleSupplyFactory;
+import cu.pdi.bookstore.domain.builders.TitleSetFactory;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.inventory.department.events.DepartmentEventHandler;
 import cu.pdi.bookstore.domain.inventory.department.events.AReceivedTitleSupplyEvent;
-import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
+import cu.pdi.bookstore.domain.kernel.title.TitleSupply;
 import cu.pdi.bookstore.domain.inventory.title.Author;
 import cu.pdi.bookstore.domain.inventory.title.EditionYear;
 import cu.pdi.bookstore.domain.kernel.ISBN;
@@ -32,7 +32,7 @@ public class AccountingDomainTest {
     private DepartmentEventHandler departmentEventHandler;
 
     @Autowired
-    private TransferLogService transferEntryService;
+    private BookstoreLogService transferEntryService;
 
     @Autowired
     private AccountingDocumentService documentService;
@@ -44,9 +44,9 @@ public class AccountingDomainTest {
     @Test
     public void shouldCreateADocumentWhenATransferHappen() {
         //GIVEN
-        TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
+        TitleSupply titleSupply = TitleSetFactory.createTitleSupplyForTitles(
                 TitleInfoBuilder.createTitle()
-                        .withISBN(new ISBN("901238381293"))
+                        .withISBN(ISBN.of("901238381293"))
                         .withDescription("A new way")
                         .editedInYear(new EditionYear(2000))
                         .build(),

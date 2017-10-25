@@ -3,6 +3,8 @@ package cu.pdi.bookstore.domain.accounting.document;
 import cu.pdi.bookstore.domain.accounting.reception.InvoiceNumber;
 import cu.pdi.bookstore.domain.accounting.reception.ReceptionReportInfo;
 import cu.pdi.bookstore.domain.accounting.reception.SourceWarehouse;
+import cu.pdi.bookstore.domain.accounting.sales.SaleVoucherNumber;
+import cu.pdi.bookstore.domain.accounting.sales.SalesSummaryInfo;
 import cu.pdi.bookstore.domain.accounting.transfer.DeliveryVoucherInfo;
 import cu.pdi.bookstore.domain.kernel.Plan;
 import lombok.Getter;
@@ -22,5 +24,9 @@ public abstract class AccountingDocumentInfo {
 
     public static AccountingDocumentInfo forDeliveryVoucher(Consecutive consecutive) {
         return new DeliveryVoucherInfo(consecutive);
+    }
+
+    public static AccountingDocumentInfo forSalesSumary(Consecutive consecutive, SaleVoucherNumber initialSaleVoucherNumber, SaleVoucherNumber finalSaleVoucherNumber) {
+        return new SalesSummaryInfo(consecutive, initialSaleVoucherNumber, finalSaleVoucherNumber);
     }
 }

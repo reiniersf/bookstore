@@ -2,10 +2,10 @@ package cu.pdi.bookstore.domain;
 
 import cu.pdi.bookstore.application.config.AppConfig;
 import cu.pdi.bookstore.domain.builders.TitleInfoBuilder;
-import cu.pdi.bookstore.domain.builders.TitleSupplyFactory;
+import cu.pdi.bookstore.domain.builders.TitleSetFactory;
 import cu.pdi.bookstore.domain.inventory.department.*;
 import cu.pdi.bookstore.domain.inventory.department.sheet.InventorySheet;
-import cu.pdi.bookstore.domain.inventory.supply.TitleSupply;
+import cu.pdi.bookstore.domain.kernel.title.TitleSupply;
 import cu.pdi.bookstore.domain.inventory.title.Author;
 import cu.pdi.bookstore.domain.inventory.title.Category;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
@@ -51,7 +51,7 @@ public class InventoryDomainTest {
         Department bookDepot = departmentFactory
                 .createDepartment(DepartmentCode.BOOKDEPOT_CODE, "Books Depot");
         Department warehouse = DepartmentFactory.WAREHOUSE;
-        TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
+        TitleSupply titleSupply = TitleSetFactory.createTitleSupplyForTitles(
                 TitleInfoBuilder.createTitle().withISBN(new ISBN("90238127823"))
                 .withDescription("The Hollow")
                 .build(),
@@ -82,7 +82,7 @@ public class InventoryDomainTest {
                 .createDepartment(DepartmentCode.BOOKDEPOT_CODE, "Books Depot");
         Department salesRoom = departmentFactory
                 .createDepartment(DepartmentCode.SALESROOM_CODE, "Sales Room");
-        TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
+        TitleSupply titleSupply = TitleSetFactory.createTitleSupplyForTitles(
                 TitleInfoBuilder.createTitle().withISBN(new ISBN("90230007823"))
                         .withDescription("The Book")
                         .build(),
@@ -115,7 +115,7 @@ public class InventoryDomainTest {
                 .createDepartment(DepartmentCode.BOOKDEPOT_CODE, "Books Depot");
         Department salesRoom = departmentFactory
                 .createDepartment(DepartmentCode.SALESROOM_CODE, "Sales Room");
-        TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
+        TitleSupply titleSupply = TitleSetFactory.createTitleSupplyForTitles(
                 TitleInfoBuilder.createTitle().withISBN(new ISBN("90230707823"))
                         .withDescription("The Moon")
                         .build(),
@@ -142,7 +142,7 @@ public class InventoryDomainTest {
         DepartmentCode newDepartmentCode = DepartmentCode.forCode("04");
         bookstore.enableDepartment(departmentFactory.createDepartment(newDepartmentCode, "Coffee Saloon"));
         Department coffeeSaloon = bookstore.getDepartmentByCode(newDepartmentCode);
-        TitleSupply titleSupply = TitleSupplyFactory.createTitleSupplyForTitles(
+        TitleSupply titleSupply = TitleSetFactory.createTitleSupplyForTitles(
                 TitleInfoBuilder.createTitle().withISBN(new ISBN("90231707823"))
                         .withDescription("Who's afraid of the wolf")
                         .inCategory(new Category("Infantil"))

@@ -1,21 +1,20 @@
 package cu.pdi.bookstore.domain.accounting.reception;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 import org.springframework.util.Assert;
 
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
-@Value
+@Getter
+@NoArgsConstructor
 @Embeddable
 public class InvoiceNumber {
     private String invoiceNumber;
 
-    public InvoiceNumber(){
-        this.invoiceNumber = "";
-    }
-
-    public InvoiceNumber(String invoiceNumberValue) {
+    private InvoiceNumber(String invoiceNumberValue) {
         this.invoiceNumber = invoiceNumberValue;
     }
 

@@ -15,23 +15,27 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 public class Stock implements Serializable {
-    private Integer amount;
+    private Integer stockAmount;
 
-    public Stock(Integer amount) {
-        Assert.notNull(amount, "The stock must not be null");
-        Assert.isTrue(amount >= 0, "The stock must be greater than 0");
-        this.amount = amount;
+    public Stock(Integer stockAmount) {
+        Assert.notNull(stockAmount, "The stock must not be null");
+        Assert.isTrue(stockAmount >= 0, "The stock must be greater than 0");
+        this.stockAmount = stockAmount;
+    }
+
+    public static Stock of(Integer stock){
+        return new Stock(stock);
     }
 
     public boolean isGreaterEqualThan(Stock stockForTitle) {
-        return amount >= stockForTitle.amount;
+        return stockAmount >= stockForTitle.stockAmount;
     }
 
     public Stock add(Stock stockForTitle) {
-        return new Stock(this.amount + stockForTitle.amount);
+        return new Stock(this.stockAmount + stockForTitle.stockAmount);
     }
 
     public Stock minus(Stock stockForTitle) {
-        return new Stock(this.amount - stockForTitle.amount);
+        return new Stock(this.stockAmount - stockForTitle.stockAmount);
     }
 }

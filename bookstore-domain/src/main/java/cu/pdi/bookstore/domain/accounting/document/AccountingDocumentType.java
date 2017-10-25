@@ -5,6 +5,7 @@ import cu.pdi.bookstore.domain.accounting.document.specs.DeliveryVoucherSpecific
 import cu.pdi.bookstore.domain.accounting.document.specs.ReceptionReportSpecification;
 import cu.pdi.bookstore.domain.accounting.document.specs.SalesSummarySpecification;
 import cu.pdi.bookstore.domain.accounting.document.logs.TransferLog;
+import cu.pdi.bookstore.domain.accounting.sales.SalesSummary;
 import cu.pdi.bookstore.domain.accounting.transfer.DeliveryVoucher;
 import cu.pdi.bookstore.domain.kernel.specification.Specification;
 import cu.pdi.bookstore.infrastructure.exceptions.InvalidTransferException;
@@ -31,7 +32,7 @@ public enum AccountingDocumentType {
 
         @Override
         public DeliveryVoucher createAccountingDocument() {
-            return null;
+            return new SalesSummary();
         }
     },
     RECEPTION_REPORT {
