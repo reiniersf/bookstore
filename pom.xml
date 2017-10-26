@@ -6,6 +6,7 @@
   <version>1.0-SNAPSHOT</version>
   <modules>
     <module>bookstore-domain</module>
+    <module>bookstore-fx-ui</module>
   </modules>
   <packaging>pom</packaging>
   <name>booktore-root</name>

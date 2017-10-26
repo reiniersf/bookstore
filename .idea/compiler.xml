@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="bookstore-domain" />
+        <module name="bookstore-fx-ui" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
       <module name="bookstore-domain" target="1.8" />
+      <module name="bookstore-fx-ui" target="1.8" />
       <module name="bookstore-root" target="1.8" />
     </bytecodeTargetLevel>
   </component>
