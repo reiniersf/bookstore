@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.StackPane?>
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cu.pdi.bookstore.main.WorkspaceController">
+    <top>
+        <VBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                <Pane prefHeight="200.0" prefWidth="200.0" />
+                <Separator orientation="VERTICAL" />
+
+                <Pane prefHeight="200.0" prefWidth="200.0" />
+                <Separator orientation="VERTICAL" />
+
+                <Pane prefHeight="200.0" prefWidth="200.0">
+                </Pane>
+                <Separator orientation="VERTICAL" />
+
+                <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+
+            </HBox>
+            <HBox prefHeight="10.0" prefWidth="200.0" BorderPane.alignment="BOTTOM_CENTER" fx:id="menuTitles">
+                <StackPane styleClass="menu-title" prefHeight="200.0" prefWidth="200.0">
+                    <Label textAlignment="CENTER">Inventario</Label>
+
+                </StackPane>
+                <Separator orientation="VERTICAL" />
+                <StackPane styleClass="menu-title" prefHeight="200.0" prefWidth="200.0">
+                    <Label textAlignment="CENTER">Contabilidad</Label>
+                </StackPane>
+                <Separator orientation="VERTICAL" />
+                <StackPane styleClass="menu-title" prefHeight="200.0" prefWidth="200.0">
+                    <Label textAlignment="CENTER">Reportes</Label>
+                </StackPane>
+                <Separator orientation="VERTICAL" />
+                <StackPane styleClass="menu-title" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                    <Label textAlignment="CENTER">Administración</Label>
+                </StackPane>
+
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+
+    </center>
+    <bottom>
+        <FlowPane alignment="BASELINE_LEFT" hgap="7" nodeOrientation="RIGHT_TO_LEFT" BorderPane.alignment="CENTER">
+            <Button>Cambiar Contraseña</Button>
+            <Separator orientation="VERTICAL" />
+            <Label>Nombre completo</Label>
+            <Separator orientation="VERTICAL" />
+            <Label>Rol</Label>
+        </FlowPane>
+    </bottom>
+</BorderPane>
