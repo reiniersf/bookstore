@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>booktore-root</artifactId>
+        <artifactId>bookstore-root</artifactId>
         <groupId>cu.pdi.bookstore</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -35,7 +35,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>8.6.0</version>
                 <configuration>
-                    <mainClass>cu.pdi.bookstore.MainApp</mainClass>
+                    <mainClass>cu.pdi.bookstore.fx.MainApp</mainClass>
                     <verbose>true</verbose>
                 </configuration>
                 <executions>
@@ -47,7 +47,7 @@
                         </goals>
                         <configuration>
 
-                            <mainClass>cu.pdi.bookstore.MainApp</mainClass>
+                            <mainClass>cu.pdi.bookstore.fx.MainApp</mainClass>
 
                             <!-- only required if signing the jar file -->
                             <!--<keyStoreAlias>example-user</keyStoreAlias>-->
@@ -103,6 +103,16 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.3.8.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>cu.pdi.bookstore</groupId>
+            <artifactId>bookstore-domain</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
     </dependencies>

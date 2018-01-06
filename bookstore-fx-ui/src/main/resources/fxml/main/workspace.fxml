@@ -12,15 +12,15 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="cu.pdi.bookstore.main.WorkspaceController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="cu.pdi.bookstore.fx.gui.main.WorkspaceController">
     <top>
         <VBox>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                 <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="200.0" spacing="4.0">
-                    <Button graphicTextGap="2.0" prefHeight="26.0" prefWidth="147.0">
+                    <Button graphicTextGap="2.0" prefHeight="26.0" prefWidth="147.0" fx:id="btnInvAlmacen">
                         Almacén
                     </Button>
-                    <Button lineSpacing="5.0" prefHeight="26.0" prefWidth="147.0">
+                    <Button lineSpacing="5.0" prefHeight="26.0" prefWidth="147.0" fx:id="btnInvGeneral">
                         General
                     </Button>
                     <padding>

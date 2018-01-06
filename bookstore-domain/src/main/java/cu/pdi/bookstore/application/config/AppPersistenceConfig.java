@@ -50,7 +50,7 @@ public class AppPersistenceConfig {
     }
 
     @Bean
-    @Profile("dev")
+    @Profile({"dev", "default"})
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         adapter.setDatabase(Database.POSTGRESQL);
@@ -61,7 +61,7 @@ public class AppPersistenceConfig {
     }
 
     @Bean
-    @Profile("dev")
+    @Profile({"dev", "default"})
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setDriverClassName("org.postgresql.Driver");
