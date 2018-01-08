@@ -1,7 +1,7 @@
 package cu.pdi.bookstore.fx;
 
 import cu.pdi.bookstore.fx.application.config.FxAppConfig;
-import cu.pdi.bookstore.fx.gui.BookstoreLauncher;
+import cu.pdi.bookstore.fx.gui.LauncherBookstore;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
@@ -15,8 +15,9 @@ public class MainApp extends Application {
 
     public void start(Stage stage) throws Exception {
 
+        System.setProperty("spring.profiles.active", "dev");
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(FxAppConfig.class);
-        BookstoreLauncher bookstoreLauncher = applicationContext.getBean(BookstoreLauncher.class);
+        LauncherBookstore bookstoreLauncher = applicationContext.getBean(LauncherBookstore.class);
         bookstoreLauncher.launchApp(stage);
 
     }

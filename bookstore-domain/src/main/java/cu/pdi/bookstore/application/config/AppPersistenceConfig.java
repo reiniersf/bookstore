@@ -49,9 +49,10 @@ public class AppPersistenceConfig {
         return emfb;
     }
 
+
     @Bean
-    @Profile({"dev", "default"})
-    public JpaVendorAdapter jpaVendorAdapter() {
+    @Profile({"dev"})
+    public JpaVendorAdapter jpaVendorAdapterDev() {
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         adapter.setDatabase(Database.POSTGRESQL);
         adapter.setShowSql(true);
@@ -61,7 +62,18 @@ public class AppPersistenceConfig {
     }
 
     @Bean
-    @Profile({"dev", "default"})
+    @Profile("prod")
+    public JpaVendorAdapter jpaVendorAdapter() {
+        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+        adapter.setDatabase(Database.DERBY);
+        adapter.setShowSql(true);
+        adapter.setGenerateDdl(false);
+        adapter.setDatabasePlatform("org.hibernate.dialect.DerbyTenSevenDialect");
+        return adapter;
+    }
+
+    @Bean
+    @Profile({"dev"})
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setDriverClassName("org.postgresql.Driver");
