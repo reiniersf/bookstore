@@ -56,9 +56,10 @@ public class DataBaseLM implements LoginModule {
         this.callbackHandler = ch;
         this.sharedState = sharedState;
         this.options = options;
-        jaasSecurityRepository = new AnnotationConfigApplicationContext(InternalBeansConfig.class).getBean(JaasSecurityRepository.class);
+        jaasSecurityRepository = new AnnotationConfigApplicationContext(InternalBeansConfig.class)
+                .getBean(JaasSecurityRepository.class);
         jaasSecurityRepository.initQueries(options);
-
+        initAdminUser();
         debug = "true".equalsIgnoreCase((String) options.get("debug"));
     }
 

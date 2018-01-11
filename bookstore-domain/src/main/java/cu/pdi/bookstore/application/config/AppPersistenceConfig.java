@@ -73,7 +73,7 @@ public class AppPersistenceConfig {
     }
 
     @Bean
-    @Profile({"dev"})
+    @Profile("dev")
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setDriverClassName("org.postgresql.Driver");

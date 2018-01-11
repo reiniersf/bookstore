@@ -1,6 +1,7 @@
 package cu.pdi.bookstore.fx.gui;
 
 import cu.pdi.bookstore.fx.MainApp;
+import cu.pdi.bookstore.fx.components.security.annotation.LoginRequired;
 import cu.pdi.bookstore.fx.components.ui.FXMLLocator;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,7 +24,7 @@ public class LauncherBookstore {
         this.fxmlLocator = fxmlLocator;
     }
 
-
+    @LoginRequired
     public void launchApp(Stage stage) throws IOException {
         log.info("Starting Bookstore JavaFX application");
 
@@ -38,7 +39,4 @@ public class LauncherBookstore {
         stage.show();
     }
 
-    public void aMethod(){
-
-    }
 }

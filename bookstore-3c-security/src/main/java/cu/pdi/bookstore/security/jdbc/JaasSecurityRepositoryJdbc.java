@@ -4,7 +4,8 @@ import cu.pdi.bookstore.security.Encriptador;
 import cu.pdi.bookstore.security.entities.SecurityPerson;
 import cu.pdi.bookstore.security.entities.SecurityRole;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.RowCallbackHandler;
+import org.springframework.jdbc.core.StatementCallback;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -36,9 +37,9 @@ public class JaasSecurityRepositoryJdbc implements JaasSecurityRepository {
         params.put("user", username);
         params.put("pass", password);
         List<SecurityPerson> securityPeople = namedParameterJdbcTemplate.query(queries.get("userQuery"), params, (ResultSet resultSet, int i) ->
-                new SecurityPerson(resultSet.getString("nombre"),
-                        resultSet.getString("primer_apellido"),
-                        resultSet.getString("segundo_apellido"))
+                new SecurityPerson(resultSet.getString("first_name"),
+                        resultSet.getString("middle_name"),
+                        resultSet.getString("last_name"))
         );
         return Optional.of(securityPeople.get(0));
     }
@@ -48,34 +49,48 @@ public class JaasSecurityRepositoryJdbc implements JaasSecurityRepository {
         Map<String, String> params = new HashMap<>();
         params.put("user", username);
 
-        List<SecurityRole> securityRoles = namedParameterJdbcTemplate.query(queries.get("roleQuery"), params, new RowMapper<SecurityRole>() {
-            @Override
-            public SecurityRole mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new SecurityRole(resultSet.getInt("id_rol"),
-                        resultSet.getString("rol"));
-            }
-        });
-        return securityRoles;
+        return namedParameterJdbcTemplate.query(queries.get("roleQuery"), params, (ResultSet resultSet, int i) ->
+                new SecurityRole(resultSet.getInt("id_rol"),
+                        resultSet.getString("rol"))
+        );
     }
 
     @Override
-    public void initQueries(Map<String, ?> queries) {
-        this.queries.put("userQuery", (String) queries.get("userQuery"));
-        this.queries.put("roleQuery", (String) queries.get("roleQuery"));
+    public void initQueries(Map<String, ?> options) {
+        this.queries.put("userQuery", (String) options.get("userQuery"));
+        this.queries.put("roleQuery", (String) options.get("roleQuery"));
+        this.queries.put("adminQuery", (String) options.get("adminQuery"));
+        this.queries.put("adminRoleInsertQuery", (String) options.get("adminRoleInsertQuery"));
+        this.queries.put("findAdminRoleQuery", (String) options.get("findAdminRoleQuery"));
+        this.queries.put("adminInsertQuery", (String) options.get("adminInsertQuery"));
     }
 
     @Override
     public void createDefaultAdminUser() {
-        String adminQuery = "Select * From Usuario as u Where u.usuario = 'admin'";
-        String adminInsertQuery = "Insert into Usuario Values(1,'admin','" + Encriptador.getStringMessageDigest("admin1234", Encriptador.SHA256) + "' )";
-        List<SecurityPerson> securityPeople = namedParameterJdbcTemplate.query(adminQuery, (ResultSet resultSet, int i) ->
-                new SecurityPerson(resultSet.getString("nombre"),
-                        resultSet.getString("primer_apellido"),
-                        resultSet.getString("segundo_apellido"))
+
+        List<SecurityPerson> securityPeople = namedParameterJdbcTemplate.query(queries.get("adminQuery"), (ResultSet resultSet, int i) ->
+                new SecurityPerson(resultSet.getString("first_name"),
+                        resultSet.getString("middle_name"),
+                        resultSet.getString("last_name"))
         );
 
-        if (!Optional.of(securityPeople.get(0)).isPresent()) {
-            namedParameterJdbcTemplate.getJdbcOperations().execute(adminInsertQuery);
+        if (securityPeople.isEmpty()) {
+            Integer roleId = namedParameterJdbcTemplate.getJdbcOperations().execute((StatementCallback<Integer>) statement -> {
+
+                statement.execute(queries.get("adminRoleInsertQuery"));
+                ResultSet roleResultSet = statement.executeQuery(queries.get("findAdminRoleQuery"));
+                roleResultSet.next();
+
+                return roleResultSet.getInt("id_role");
+            });
+
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("user", "admin");
+            params.put("pass", Encriptador
+                    .getStringMessageDigest("admin1234", Encriptador.SHA256));
+            params.put("role", roleId);
+            namedParameterJdbcTemplate.update(queries.get("adminInsertQuery"), params);
         }
 
     }

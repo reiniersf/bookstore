@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.Arrays;
+
 public class MainApp extends Application {
 
     public static void main(String[] args) throws Exception {
@@ -17,6 +19,7 @@ public class MainApp extends Application {
 
         System.setProperty("spring.profiles.active", "dev");
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(FxAppConfig.class);
+        System.out.println(Arrays.toString(applicationContext.getBeanDefinitionNames()));
         LauncherBookstore bookstoreLauncher = applicationContext.getBean(LauncherBookstore.class);
         bookstoreLauncher.launchApp(stage);
 

@@ -20,14 +20,13 @@ import java.io.IOException;
 @Component
 public class FXMLLocator implements ApplicationContextAware {
     //TODO Review how to customize controllers creation using spring and JavaFxBuilderFactory
-    private final String common_path = "fxml/";
+    private final String COMMON_PATH = "fxml/";
     private ApplicationContext applicationContext;
 
     public Parent getFXML(String fxmlPath) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setControllerFactory((Class<?> param) -> applicationContext.getBean(param));
-        Parent root = loader.load(getClass().getClassLoader().getResourceAsStream(common_path.concat(fxmlPath)));
-        return root;
+        return loader.load(getClass().getClassLoader().getResourceAsStream(COMMON_PATH.concat(fxmlPath)));
 
     }
 
