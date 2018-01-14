@@ -4,13 +4,11 @@ import cu.pdi.bookstore.security.Encriptador;
 import cu.pdi.bookstore.security.entities.SecurityPerson;
 import cu.pdi.bookstore.security.entities.SecurityRole;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.StatementCallback;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +27,6 @@ public class JaasSecurityRepositoryJdbc implements JaasSecurityRepository {
     public JaasSecurityRepositoryJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
-
 
     @Override
     public Optional<SecurityPerson> getUserAssociatedPerson(String username, String password) {
@@ -50,8 +47,8 @@ public class JaasSecurityRepositoryJdbc implements JaasSecurityRepository {
         params.put("user", username);
 
         return namedParameterJdbcTemplate.query(queries.get("roleQuery"), params, (ResultSet resultSet, int i) ->
-                new SecurityRole(resultSet.getInt("id_rol"),
-                        resultSet.getString("rol"))
+                new SecurityRole(resultSet.getInt("id_role"),
+                        resultSet.getString("role"))
         );
     }
 
@@ -63,6 +60,7 @@ public class JaasSecurityRepositoryJdbc implements JaasSecurityRepository {
         this.queries.put("adminRoleInsertQuery", (String) options.get("adminRoleInsertQuery"));
         this.queries.put("findAdminRoleQuery", (String) options.get("findAdminRoleQuery"));
         this.queries.put("adminInsertQuery", (String) options.get("adminInsertQuery"));
+        this.queries.put("adminInsertWorkerQuery", (String) options.get("adminInsertWorkerQuery"));
     }
 
     @Override
@@ -75,7 +73,8 @@ public class JaasSecurityRepositoryJdbc implements JaasSecurityRepository {
         );
 
         if (securityPeople.isEmpty()) {
-            Integer roleId = namedParameterJdbcTemplate.getJdbcOperations().execute((StatementCallback<Integer>) statement -> {
+            Integer roleId = namedParameterJdbcTemplate.getJdbcOperations()
+                    .execute((StatementCallback<Integer>) statement -> {
 
                 statement.execute(queries.get("adminRoleInsertQuery"));
                 ResultSet roleResultSet = statement.executeQuery(queries.get("findAdminRoleQuery"));
@@ -91,6 +90,13 @@ public class JaasSecurityRepositoryJdbc implements JaasSecurityRepository {
                     .getStringMessageDigest("admin1234", Encriptador.SHA256));
             params.put("role", roleId);
             namedParameterJdbcTemplate.update(queries.get("adminInsertQuery"), params);
+
+            params.clear();
+            params.put("user", "admin");
+            params.put("f_name", "admin");
+            params.put("m_name", "admin");
+            params.put("l_name", "admin");
+            namedParameterJdbcTemplate.update(queries.get("adminInsertWorkerQuery"), params);
         }
 
     }

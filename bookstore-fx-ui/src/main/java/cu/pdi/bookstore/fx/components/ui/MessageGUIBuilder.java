@@ -8,6 +8,7 @@ package cu.pdi.bookstore.fx.components.ui;
 import cu.pdi.bookstore.fx.enums.ENUM_MSG_CONFIG;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
@@ -15,6 +16,7 @@ import java.util.Optional;
 /**
  * @author R.S.F.
  */
+@Component
 public class MessageGUIBuilder {
 
 
@@ -22,8 +24,8 @@ public class MessageGUIBuilder {
     private MessageAction acceptMessageAction;
     private MessageAction denyMessageAction;
 
-    private MessageGUIBuilder(String msgText, ENUM_MSG_CONFIG config) {
-        messageBody = new Alert(config.toAlertType(), msgText);
+    public MessageGUIBuilder() {
+
         acceptMessageAction = () -> {
         };
         denyMessageAction = () -> {
@@ -31,8 +33,9 @@ public class MessageGUIBuilder {
 
     }
 
-    public static MessageGUIBuilder createMessage(String msgText, ENUM_MSG_CONFIG config) {
-        return new MessageGUIBuilder(msgText, config);
+    public MessageGUIBuilder createMessage(String msgText, ENUM_MSG_CONFIG config) {
+        messageBody = new Alert(config.toAlertType(), msgText);
+        return this;
     }
 
     public MessageGUIBuilder onAccept(MessageAction messageAction) {

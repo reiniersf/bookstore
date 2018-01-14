@@ -14,10 +14,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -44,13 +47,7 @@ public class AutenticarController implements Initializable {
     public void Iniciar() {
         String usuario = tx_usuario.getText();
         String contrasenna = password.getText();
-        ArrayList<String> datos = new ArrayList<>();
-        datos.add(usuario);
-        datos.add(contrasenna);
-
-
-        autenticar.getScene().getRoot().setUserData(datos);
-
+        autenticar.getScene().getRoot().setUserData(Arrays.asList(usuario, contrasenna));
         autenticar.getScene().getWindow().hide();
     }
 
@@ -75,18 +72,13 @@ public class AutenticarController implements Initializable {
             }
         });
         imagUsuario.setImage(new Image(getClass().getClassLoader().getResourceAsStream("images/Icon-user.png")));
+
     }
 
     @FXML
     private void Close() {
-
-        Stage s = (Stage) btn_Cancelar.getScene().getWindow();
-        ArrayList<String> datos = new ArrayList<>();
-        datos.add("");
-        datos.add("");
-        btn_Cancelar.getScene().getRoot().setUserData(datos);
-        s.close();
-
+        btn_Cancelar.getScene().getRoot().setUserData(Arrays.asList("cancelled", "no_password"));
+        ((Stage) btn_Cancelar.getScene().getWindow()).close();
     }
 
 }

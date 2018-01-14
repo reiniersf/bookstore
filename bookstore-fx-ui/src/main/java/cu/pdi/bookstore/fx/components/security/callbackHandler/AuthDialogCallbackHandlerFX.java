@@ -15,7 +15,8 @@ import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.NameCallback;
 import javax.security.auth.callback.PasswordCallback;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author R.S.F.
@@ -25,11 +26,12 @@ public class AuthDialogCallbackHandlerFX implements CallbackHandler {
     private String usuario = "";
     private char[] password = "".toCharArray();
     private Stage dialog;
-    private ArrayList<String> datosAutenticacion;
+    private List<String> datosAutenticacion;
 
     public AuthDialogCallbackHandlerFX(FXMLLocator fxmlLocator) throws IOException {
         dialog = new Stage();
-        dialog.addEventFilter(WindowEvent.WINDOW_HIDING, (WindowEvent t) -> obtenerDatos());
+        dialog.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, event -> datosAutenticacion = Arrays.asList("cancelled", "no_password"));
+        dialog.addEventFilter(WindowEvent.WINDOW_HIDING, this::obtenerDatos);
         Parent root = fxmlLocator.getFXML("auth/autenticar.fxml");
         dialog.setScene(new Scene(root));
 
@@ -51,8 +53,13 @@ public class AuthDialogCallbackHandlerFX implements CallbackHandler {
 
     @SuppressWarnings("unchecked")
     private void obtenerDatos() {
-        Object userData = dialog.getScene().getRoot().getUserData();
-        datosAutenticacion = (ArrayList<String>) userData;
+        if (datosAutenticacion == null) {
+            Object userData = dialog.getScene().getRoot().getUserData();
+            datosAutenticacion = (List<String>) userData;
+        }
+    }
 
+    private void obtenerDatos(WindowEvent t) {
+        obtenerDatos();
     }
 }

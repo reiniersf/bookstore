@@ -9,6 +9,7 @@ import cu.pdi.bookstore.security.Encriptador;
 import cu.pdi.bookstore.security.entities.SecurityPerson;
 import cu.pdi.bookstore.security.entities.SecurityRole;
 import cu.pdi.bookstore.security.jdbc.JaasSecurityRepository;
+import cu.pdi.bookstore.security.module.exception.LoginCancelledException;
 import cu.pdi.bookstore.security.principals.PasswordPrincipal;
 import cu.pdi.bookstore.security.principals.RolPrincipal;
 import cu.pdi.bookstore.security.principals.UserPrincipal;
@@ -66,12 +67,13 @@ public class DataBaseLM implements LoginModule {
     @Override
     public boolean login() throws LoginException {
         if (callbackHandler == null) {
-            throw new LoginException("Error: no callbackHandler available "
-                    + "to garner authentication information from the user");
+            throw new RuntimeException("Error: no callbackHandler available "
+                    + "to gather authentication information from the user");
         }
         Callback[] callbacks = new Callback[2];
         callbacks[0] = new NameCallback("username");
         callbacks[1] = new PasswordCallback("password: ", false);
+        boolean loginResult = false;
 
         try {
 
@@ -87,17 +89,19 @@ public class DataBaseLM implements LoginModule {
             if (username.isEmpty() || password.isEmpty()) {
                 succeeded = true;
                 throw new LoginException("Callback handler does not return login data properly");
-            }
-            if (isValidUser()) { //validate user.
+            }else if(username.equals("cancelled")){
+                throw new LoginCancelledException();
+
+            } else if (isValidUser()) { //validate user.
                 succeeded = true;
-                return true;
+                loginResult = true;
             }
 
         } catch (IOException | UnsupportedCallbackException e) {
             e.printStackTrace();
         }
 
-        return false;
+        return loginResult;
     }
 
     @Override
@@ -161,7 +165,7 @@ public class DataBaseLM implements LoginModule {
         return true;
     }
 
-    private void initAdminUser(){
+    private void initAdminUser() {
         jaasSecurityRepository.createDefaultAdminUser();
 
     }
