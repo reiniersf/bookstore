@@ -31,7 +31,7 @@ public class AuthDialogCallbackHandlerFX implements CallbackHandler {
     public AuthDialogCallbackHandlerFX(FXMLLocator fxmlLocator) throws IOException {
         dialog = new Stage();
         dialog.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, event -> datosAutenticacion = Arrays.asList("cancelled", "no_password"));
-        dialog.addEventFilter(WindowEvent.WINDOW_HIDING, this::obtenerDatos);
+        dialog.addEventFilter(WindowEvent.WINDOW_HIDING, event -> obtenerDatos());
         Parent root = fxmlLocator.getFXML("auth/autenticar.fxml");
         dialog.setScene(new Scene(root));
 
@@ -49,6 +49,8 @@ public class AuthDialogCallbackHandlerFX implements CallbackHandler {
 
         ((NameCallback) callbacks[0]).setName(usuario);
         ((PasswordCallback) callbacks[1]).setPassword(password);
+
+        datosAutenticacion = null;
     }
 
     @SuppressWarnings("unchecked")
@@ -57,9 +59,5 @@ public class AuthDialogCallbackHandlerFX implements CallbackHandler {
             Object userData = dialog.getScene().getRoot().getUserData();
             datosAutenticacion = (List<String>) userData;
         }
-    }
-
-    private void obtenerDatos(WindowEvent t) {
-        obtenerDatos();
     }
 }

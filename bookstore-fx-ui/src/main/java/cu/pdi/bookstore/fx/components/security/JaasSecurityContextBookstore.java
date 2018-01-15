@@ -6,6 +6,7 @@ import cu.pdi.bookstore.security.context.JaasSecurityContext;
 import org.springframework.stereotype.Component;
 
 import javax.security.auth.Subject;
+import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
@@ -18,15 +19,17 @@ public class JaasSecurityContextBookstore implements JaasSecurityContext {
     }
 
     private final FXMLLocator fxmlLocator;
+    private CallbackHandler callbackHandler;
 
-    public JaasSecurityContextBookstore(FXMLLocator fxmlLocator) {
+    public JaasSecurityContextBookstore(FXMLLocator fxmlLocator) throws IOException {
         this.fxmlLocator = fxmlLocator;
+        this.callbackHandler = new AuthDialogCallbackHandlerFX(fxmlLocator);
     }
 
     @Override
     public Subject logIn() throws IOException, LoginException {
 
-        LoginContext loginContext = new LoginContext("authClient", new AuthDialogCallbackHandlerFX(fxmlLocator));
+        LoginContext loginContext = new LoginContext("authClient", callbackHandler);
         loginContext.login();
 
         return loginContext.getSubject();
