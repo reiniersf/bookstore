@@ -10,33 +10,40 @@ import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
+import java.util.Objects;
 
 @Component
 public class JaasSecurityContextBookstore implements JaasSecurityContext {
 
     static{
-        System.setProperty("java.security.auth.login.config", JaasSecurityContext.class.getClassLoader().getResource("config/jaas.config").toExternalForm());
+        System.setProperty("java.security.auth.login.config", Objects.requireNonNull(JaasSecurityContext.class.getClassLoader().getResource("config/jaas.config")).toExternalForm());
     }
 
-    private final FXMLLocator fxmlLocator;
     private CallbackHandler callbackHandler;
+    private Subject authenticatedSubject;
 
     public JaasSecurityContextBookstore(FXMLLocator fxmlLocator) throws IOException {
-        this.fxmlLocator = fxmlLocator;
         this.callbackHandler = new AuthDialogCallbackHandlerFX(fxmlLocator);
     }
 
     @Override
-    public Subject logIn() throws IOException, LoginException {
+    public boolean logIn() throws LoginException {
 
         LoginContext loginContext = new LoginContext("authClient", callbackHandler);
         loginContext.login();
 
-        return loginContext.getSubject();
+        this.authenticatedSubject = loginContext.getSubject();
+
+        return this.authenticatedSubject != null;
     }
 
     @Override
     public void logOut() throws LoginException {
 
+    }
+
+    @Override
+    public Subject getAuthenticatedUser() {
+        return this.authenticatedSubject;
     }
 }

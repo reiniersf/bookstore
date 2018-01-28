@@ -23,5 +23,9 @@ public class RolPrincipal implements Principal, Serializable{
     public String getName() {
         return rol;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Rol: "+rol;
+    }
 }

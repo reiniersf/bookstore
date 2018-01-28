@@ -9,8 +9,10 @@ import java.io.IOException;
  */
 public interface JaasSecurityContext {
 
-    Subject logIn() throws IOException, LoginException;
+    boolean logIn() throws IOException, LoginException;
 
     void logOut() throws LoginException;
+
+    Subject getAuthenticatedUser();
 
 }

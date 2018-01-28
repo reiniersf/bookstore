@@ -34,8 +34,7 @@ public class SecurityAspectBookstore {
         Object proceed = null;
         while (retryTimes < 4) {
             try {
-                Subject subject = jaasSecurityContext.logIn();
-                if (subject != null) {
+                if (jaasSecurityContext.logIn()) {
                     proceed = proceedingJoinPoint.proceed(proceedingJoinPoint.getArgs());
                     retryTimes = 4;
                 }
