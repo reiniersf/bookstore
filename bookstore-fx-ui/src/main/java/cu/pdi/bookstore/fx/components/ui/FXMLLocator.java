@@ -19,7 +19,6 @@ import java.io.IOException;
  */
 @Component
 public class FXMLLocator implements ApplicationContextAware {
-    //TODO Review how to customize controllers creation using spring and JavaFxBuilderFactory
     private final String COMMON_PATH = "fxml/";
     private ApplicationContext applicationContext;
 
