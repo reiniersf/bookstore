@@ -34,6 +34,7 @@ public class AuthDialogCallbackHandlerFX implements CallbackHandler {
         dialog.addEventFilter(WindowEvent.WINDOW_HIDING, event -> obtenerDatos());
         Parent root = fxmlLocator.getFXML("auth/autenticar.fxml");
         dialog.setScene(new Scene(root));
+        dialog.setResizable(false);
 
     }
 
