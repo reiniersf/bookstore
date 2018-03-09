@@ -1,6 +1,5 @@
 package cu.pdi.bookstore.fx.gui;
 
-import cu.pdi.bookstore.fx.MainApp;
 import cu.pdi.bookstore.fx.components.security.annotation.LoginRequired;
 import cu.pdi.bookstore.fx.components.ui.FXMLLocator;
 import javafx.scene.Parent;
@@ -30,7 +29,7 @@ public class LauncherBookstore {
 
         Parent fxml = fxmlLocator.getFXML("main/workspace.fxml");
 
-        Scene scene = new Scene(fxml, 400, 200);
+        Scene scene = new Scene(fxml, 1024, 768);
         scene.getStylesheets().add("/styles/styles.css");
 
         stage.setTitle("GesLib v1.1");
