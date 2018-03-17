@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cu.pdi.bookstore.fx.gui.main.WorkspaceController">
+<BorderPane fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cu.pdi.bookstore.fx.gui.main.WorkspaceController">
     <top>
         <VBox>
          <children>
@@ -32,11 +32,11 @@
     <bottom>
         <FlowPane alignment="BASELINE_LEFT" hgap="7" nodeOrientation="RIGHT_TO_LEFT" BorderPane.alignment="CENTER">
            <children>
-               <Button>Cambiar Contraseña</Button>
+               <Button fx:id="btnChangePassword">Cambiar Contraseña</Button>
                <Separator orientation="VERTICAL" />
-               <Label>Nombre completo</Label>
+               <Label fx:id="personName">Nombre completo</Label>
                <Separator orientation="VERTICAL" />
-               <Label>Rol</Label>
+               <Label fx:id="rolName">Rol</Label>
            </children>
         </FlowPane>
     </bottom>

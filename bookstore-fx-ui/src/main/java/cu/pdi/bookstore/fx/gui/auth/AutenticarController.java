@@ -5,6 +5,7 @@
  */
 package cu.pdi.bookstore.fx.gui.auth;
 
+import cu.pdi.bookstore.fx.components.ui.ResourceLocator;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -35,9 +37,15 @@ public class AutenticarController implements Initializable {
     private Button btn_Cancelar;
     @FXML
     private ImageView imagUsuario;
+    private final ResourceLocator resourceLocator;
 
     private final int MIN_USERNAME_LENGTH = 5;
     private final int MIN_PASSWORD_LENGTH = 8;
+
+    @Autowired
+    public AutenticarController(ResourceLocator resourceLocator) {
+        this.resourceLocator = resourceLocator;
+    }
 
     @FXML
     public void Iniciar() {
@@ -67,7 +75,8 @@ public class AutenticarController implements Initializable {
                 autenticar.setDisable(true);
             }
         });
-        imagUsuario.setImage(new Image(getClass().getClassLoader().getResourceAsStream("images/Icon-user.png")));
+        resourceLocator.urlForImage("user-icon.png")
+                .ifPresent(imageUrl -> imagUsuario.setImage(new Image(imageUrl)));
 
     }
 

@@ -11,7 +11,7 @@ import cu.pdi.bookstore.security.entities.SecurityRole;
 import cu.pdi.bookstore.security.jdbc.JaasSecurityRepository;
 import cu.pdi.bookstore.security.module.exception.LoginCancelledException;
 import cu.pdi.bookstore.security.principals.PasswordPrincipal;
-import cu.pdi.bookstore.security.principals.RolPrincipal;
+import cu.pdi.bookstore.security.principals.RolePrincipal;
 import cu.pdi.bookstore.security.principals.UserPrincipal;
 import cu.pdi.bookstore.security.application.config.InternalBeansConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -122,8 +122,8 @@ public class DataBaseLM implements LoginModule {
             List<SecurityRole> roles = getRoles();
 
             roles.stream().map((SecurityRole securityRole) ->
-                    new RolPrincipal(securityRole.getRole())
-            ).forEach((RolPrincipal rolePrincipal) -> {
+                    new RolePrincipal(securityRole.getRole())
+            ).forEach((RolePrincipal rolePrincipal) -> {
                 if (!subject.getPrincipals().contains(rolePrincipal)) {
                     subject.getPrincipals().add(rolePrincipal);
                 }

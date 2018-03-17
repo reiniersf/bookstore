@@ -1,7 +1,7 @@
 package cu.pdi.bookstore.fx.components.security;
 
 import cu.pdi.bookstore.fx.components.ui.MessageGUIBuilder;
-import cu.pdi.bookstore.fx.enums.ENUM_MSG_CONFIG;
+import cu.pdi.bookstore.fx.enums.MessageUIConfig;
 import cu.pdi.bookstore.security.context.JaasSecurityContext;
 import cu.pdi.bookstore.security.module.exception.LoginCancelledException;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -10,7 +10,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.security.auth.Subject;
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
 
@@ -43,11 +42,11 @@ public class SecurityAspectBookstore {
             } catch (LoginException le) {
                 if (retryTimes >= 3) {
                     retryTimes++;
-                    messageGUIBuilder.createMessage("Ha excedido el número máximo de intentos.", ENUM_MSG_CONFIG.INFORMATION)
+                    messageGUIBuilder.createMessage("Ha excedido el número máximo de intentos.", MessageUIConfig.INFORMATION)
                             .show();
                 } else {
                     retryTimes++;
-                    messageGUIBuilder.createMessage("Su usuario o contraseña contiene errores." + "\n" + "Por favor rectifique.", ENUM_MSG_CONFIG.WARNING)
+                    messageGUIBuilder.createMessage("Su usuario o contraseña contiene errores." + "\n" + "Por favor rectifique.", MessageUIConfig.WARNING)
                             .show();
                 }
             } catch (Throwable throwable) {

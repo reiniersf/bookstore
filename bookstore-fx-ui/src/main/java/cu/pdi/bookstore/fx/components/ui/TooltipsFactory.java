@@ -1,6 +1,6 @@
 package cu.pdi.bookstore.fx.components.ui;
 
-import cu.pdi.bookstore.fx.enums.ENUM_MSG_CONFIG;
+import cu.pdi.bookstore.fx.enums.MessageUIConfig;
 import javafx.scene.control.Tooltip;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -24,10 +24,10 @@ public class TooltipsFactory {
 
     public Tooltip showTooltip(String msgText) {
 
-        return showTooltip(msgText, ENUM_MSG_CONFIG.INFORMATION);
+        return showTooltip(msgText, MessageUIConfig.INFORMATION);
     }
 
-    public Tooltip showTooltip(String msgText, ENUM_MSG_CONFIG enumMsgIcon) {
+    public Tooltip showTooltip(String msgText, MessageUIConfig enumMsgIcon) {
         ttp.setGraphic(enumMsgIcon.getIcon());
 
         String msgCierreTooltip = "\nPresione ESC para cerrar este mensaje.";

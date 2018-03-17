@@ -22,11 +22,14 @@ public class FXMLLocator implements ApplicationContextAware {
     private final String COMMON_PATH = "fxml/";
     private ApplicationContext applicationContext;
 
-    public Parent getFXML(String fxmlPath) throws IOException {
+    public Parent getFXML(String fxmlPath) {
         FXMLLoader loader = new FXMLLoader();
         loader.setControllerFactory((Class<?> param) -> applicationContext.getBean(param));
-        return loader.load(getClass().getClassLoader().getResourceAsStream(COMMON_PATH.concat(fxmlPath)));
-
+        try {
+            return loader.load(getClass().getClassLoader().getResourceAsStream(COMMON_PATH.concat(fxmlPath)));
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage(), e.getCause());
+        }
     }
 
     @Override

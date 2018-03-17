@@ -11,10 +11,10 @@ import java.security.Principal;
  *
  * @author developer
  */
-public class RolPrincipal implements Principal, Serializable{
+public class RolePrincipal implements Principal, Serializable{
     private String rol;
 
-    public RolPrincipal(String rol) {
+    public RolePrincipal(String rol) {
         this.rol = rol;
     }
     

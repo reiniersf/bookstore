@@ -33,6 +33,7 @@ public class AuthDialogCallbackHandlerFX implements CallbackHandler {
         dialog.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, event -> datosAutenticacion = Arrays.asList("cancelled", "no_password"));
         dialog.addEventFilter(WindowEvent.WINDOW_HIDING, event -> obtenerDatos());
         Parent root = fxmlLocator.getFXML("auth/autenticar.fxml");
+        dialog.setTitle("GesLib v1.1 | Autenticar");
         dialog.setScene(new Scene(root));
         dialog.setResizable(false);
 

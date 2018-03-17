@@ -5,7 +5,7 @@
  */
 package cu.pdi.bookstore.fx.components.ui;
 
-import cu.pdi.bookstore.fx.enums.ENUM_MSG_CONFIG;
+import cu.pdi.bookstore.fx.enums.MessageUIConfig;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import org.springframework.stereotype.Component;
@@ -33,7 +33,7 @@ public class MessageGUIBuilder {
 
     }
 
-    public MessageGUIBuilder createMessage(String msgText, ENUM_MSG_CONFIG config) {
+    public MessageGUIBuilder createMessage(String msgText, MessageUIConfig config) {
         messageBody = new Alert(config.toAlertType(), msgText);
         return this;
     }

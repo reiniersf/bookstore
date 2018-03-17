@@ -59,30 +59,4 @@ public class UserPrincipal implements Principal, Serializable{
         return true;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getpApellido() {
-        return pApellido;
-    }
-
-    public void setpApellido(String pApellido) {
-        this.pApellido = pApellido;
-    }
-
-    public String getsApellido() {
-        return sApellido;
-    }
-
-    public void setsApellido(String sApellido) {
-        this.sApellido = sApellido;
-    }
-    
-    
-    
 }

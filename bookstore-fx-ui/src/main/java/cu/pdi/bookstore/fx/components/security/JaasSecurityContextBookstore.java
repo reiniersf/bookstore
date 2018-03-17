@@ -3,6 +3,8 @@ package cu.pdi.bookstore.fx.components.security;
 import cu.pdi.bookstore.fx.components.security.callbackHandler.AuthDialogCallbackHandlerFX;
 import cu.pdi.bookstore.fx.components.ui.FXMLLocator;
 import cu.pdi.bookstore.security.context.JaasSecurityContext;
+import cu.pdi.bookstore.security.principals.RolePrincipal;
+import cu.pdi.bookstore.security.principals.UserPrincipal;
 import org.springframework.stereotype.Component;
 
 import javax.security.auth.Subject;
@@ -11,6 +13,7 @@ import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 public class JaasSecurityContextBookstore implements JaasSecurityContext {
@@ -45,5 +48,19 @@ public class JaasSecurityContextBookstore implements JaasSecurityContext {
     @Override
     public Subject getAuthenticatedUser() {
         return this.authenticatedSubject;
+    }
+
+    @Override
+    public Optional<String> authenticatedUsername() {
+        return authenticatedSubject.getPrincipals(UserPrincipal.class).stream()
+                .findFirst()
+                .map(UserPrincipal::getName);
+    }
+
+    @Override
+    public Optional<String> authenticatedUserRoleName() {
+        return authenticatedSubject.getPrincipals(RolePrincipal.class).stream()
+                .findFirst()
+                .map(RolePrincipal::getName);
     }
 }

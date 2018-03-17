@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 /**
  * Created by R.S.F.
  */
-public enum ENUM_MSG_CONFIG {
+public enum MessageUIConfig {
 
     WARNING("images/warningIcon.png", Alert.AlertType.WARNING),
     INFORMATION("images/infoIcon.png", Alert.AlertType.INFORMATION),
@@ -17,7 +17,7 @@ public enum ENUM_MSG_CONFIG {
     private final String imageUrl;
     private Alert.AlertType alertType;
 
-    ENUM_MSG_CONFIG(String imageUrl, Alert.AlertType alertType){
+    MessageUIConfig(String imageUrl, Alert.AlertType alertType){
 
         this.imageUrl = imageUrl;
         this.alertType = alertType;

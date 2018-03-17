@@ -1,0 +1,112 @@
+{
+  "AVAILABLE": {
+    "sections": [
+      {
+        "name": "LIBROS"
+      },
+      {
+        "name": "DOCUMENTOS"
+      },
+      {
+        "name": "EVENTOS"
+      },
+      {
+        "name": "USUARIOS"
+      },
+      {
+        "name": "NOMENCLADORES"
+      }
+    ],
+    "actions": [
+      {
+        "name": "INVENTARIO",
+        "fxml": "Libros/inventario.fxml",
+        "section": "LIBROS"
+      },
+      {
+        "name": "TRASLADO",
+        "fxml": "Libros/seleccionarLibros.fxml",
+        "section": "LIBROS"
+      },
+      {
+        "name": "RECEPCION",
+        "fxml": "Libros/adicionarLibro.fxml",
+        "section": "LIBROS"
+      },
+      {
+        "name": "VENTAS",
+        "fxml": "Libros/seleccionarLibros.fxml",
+        "section": "LIBROS"
+      },
+      {
+        "name": "DEVOLUCION",
+        "fxml": "Libros/seleccionarLibros.fxml",
+        "section": "LIBROS"
+      },
+      {
+        "name": "INFORMES",
+        "fxml": "Documentos/informeRecepcion.fxml",
+        "section": "DOCUMENTOS"
+      },
+      {
+        "name": "VALES",
+        "fxml": "Documentos/Vale.fxml",
+        "section": "DOCUMENTOS"
+      },
+      {
+        "name": "RESUMENES",
+        "fxml": "Documentos/ResumenVenta.fxml",
+        "section": "DOCUMENTOS"
+      },
+      {
+        "name": "GESTION_USUARIOS",
+        "fxml": "Usuarios/gestionarUsuario.fxml",
+        "section": "USUARIOS"
+      },
+      {
+        "name": "CATEGORIA",
+        "fxml": "default.fxml",
+        "section": "NOMENCLADORES"
+      },
+      {
+        "name": "EDITORIAL",
+        "fxml": "default.fxml",
+        "section": "NOMENCLADORES"
+      },
+      {
+        "name": "PLANES",
+        "fxml": "default.fxml",
+        "section": "NOMENCLADORES"
+      }
+    ]
+  },
+  "ADMON": {
+    "allowed": [
+      {"name":"ALL"}
+    ]
+  },
+  "STORE": {
+    "allowed": [
+      {"name":"INVENTARIO"},
+      {"name":"RECEPCION"},
+      {"name":"INFORMES"},
+      {"name":"VALES"},
+      {"name":"CATEGORIA"},
+      {"name":"EDITORIAL"}
+    ]
+  },
+  "SALES": {
+    "allowed": [
+      {"name":"INVENTARIO"},
+      {"name":"RECEPCION"},
+      {"name":"TRASLADO"},
+      {"name":"DEVOLUCION"},
+      {"name":"VENTAS"},
+      {"name":"INFORMES"},
+      {"name":"VALES"},
+      {"name":"RESUMENES"},
+      {"name":"CATEGORIA"},
+      {"name":"EDITORIAL"}
+    ]
+  }
+}
