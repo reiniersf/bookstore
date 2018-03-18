@@ -1,9 +1,10 @@
 package cu.pdi.bookstore.fx.gui.main;
 
 import cu.pdi.bookstore.fx.components.ui.FXMLLocator;
+import cu.pdi.bookstore.fx.components.ui.I18nHandler;
 import cu.pdi.bookstore.fx.components.ui.MenuAssembler;
 import cu.pdi.bookstore.fx.components.ui.ResourceLocator;
-import cu.pdi.bookstore.fx.enums.Roles;
+import cu.pdi.bookstore.fx.enums.Role;
 import cu.pdi.bookstore.fx.enums.SimpleUIEvent;
 import cu.pdi.bookstore.security.context.JaasSecurityContext;
 import javafx.fxml.FXML;
@@ -39,16 +40,18 @@ public class WorkspaceController implements Initializable {
     private final FXMLLocator fxmlLocator;
     private final ApplicationEventPublisher applicationEventPublisher;
     private final MenuAssembler menuAssembler;
+    private final I18nHandler i18nHandler;
 
     @Autowired
     public WorkspaceController(JaasSecurityContext jaasSecurityContext, ResourceLocator resourceLocator,
                                FXMLLocator fxmlLocator, ApplicationEventPublisher applicationEventPublisher,
-                               MenuAssembler menuAssembler) {
+                               MenuAssembler menuAssembler, I18nHandler i18nHandler) {
         this.jaasSecurityContext = jaasSecurityContext;
         this.resourceLocator = resourceLocator;
         this.fxmlLocator = fxmlLocator;
         this.applicationEventPublisher = applicationEventPublisher;
         this.menuAssembler = menuAssembler;
+        this.i18nHandler = i18nHandler;
     }
 
     @Override
@@ -73,8 +76,8 @@ public class WorkspaceController implements Initializable {
 
 
     private void loadAuthorizedMenuActions() {
-        Roles role = jaasSecurityContext.authenticatedUserRoleName()
-                .map(Roles::valueOf)
+        Role role = jaasSecurityContext.authenticatedUserRoleName()
+                .map(Role::valueOf)
                 .orElseThrow(() -> new RuntimeException("No existent role"));
         menuAssembler.assembleForRole(role);
     }
@@ -88,11 +91,9 @@ public class WorkspaceController implements Initializable {
         popOver.setArrowIndent(5d);
         popOver.setArrowSize(5d);
         popOver.setCloseButtonEnabled(false);
-        popOver.setTitle(" Cambiar contraseña \n");
+        popOver.setTitle(i18nHandler.labelForKey("workspace.changepassword.title"));
         popOver.setHeaderAlwaysVisible(true);
-        popOver.setOnAutoHide(autoHideEvent -> {
-            applicationEventPublisher.publishEvent(SimpleUIEvent.RESET_FIELDS);
-        });
+        popOver.setOnAutoHide(autoHideEvent -> applicationEventPublisher.publishEvent(SimpleUIEvent.RESET_FIELDS));
         popOver.setHideOnEscape(true);
 
         btnChangePassword.setOnAction(e -> popOver.show(btnChangePassword));

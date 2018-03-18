@@ -17,6 +17,7 @@ import javax.security.auth.callback.PasswordCallback;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * @author R.S.F.
@@ -27,13 +28,14 @@ public class AuthDialogCallbackHandlerFX implements CallbackHandler {
     private char[] password = "".toCharArray();
     private Stage dialog;
     private List<String> datosAutenticacion;
+    private ResourceBundle defaultResourceBundle = ResourceBundle.getBundle("labels");
 
     public AuthDialogCallbackHandlerFX(FXMLLocator fxmlLocator) throws IOException {
         dialog = new Stage();
         dialog.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, event -> datosAutenticacion = Arrays.asList("cancelled", "no_password"));
         dialog.addEventFilter(WindowEvent.WINDOW_HIDING, event -> obtenerDatos());
         Parent root = fxmlLocator.getFXML("auth/autenticar.fxml");
-        dialog.setTitle("GesLib v1.1 | Autenticar");
+        dialog.setTitle(defaultResourceBundle.getString("auth.title"));
         dialog.setScene(new Scene(root));
         dialog.setResizable(false);
 

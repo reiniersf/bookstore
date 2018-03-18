@@ -1,48 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox prefHeight="219.0" prefWidth="363.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cu.pdi.bookstore.fx.gui.auth.AutenticarController">
-      <HBox prefHeight="151.0" prefWidth="363.0">
-            <AnchorPane prefHeight="177.0" prefWidth="143.0">
-                  <ImageView fx:id="imagUsuario" fitHeight="155.0" fitWidth="133.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
-            </AnchorPane>
-            <VBox alignment="CENTER_LEFT" prefHeight="195.0" prefWidth="220.0">
-                  <Label text="Usuario: ">
-                     <VBox.margin>
-                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                     </VBox.margin>
-                  </Label>
-                  <TextField fx:id="tx_usuario" prefHeight="25.0" prefWidth="157.0">
-                     <VBox.margin>
-                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                     </VBox.margin>
-                  </TextField>
-                  <Label text="Contraseña: ">
-                     <VBox.margin>
-                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                     </VBox.margin>
-                  </Label>
-                  <PasswordField fx:id="password" prefHeight="25.0" prefWidth="157.0">
-                     <VBox.margin>
-                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                     </VBox.margin>
-                  </PasswordField>
-            </VBox>
-      </HBox>
-      <FlowPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="32.0" prefWidth="330.0">
-            <Button fx:id="btn_Cancelar" mnemonicParsing="false" onAction="#Close" prefHeight="25.0" prefWidth="104.0" text="Cancelar">
-               <FlowPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </FlowPane.margin>
-            </Button>
-            <Button fx:id="autenticar" mnemonicParsing="false" onAction="#Iniciar" text="Autenticar">
-               <FlowPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </FlowPane.margin>
-            </Button>
-      </FlowPane>
+   <children>
+         <HBox prefHeight="151.0" prefWidth="363.0">
+            <children>
+                  <AnchorPane prefHeight="177.0" prefWidth="143.0">
+                     <children>
+                           <ImageView fx:id="imagUsuario" fitHeight="155.0" fitWidth="133.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0" />
+                     </children>
+                  </AnchorPane>
+                  <VBox alignment="CENTER_LEFT" prefHeight="195.0" prefWidth="220.0">
+                     <children>
+                           <Label text="%user.auth.label">
+                              <VBox.margin>
+                                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                              </VBox.margin>
+                           </Label>
+                           <TextField fx:id="tx_usuario" prefHeight="25.0" prefWidth="157.0">
+                              <VBox.margin>
+                                 <Insets bottom="3.0" left="3.0" right="5.0" top="3.0" />
+                              </VBox.margin>
+                           </TextField>
+                           <Label text="%pass.auth.label">
+                              <VBox.margin>
+                                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                              </VBox.margin>
+                           </Label>
+                           <PasswordField fx:id="password" prefHeight="25.0" prefWidth="157.0">
+                              <VBox.margin>
+                                 <Insets bottom="3.0" left="3.0" right="5.0" top="3.0" />
+                              </VBox.margin>
+                           </PasswordField>
+                     </children>
+                  </VBox>
+            </children>
+         </HBox>
+         <FlowPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="32.0" prefWidth="330.0">
+            <children>
+                  <Button fx:id="btn_Cancelar" mnemonicParsing="false" onAction="#Close" prefHeight="25.0" prefWidth="104.0" text="%btn.auth.cancelar">
+                     <FlowPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </FlowPane.margin>
+                  </Button>
+                  <Button fx:id="autenticar" mnemonicParsing="false" onAction="#Iniciar" text="%btn.auth.aceptar">
+                     <FlowPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </FlowPane.margin>
+                  </Button>
+            </children>
+         </FlowPane>
+   </children>
 </VBox>
