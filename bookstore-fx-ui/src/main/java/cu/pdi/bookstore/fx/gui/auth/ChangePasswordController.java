@@ -1,6 +1,6 @@
 package cu.pdi.bookstore.fx.gui.auth;
 
-import cu.pdi.bookstore.fx.enums.SimpleUIEvent;
+import cu.pdi.bookstore.fx.components.ui.events.SimpleUIEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

@@ -1,7 +1,7 @@
 package cu.pdi.bookstore.fx.components.security;
 
 import cu.pdi.bookstore.fx.components.ui.MessageGUIBuilder;
-import cu.pdi.bookstore.fx.enums.MessageUIConfig;
+import cu.pdi.bookstore.fx.components.ui.MessageUIConfig;
 import cu.pdi.bookstore.security.context.JaasSecurityContext;
 import cu.pdi.bookstore.security.module.exception.LoginCancelledException;
 import org.aspectj.lang.ProceedingJoinPoint;

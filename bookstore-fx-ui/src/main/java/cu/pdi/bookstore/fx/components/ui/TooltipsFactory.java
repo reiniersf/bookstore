@@ -1,6 +1,5 @@
 package cu.pdi.bookstore.fx.components.ui;
 
-import cu.pdi.bookstore.fx.enums.MessageUIConfig;
 import javafx.scene.control.Tooltip;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;

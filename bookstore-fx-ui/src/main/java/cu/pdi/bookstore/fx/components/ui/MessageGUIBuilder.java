@@ -5,7 +5,6 @@
  */
 package cu.pdi.bookstore.fx.components.ui;
 
-import cu.pdi.bookstore.fx.enums.MessageUIConfig;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import org.springframework.stereotype.Component;

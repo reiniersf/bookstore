@@ -4,8 +4,8 @@ import cu.pdi.bookstore.fx.components.ui.FXMLLocator;
 import cu.pdi.bookstore.fx.components.ui.I18nHandler;
 import cu.pdi.bookstore.fx.components.ui.MenuAssembler;
 import cu.pdi.bookstore.fx.components.ui.ResourceLocator;
-import cu.pdi.bookstore.fx.enums.Role;
-import cu.pdi.bookstore.fx.enums.SimpleUIEvent;
+import cu.pdi.bookstore.fx.components.security.Role;
+import cu.pdi.bookstore.fx.components.ui.events.SimpleUIEvent;
 import cu.pdi.bookstore.security.context.JaasSecurityContext;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -79,7 +79,8 @@ public class WorkspaceController implements Initializable {
         Role role = jaasSecurityContext.authenticatedUserRoleName()
                 .map(Role::valueOf)
                 .orElseThrow(() -> new RuntimeException("No existent role"));
-        menuAssembler.assembleForRole(role);
+        btnGeneralMenu.getItems().clear();
+        btnGeneralMenu.getItems().addAll(menuAssembler.assembleForRole(role));
     }
 
     private void initializeChangePasswordPopOver() {

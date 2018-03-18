@@ -1,4 +1,4 @@
-package cu.pdi.bookstore.fx.enums;
+package cu.pdi.bookstore.fx.components.ui;
 
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
