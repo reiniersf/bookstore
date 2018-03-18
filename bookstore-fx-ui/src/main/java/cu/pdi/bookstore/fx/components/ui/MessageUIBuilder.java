@@ -16,14 +16,14 @@ import java.util.Optional;
  * @author R.S.F.
  */
 @Component
-public class MessageGUIBuilder {
+public class MessageUIBuilder {
 
 
     private Alert messageBody;
     private MessageAction acceptMessageAction;
     private MessageAction denyMessageAction;
 
-    public MessageGUIBuilder() {
+    public MessageUIBuilder() {
 
         acceptMessageAction = () -> {
         };
@@ -32,17 +32,17 @@ public class MessageGUIBuilder {
 
     }
 
-    public MessageGUIBuilder createMessage(String msgText, MessageUIConfig config) {
+    public MessageUIBuilder createMessage(String msgText, MessageUIConfig config) {
         messageBody = new Alert(config.toAlertType(), msgText);
         return this;
     }
 
-    public MessageGUIBuilder onAccept(MessageAction messageAction) {
+    public MessageUIBuilder onAccept(MessageAction messageAction) {
         this.acceptMessageAction = messageAction;
         return this;
     }
 
-    public MessageGUIBuilder onDeny(MessageAction messageAction) {
+    public MessageUIBuilder onDeny(MessageAction messageAction) {
         this.denyMessageAction = messageAction;
         return this;
     }

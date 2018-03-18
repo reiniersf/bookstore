@@ -1,6 +1,6 @@
 package cu.pdi.bookstore.fx.components.security;
 
-import cu.pdi.bookstore.fx.components.ui.MessageGUIBuilder;
+import cu.pdi.bookstore.fx.components.ui.MessageUIBuilder;
 import cu.pdi.bookstore.fx.components.ui.MessageUIConfig;
 import cu.pdi.bookstore.security.context.JaasSecurityContext;
 import cu.pdi.bookstore.security.module.exception.LoginCancelledException;
@@ -18,12 +18,12 @@ import java.io.IOException;
 public class SecurityAspectBookstore {
 
     private final JaasSecurityContext jaasSecurityContext;
-    private final MessageGUIBuilder messageGUIBuilder;
+    private final MessageUIBuilder messageUIBuilder;
 
     @Autowired
-    public SecurityAspectBookstore(JaasSecurityContext jaasSecurityContext, MessageGUIBuilder messageGUIBuilder) {
+    public SecurityAspectBookstore(JaasSecurityContext jaasSecurityContext, MessageUIBuilder messageUIBuilder) {
         this.jaasSecurityContext = jaasSecurityContext;
-        this.messageGUIBuilder = messageGUIBuilder;
+        this.messageUIBuilder = messageUIBuilder;
     }
 
     @Around("execution(* cu.pdi.bookstore.fx.gui.LauncherBookstore.launchApp(..)) && " +
@@ -42,11 +42,11 @@ public class SecurityAspectBookstore {
             } catch (LoginException le) {
                 if (retryTimes >= 3) {
                     retryTimes++;
-                    messageGUIBuilder.createMessage("Ha excedido el número máximo de intentos.", MessageUIConfig.INFORMATION)
+                    messageUIBuilder.createMessage("Ha excedido el número máximo de intentos.", MessageUIConfig.INFORMATION)
                             .show();
                 } else {
                     retryTimes++;
-                    messageGUIBuilder.createMessage("Su usuario o contraseña contiene errores." + "\n" + "Por favor rectifique.", MessageUIConfig.WARNING)
+                    messageUIBuilder.createMessage("Su usuario o contraseña contiene errores." + "\n" + "Por favor rectifique.", MessageUIConfig.WARNING)
                             .show();
                 }
             } catch (Throwable throwable) {
