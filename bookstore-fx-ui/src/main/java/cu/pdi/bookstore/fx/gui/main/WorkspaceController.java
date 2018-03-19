@@ -1,16 +1,18 @@
 package cu.pdi.bookstore.fx.gui.main;
 
+import cu.pdi.bookstore.fx.components.security.Role;
 import cu.pdi.bookstore.fx.components.ui.FXMLLocator;
 import cu.pdi.bookstore.fx.components.ui.I18nHandler;
 import cu.pdi.bookstore.fx.components.ui.MenuAssembler;
 import cu.pdi.bookstore.fx.components.ui.ResourceLocator;
-import cu.pdi.bookstore.fx.components.security.Role;
 import cu.pdi.bookstore.fx.components.ui.events.SimpleUIEvent;
 import cu.pdi.bookstore.security.context.JaasSecurityContext;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -62,8 +64,13 @@ public class WorkspaceController implements Initializable {
         initializeGeneralMenu();
         loadAuthorizedMenuActions();
         initializeChangePasswordPopOver();
+        loadDefaultContent();
 
 
+    }
+
+    private void loadDefaultContent() {
+        root.setCenter(fxmlLocator.getFXML("default.fxml"));
     }
 
     private void initializeGeneralMenu() {
@@ -73,7 +80,6 @@ public class WorkspaceController implements Initializable {
                 .ifPresent(imageUrl -> btnGeneralMenu.setGraphic(new ImageView(new Image(imageUrl))));
 
     }
-
 
     private void loadAuthorizedMenuActions() {
         Role role = jaasSecurityContext.authenticatedUserRoleName()
