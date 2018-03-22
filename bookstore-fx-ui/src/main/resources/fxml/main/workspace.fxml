@@ -22,7 +22,11 @@
         </VBox>
     </top>
     <center>
-
+        <TabPane fx:id="container" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+            </BorderPane.margin>
+        </TabPane>
     </center>
     <bottom>
         <FlowPane alignment="BASELINE_LEFT" hgap="7" nodeOrientation="RIGHT_TO_LEFT" BorderPane.alignment="CENTER">

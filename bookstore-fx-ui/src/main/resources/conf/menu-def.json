@@ -20,7 +20,7 @@
     "actions": [
       {
         "name": "INVENTARIO",
-        "fxml": "Libros/inventario.fxml",
+        "fxml": "inventory/inventory.fxml",
         "section": "LIBROS"
       },
       {

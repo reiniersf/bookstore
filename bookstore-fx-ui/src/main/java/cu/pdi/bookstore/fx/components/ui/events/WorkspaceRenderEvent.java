@@ -1,13 +1,15 @@
 package cu.pdi.bookstore.fx.components.ui.events;
 
-public class WorkspaceRenderEvent<T> {
+public class WorkspaceRenderEvent implements RenderEvent<String> {
 
-    private final T fxmlToShow;
+    private final String fxmlToShow;
 
-    WorkspaceRenderEvent(T fxmlToShow) {
+    WorkspaceRenderEvent(String fxmlToShow) {
 
         this.fxmlToShow = fxmlToShow;
     }
 
-
+    public String getFxmlToShow() {
+        return fxmlToShow;
+    }
 }

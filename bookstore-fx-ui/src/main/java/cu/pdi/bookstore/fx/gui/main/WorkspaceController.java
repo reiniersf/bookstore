@@ -10,9 +10,11 @@ import cu.pdi.bookstore.security.context.JaasSecurityContext;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -26,6 +28,8 @@ import java.util.ResourceBundle;
 
 @Component
 public class WorkspaceController implements Initializable {
+    @FXML
+    private TabPane container;
     @FXML
     private Label personName;
     @FXML
@@ -104,5 +108,9 @@ public class WorkspaceController implements Initializable {
         popOver.setHideOnEscape(true);
 
         btnChangePassword.setOnAction(e -> popOver.show(btnChangePassword));
+    }
+
+    public void renderContent(Parent content) {
+        root.setCenter(content);
     }
 }

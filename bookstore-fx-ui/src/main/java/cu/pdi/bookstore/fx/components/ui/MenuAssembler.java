@@ -25,8 +25,6 @@ public class MenuAssembler {
     private final ResourceLocator resourceLocator;
     private final ObjectMapper jsonMapper;
     private ActionRetriever actionRetriever;
-    private final I18nHandler i18nHandler;
-    private final ApplicationEventPublisher applicationEventPublisher;
 
 
     private BiFunction<String, List<JsonNode>, Menu> CLASSIC_MENU_GRAPHIC_MAPPER = null;
@@ -36,8 +34,6 @@ public class MenuAssembler {
                          ApplicationEventPublisher applicationEventPublisher) {
         this.resourceLocator = resourceLocator;
         this.jsonMapper = jsonMapper;
-        this.i18nHandler = i18nHandler;
-        this.applicationEventPublisher = applicationEventPublisher;
         init();
         CLASSIC_MENU_GRAPHIC_MAPPER = (section, jsonNodes) -> {
             Menu sectionMenu = new Menu(i18nHandler.labelForKey(section.concat(".title")));

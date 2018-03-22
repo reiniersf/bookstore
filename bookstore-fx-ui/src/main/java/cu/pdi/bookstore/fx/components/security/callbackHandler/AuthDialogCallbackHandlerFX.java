@@ -28,14 +28,13 @@ public class AuthDialogCallbackHandlerFX implements CallbackHandler {
     private char[] password = "".toCharArray();
     private Stage dialog;
     private List<String> datosAutenticacion;
-    private ResourceBundle defaultResourceBundle = ResourceBundle.getBundle("labels");
 
     public AuthDialogCallbackHandlerFX(FXMLLocator fxmlLocator) throws IOException {
         dialog = new Stage();
         dialog.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, event -> datosAutenticacion = Arrays.asList("cancelled", "no_password"));
         dialog.addEventFilter(WindowEvent.WINDOW_HIDING, event -> obtenerDatos());
         Parent root = fxmlLocator.getFXML("auth/autenticar.fxml");
-        dialog.setTitle(defaultResourceBundle.getString("auth.title"));
+        dialog.setTitle(ResourceBundle.getBundle("labels").getString("auth.title"));
         dialog.setScene(new Scene(root));
         dialog.setResizable(false);
 
