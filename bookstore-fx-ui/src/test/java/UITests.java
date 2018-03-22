@@ -49,5 +49,6 @@ public class UITests extends ApplicationTest {
         clickOn(fB, MouseButton.PRIMARY);
         clickOn(fB, MouseButton.PRIMARY);
         Assertions.assertThat(parent.getChildrenUnmodifiable().size()).isEqualTo(current+3);
+
     }
 }
