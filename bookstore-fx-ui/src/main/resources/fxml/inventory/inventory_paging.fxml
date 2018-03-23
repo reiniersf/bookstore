@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER" spacing="3.0" VBox.vgrow="SOMETIMES" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cu.pdi.bookstore.fx.gui.inventory.InventoryPagingController">
+    <children>
+        <AnchorPane prefHeight="23.0" prefWidth="38.0">
+            <children>
+                <Button fx:id="btnPrevPage" mnemonicParsing="false" text="&lt;" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+                    <font>
+                        <Font size="7.0" />
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+        <AnchorPane HBox.hgrow="ALWAYS">
+            <children>
+                <ProgressBar fx:id="pbPages" progress="0.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0" />
+            </children>
+        </AnchorPane>
+      <AnchorPane prefHeight="23.0" prefWidth="38.0">
+         <children>
+              <Button fx:id="btnNextPage" layoutX="-15.0" layoutY="-7.0" mnemonicParsing="false" text="&gt;" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+                  <font>
+                      <Font size="7.0" />
+                  </font>
+              </Button>
+         </children>
+      </AnchorPane>
+    </children>
+</HBox>
