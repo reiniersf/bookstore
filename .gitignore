@@ -9,5 +9,7 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 derby.log
-
+.idea/
+*.iml
+/bookstore/
 
