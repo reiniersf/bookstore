@@ -4,7 +4,7 @@ import cu.pdi.bookstore.domain.accounting.document.AccountingDocumentType;
 import cu.pdi.bookstore.domain.accounting.document.logs.TransferLog;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.infrastructure.exceptions.InvalidTransferException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 

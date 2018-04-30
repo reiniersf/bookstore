@@ -1,12 +1,14 @@
 package cu.pdi.bookstore.domain;
 
 import cu.pdi.bookstore.application.config.AppConfig;
-import cu.pdi.bookstore.domain.accounting.document.*;
+import cu.pdi.bookstore.domain.accounting.document.AccountingDocumentInfo;
+import cu.pdi.bookstore.domain.accounting.document.AccountingDocumentService;
+import cu.pdi.bookstore.domain.accounting.document.AccountingDocumentType;
+import cu.pdi.bookstore.domain.accounting.document.Consecutive;
 import cu.pdi.bookstore.domain.accounting.reception.InvoiceNumber;
 import cu.pdi.bookstore.domain.accounting.reception.ReceptionReport;
 import cu.pdi.bookstore.domain.accounting.reception.SourceWarehouse;
 import cu.pdi.bookstore.domain.accounting.sales.SaleVoucherNumber;
-import cu.pdi.bookstore.domain.inventory.department.sales.PointOfSale;
 import cu.pdi.bookstore.domain.accounting.sales.SalesSummary;
 import cu.pdi.bookstore.domain.accounting.transfer.DeliveryVoucher;
 import cu.pdi.bookstore.domain.builders.TitleInfoBuilder;
@@ -15,24 +17,25 @@ import cu.pdi.bookstore.domain.inventory.department.Bookstore;
 import cu.pdi.bookstore.domain.inventory.department.Department;
 import cu.pdi.bookstore.domain.inventory.department.DepartmentFactory;
 import cu.pdi.bookstore.domain.inventory.department.DepartmentRepository;
-import cu.pdi.bookstore.domain.kernel.title.TitleSale;
-import cu.pdi.bookstore.domain.kernel.title.TitleSupply;
+import cu.pdi.bookstore.domain.inventory.department.sales.PointOfSale;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.kernel.ISBN;
 import cu.pdi.bookstore.domain.kernel.Plan;
+import cu.pdi.bookstore.domain.kernel.title.TitleSale;
+import cu.pdi.bookstore.domain.kernel.title.TitleSupply;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
 import static cu.pdi.bookstore.domain.assertions.InventoryAssert.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith({SpringExtension.class})
 @ContextConfiguration(classes = AppConfig.class)
 @ActiveProfiles("dev")
 public class BookstoreTest {

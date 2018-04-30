@@ -3,20 +3,23 @@ package cu.pdi.bookstore.domain;
 import cu.pdi.bookstore.application.config.AppConfig;
 import cu.pdi.bookstore.domain.builders.TitleInfoBuilder;
 import cu.pdi.bookstore.domain.builders.TitleSetFactory;
-import cu.pdi.bookstore.domain.inventory.department.*;
+import cu.pdi.bookstore.domain.inventory.department.Bookstore;
+import cu.pdi.bookstore.domain.inventory.department.Department;
+import cu.pdi.bookstore.domain.inventory.department.DepartmentFactory;
+import cu.pdi.bookstore.domain.inventory.department.DepartmentRepository;
 import cu.pdi.bookstore.domain.inventory.department.sheet.InventorySheet;
-import cu.pdi.bookstore.domain.kernel.title.TitleSupply;
 import cu.pdi.bookstore.domain.inventory.title.Author;
 import cu.pdi.bookstore.domain.inventory.title.Category;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.kernel.ISBN;
+import cu.pdi.bookstore.domain.kernel.title.TitleSupply;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static cu.pdi.bookstore.domain.assertions.InventoryAssert.assertThat;
 
@@ -25,7 +28,7 @@ import static cu.pdi.bookstore.domain.assertions.InventoryAssert.assertThat;
  * Created by taiyou
  * on 8/28/17.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith({SpringExtension.class})
 @ContextConfiguration(classes = AppConfig.class)
 @ActiveProfiles("dev")
 public class InventoryDomainTest {

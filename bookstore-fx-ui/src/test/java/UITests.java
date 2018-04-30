@@ -3,19 +3,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.testfx.framework.junit.ApplicationTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.testfx.framework.junit5.ApplicationExtension;
+import org.testfx.framework.junit5.ApplicationTest;
 
-//@RunWith(SpringRunner.class)
+@ExtendWith({ApplicationExtension.class})
 //@ContextConfiguration(classes = FxAppConfig.class)
 //@ActiveProfiles("dev")
 public class UITests extends ApplicationTest {
@@ -37,12 +37,13 @@ public class UITests extends ApplicationTest {
         );
 
         stage.setScene(new Scene(vBox, 400, 600));
+        stage.setAlwaysOnTop(true);
         stage.show();
-        stage.toFront();
     }
 
     @Test
     public void should() {
+        Assertions.assertThat(true).isTrue();
         Parent parent = fB.getParent().getParent();
         int current = parent.getChildrenUnmodifiable().size();
         clickOn(fB, MouseButton.PRIMARY);
