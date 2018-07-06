@@ -3,6 +3,7 @@ package cu.pdi.bookstore.domain.kernel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.util.Assert;
 
 import javax.persistence.Embeddable;
@@ -26,5 +27,10 @@ public class ISBN implements Serializable {
 
     public static ISBN of(String isbnCode){
         return new ISBN(isbnCode);
+    }
+
+    @Override
+    public String toString() {
+        return isbnCode;
     }
 }

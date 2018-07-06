@@ -5,7 +5,9 @@
 package cu.pdi.bookstore.security.module;
 
 
-import cu.pdi.bookstore.security.Encriptador;
+import cu.pdi.bookstore.security.HashMaker;
+import cu.pdi.bookstore.security.HashMaker.HashAlgorithm;
+import cu.pdi.bookstore.security.application.config.InternalBeansConfig;
 import cu.pdi.bookstore.security.entities.SecurityPerson;
 import cu.pdi.bookstore.security.entities.SecurityRole;
 import cu.pdi.bookstore.security.jdbc.JaasSecurityRepository;
@@ -13,7 +15,6 @@ import cu.pdi.bookstore.security.module.exception.LoginCancelledException;
 import cu.pdi.bookstore.security.principals.PasswordPrincipal;
 import cu.pdi.bookstore.security.principals.RolePrincipal;
 import cu.pdi.bookstore.security.principals.UserPrincipal;
-import cu.pdi.bookstore.security.application.config.InternalBeansConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.security.auth.Subject;
@@ -83,13 +84,13 @@ public class DataBaseLM implements LoginModule {
 
             if (debug) {
                 System.out.print("Username :" + username + "\n");
-                System.out.print("Password : " + Encriptador.getStringMessageDigest(password, Encriptador.SHA256) + "\n");
+                System.out.print("Password : " + HashMaker.hashedTypeFor(password, HashAlgorithm.SHA256) + "\n");
             }
 
             if (username.isEmpty() || password.isEmpty()) {
                 succeeded = true;
                 throw new LoginException("Callback handler does not return login data properly");
-            }else if(username.equals("cancelled")){
+            } else if (username.equals("cancelled")) {
                 throw new LoginCancelledException();
 
             } else if (isValidUser()) { //validate user.
@@ -110,24 +111,16 @@ public class DataBaseLM implements LoginModule {
             return false;
         } else {
             userPrincipal = new UserPrincipal(username, nombre, pApellido, sApellido);
-            if (!subject.getPrincipals().contains(userPrincipal)) {
-                subject.getPrincipals().add(userPrincipal);
-            }
+            subject.getPrincipals().add(userPrincipal);
 
-            passwordPrincipal = new PasswordPrincipal(Encriptador.getStringMessageDigest(password, Encriptador.SHA256));
-            if (!subject.getPrincipals().contains(passwordPrincipal)) {
-                subject.getPrincipals().add(passwordPrincipal);
-            }
+            passwordPrincipal = new PasswordPrincipal(HashMaker.hashedTypeFor(password, HashAlgorithm.SHA256));
+            subject.getPrincipals().add(passwordPrincipal);
             //populate subject with roles.
             List<SecurityRole> roles = getRoles();
 
             roles.stream().map((SecurityRole securityRole) ->
                     new RolePrincipal(securityRole.getRole())
-            ).forEach((RolePrincipal rolePrincipal) -> {
-                if (!subject.getPrincipals().contains(rolePrincipal)) {
-                    subject.getPrincipals().add(rolePrincipal);
-                }
-            });
+            ).forEach((RolePrincipal rolePrincipal) -> subject.getPrincipals().add(rolePrincipal));
             commitSucceeded = true;
 
 
@@ -173,7 +166,7 @@ public class DataBaseLM implements LoginModule {
     private boolean isValidUser() {
         boolean result = false;
 
-        String hashPassword = Encriptador.getStringMessageDigest(password, Encriptador.SHA256);
+        String hashPassword = HashMaker.hashedTypeFor(password, HashAlgorithm.SHA256);
         final SecurityPerson securityPerson = jaasSecurityRepository.getUserAssociatedPerson(username, hashPassword).orElse(null);
         if (securityPerson != null) {
             result = true;

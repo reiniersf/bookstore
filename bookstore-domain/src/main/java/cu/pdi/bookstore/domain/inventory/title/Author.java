@@ -19,4 +19,9 @@ import java.io.Serializable;
 public class Author implements Serializable {
     @NonNull
     String authors;
+
+    @Override
+    public String toString() {
+        return authors;
+    }
 }

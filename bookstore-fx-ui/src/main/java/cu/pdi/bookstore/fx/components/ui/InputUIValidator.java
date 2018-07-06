@@ -44,13 +44,6 @@ public class InputUIValidator {
 
     }
 
-    public static InputUIValidator getInstance() {
-        if (instance == null) {
-            instance = new InputUIValidator();
-        }
-        return instance;
-    }
-
     public ENUM_INPUT_ERROR_TYPE validateTextField(TextField tf, String pattern) {
         ENUM_INPUT_ERROR_TYPE errorType = ENUM_INPUT_ERROR_TYPE.OK;
         if (tf.getText().isEmpty()) {
@@ -66,7 +59,8 @@ public class InputUIValidator {
         return errorType;
     }
 
-    public ENUM_INPUT_ERROR_TYPE validateTextField(TextField tf, Predicate<TextField>... condition) {
+    @SafeVarargs
+    public final ENUM_INPUT_ERROR_TYPE validateTextField(TextField tf, Predicate<TextField>... condition) {
         ENUM_INPUT_ERROR_TYPE errorType = ENUM_INPUT_ERROR_TYPE.OK;
         if (tf.getText().isEmpty()) {
             errorType = ENUM_INPUT_ERROR_TYPE.EMPTY;
@@ -100,7 +94,8 @@ public class InputUIValidator {
         return errorType;
     }
 
-    public ENUM_INPUT_ERROR_TYPE validatePassworField(PasswordField pwdF, Predicate<PasswordField>... condition) {
+    @SafeVarargs
+    public final ENUM_INPUT_ERROR_TYPE validatePasswordField(PasswordField pwdF, Predicate<PasswordField>... condition) {
         ENUM_INPUT_ERROR_TYPE errorType = ENUM_INPUT_ERROR_TYPE.OK;
         for (Predicate<PasswordField> predicate : condition) {
             if (predicate.test(pwdF)) {
@@ -117,22 +112,18 @@ public class InputUIValidator {
     }
 
     private void resetControlStatus(Control c) {
-        c.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent t) {
-                c.setEffect(null);
-                c.setTooltip(null);
-            }
+        c.setOnMouseClicked(t -> {
+            c.setEffect(null);
+            c.setTooltip(null);
         });
-        c.focusedProperty().addListener(new ChangeListener<Boolean>() {
 
-            @Override
-            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
-                c.setEffect(null);
-                c.setTooltip(null);
-            }
-        });
+        ChangeListener<Boolean> removeControlTooltip = (ov, t, t1) -> {
+            c.setEffect(null);
+            c.setTooltip(null);
+
+        };
+
+        c.focusedProperty().addListener(removeControlTooltip);
     }
 
     public enum ENUM_INPUT_ERROR_TYPE {

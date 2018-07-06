@@ -1,6 +1,6 @@
 package cu.pdi.bookstore.security.jdbc;
 
-import cu.pdi.bookstore.security.Encriptador;
+import cu.pdi.bookstore.security.HashMaker;
 import cu.pdi.bookstore.security.entities.SecurityPerson;
 import cu.pdi.bookstore.security.entities.SecurityRole;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import static cu.pdi.bookstore.security.HashMaker.HashAlgorithm.SHA256;
 
 /**
  * Created by R.S.F.
@@ -86,8 +88,7 @@ public class JaasSecurityRepositoryJdbc implements JaasSecurityRepository {
 
             Map<String, Object> params = new HashMap<>();
             params.put("user", "admin");
-            params.put("pass", Encriptador
-                    .getStringMessageDigest("admin1234", Encriptador.SHA256));
+            params.put("pass", HashMaker.hashedTypeFor("admin1234", SHA256));
             params.put("role", roleId);
             namedParameterJdbcTemplate.update(queries.get("adminInsertQuery"), params);
 

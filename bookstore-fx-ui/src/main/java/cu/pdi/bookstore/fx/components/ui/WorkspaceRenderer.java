@@ -20,7 +20,7 @@ public class WorkspaceRenderer {
     }
 
     @EventListener
-    private void processWorkspaceRenderEvent(WorkspaceRenderEvent renderEvent) {
+    public void processWorkspaceRenderEvent(WorkspaceRenderEvent renderEvent) {
         workspaceController.renderContent(fxmlLocator.getFXML(renderEvent.getFxmlToShow()));
     }
 }

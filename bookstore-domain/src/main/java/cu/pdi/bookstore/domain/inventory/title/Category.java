@@ -19,4 +19,9 @@ import java.io.Serializable;
 public class Category implements Serializable {
     @NonNull
     String categoryName;
+
+    @Override
+    public String toString() {
+        return categoryName;
+    }
 }
