@@ -6,7 +6,7 @@ addons:
   apt:
     packages:
       - oracle-java8-installer
-      - postgres-9.6
+      - postgresql-9.6
 jdk:
   - oraclejdk8
 before_script:
