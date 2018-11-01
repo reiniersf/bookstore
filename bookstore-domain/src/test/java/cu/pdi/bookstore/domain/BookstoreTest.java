@@ -37,7 +37,7 @@ import static cu.pdi.bookstore.domain.assertions.InventoryAssert.assertThat;
 
 @ExtendWith({SpringExtension.class})
 @ContextConfiguration(classes = AppConfig.class)
-@ActiveProfiles("dev")
+@ActiveProfiles("test")
 public class BookstoreTest {
 
     @Autowired
