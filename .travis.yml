@@ -1,3 +1,7 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=b5eaf65b3c1c9676503fa62b8f7ea9f763cffa04260d0e485833f05e9d19a01e
+
 language: java
 sudo: false
 addons:
@@ -12,3 +16,8 @@ jdk:
 before_script:
   - psql -c 'create database bookstore;' -U postgres
   - psql -c "alter user postgres with password 'sqlpq';"
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
