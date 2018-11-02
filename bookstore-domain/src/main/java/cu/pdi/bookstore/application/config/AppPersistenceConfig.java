@@ -49,6 +49,16 @@ public class AppPersistenceConfig {
         return emfb;
     }
 
+    @Bean
+    @Profile("prod")
+    public JpaVendorAdapter jpaVendorAdapter() {
+        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+        adapter.setDatabase(Database.DERBY);
+        adapter.setShowSql(true);
+        adapter.setGenerateDdl(false);
+        adapter.setDatabasePlatform("org.hibernate.dialect.DerbyTenSevenDialect");
+        return adapter;
+    }
 
     @Bean
     @Profile({"dev"})
@@ -58,17 +68,6 @@ public class AppPersistenceConfig {
         adapter.setShowSql(true);
         adapter.setGenerateDdl(false);
         adapter.setDatabasePlatform("org.hibernate.dialect.PostgreSQLDialect");
-        return adapter;
-    }
-
-    @Bean
-    @Profile("prod")
-    public JpaVendorAdapter jpaVendorAdapter() {
-        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-        adapter.setDatabase(Database.DERBY);
-        adapter.setShowSql(true);
-        adapter.setGenerateDdl(false);
-        adapter.setDatabasePlatform("org.hibernate.dialect.DerbyTenSevenDialect");
         return adapter;
     }
 
