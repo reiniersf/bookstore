@@ -24,6 +24,7 @@ import javax.security.auth.spi.LoginModule;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author R.S.F.
@@ -67,10 +68,9 @@ public class DataBaseLM implements LoginModule {
 
     @Override
     public boolean login() throws LoginException {
-        if (callbackHandler == null) {
-            throw new RuntimeException("Error: no callbackHandler available "
-                    + "to gather authentication information from the user");
-        }
+        callbackHandler = Objects.requireNonNull(callbackHandler,
+                "Error: no callbackHandler available to gather authentication information from the user");
+
         Callback[] callbacks = new Callback[2];
         callbacks[0] = new NameCallback("username");
         callbacks[1] = new PasswordCallback("password: ", false);

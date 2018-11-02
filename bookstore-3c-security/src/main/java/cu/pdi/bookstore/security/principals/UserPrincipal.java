@@ -8,10 +8,9 @@ import java.io.Serializable;
 import java.security.Principal;
 
 /**
- *
  * @author R.S.F
  */
-public class UserPrincipal implements Principal, Serializable{
+public class UserPrincipal implements Principal, Serializable {
     private String dbUser;
     private String nombre;
     private String pApellido;
@@ -27,8 +26,8 @@ public class UserPrincipal implements Principal, Serializable{
         this.pApellido = pApellido;
         this.sApellido = sApellido;
     }
-    
-    
+
+
     @Override
     public String getName() {
         return dbUser;
@@ -36,7 +35,7 @@ public class UserPrincipal implements Principal, Serializable{
 
     @Override
     public String toString() {
-        return "Usuario "+dbUser;
+        return "Usuario " + dbUser;
     }
 
     @Override
@@ -46,17 +45,7 @@ public class UserPrincipal implements Principal, Serializable{
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final UserPrincipal other = (UserPrincipal) obj;
-        if ((this.dbUser == null) ? (other.dbUser != null) : !this.dbUser.equals(other.dbUser)) {
-            return false;
-        }
-        return true;
+        return (obj instanceof UserPrincipal) && (((UserPrincipal) obj).dbUser.equals(this.dbUser));
     }
 
 }
