@@ -29,7 +29,7 @@ public class AuthDialogCallbackHandlerFX implements CallbackHandler {
     private Stage dialog;
     private List<String> datosAutenticacion;
 
-    public AuthDialogCallbackHandlerFX(FXMLLocator fxmlLocator) throws IOException {
+    public AuthDialogCallbackHandlerFX(FXMLLocator fxmlLocator) {
         dialog = new Stage();
         dialog.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, event -> datosAutenticacion = Arrays.asList("cancelled", "no_password"));
         dialog.addEventFilter(WindowEvent.WINDOW_HIDING, event -> obtenerDatos());
