@@ -77,7 +77,7 @@ public class InventoryController implements Initializable {
 
         btnCleanFilter.setOnAction(this::restoreFilterField);
 
-        chkSelectAll.selectedProperty().addListener(this::selectAllListener);
+        chkSelectAll.selectedProperty().addListener(this::selectAllTitles);
     }
 
     private void restoreFilterField(ActionEvent actionEvent) {
@@ -85,7 +85,7 @@ public class InventoryController implements Initializable {
         txFilter.setPromptText(i18nHandler.labelForKey("tx.filter"));
     }
 
-    private void selectAllListener(ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newValue) {
+    private void selectAllTitles(ObservableValue<? extends Boolean> ov, Boolean oldValue, Boolean newValue) {
         if (newValue) {
             tbBooksInventory.getSelectionModel().selectAll();
             tbBooksInventory.requestFocus();

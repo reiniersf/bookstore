@@ -23,7 +23,7 @@ public class ChangePasswordController implements Initializable {
     private PasswordField confirmPassword;
 
     @EventListener
-    private void resetFields(SimpleUIEvent uiEvent) {
+    public void resetFields(SimpleUIEvent uiEvent) {
         currentPassword.setText("");
         newPassword.setText("");
         confirmPassword.setText("");
