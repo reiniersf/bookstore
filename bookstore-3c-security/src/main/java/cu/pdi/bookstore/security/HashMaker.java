@@ -10,63 +10,56 @@ import java.util.function.Function;
 public final class HashMaker {
 
     /**
-     * *
-     * * Convierte un arreglo de bytes a String usando valores hexadecimales
+     * Convert a bytes array into String using hexadecimal values
      *
-     * @param digest arreglo de bytes a convertir
-     * @return String creado a partir de <code>digest</code>
+     * @param digest bytes array
+     * @return String
      */
     private static String toHexadecimal(byte[] digest) {
         StringBuilder hash = new StringBuilder();
         for (byte aux : digest) {
             int b = aux & 0xff;
-            if (Integer.toHexString(b).length() == 1) {
-                hash.append("0");
-            }
-            hash.append(Integer.toHexString(b));
+            String hexString = Integer.toHexString(b);
+            hash = hexString.length() == 1 ? hash.append("0") : hash.append(hexString);
         }
         return hash.toString();
     }
 
     /**
-     * *
-     * * Encripta un mensaje de texto mediante algoritmo de resumen de
-     * mensaje.
      *
-     * @param message   texto a encriptar
-     * @param algorithm algoritmo de encriptacion, puede ser: MD2, MD5, SHA-1,
+     * Hash a text message through a hash algorithm.
+     *
+     * @param message   text to hash
+     * @param algorithm hash algorithm, valid values: MD2, MD5, SHA-1,
      *                  SHA-256, SHA-384, SHA-512
-     * @return mensaje encriptado
+     * @return Hashed message
      */
     public static String hashedTypeFor(String message, HashAlgorithm algorithm) {
         return hashedTypeFor(message, algorithm, null, HashMaker::toHexadecimal);
     }
 
     /**
-     * *
-     * * Encripta un mensaje de texto mediante algoritmo de resumen de
-     * mensaje.
+     * Hash a text message through a hash algorithm implemented by the given provider.
      *
-     * @param message   texto a encriptar
-     * @param algorithm algoritmo de encriptacion, puede ser: MD2, MD5, SHA-1,
+     * @param message   text encrypt
+     * @param algorithm hash algorithm, valid values: MD2, MD5, SHA-1,
      *                  SHA-256, SHA-384, SHA-512
      * @param provider provider of hash algorithm implementation
-     * @return mensaje encriptado
+     * @return hashed text
      */
     public static String hashedTypeFor(String message, HashAlgorithm algorithm, Provider provider) {
         return hashedTypeFor(message, algorithm, provider, HashMaker::toHexadecimal);
     }
 
     /**
-     * *
-     * * Encripta un mensaje de texto mediante algoritmo de resumen de
-     * mensaje.
+     * Hash a text message through a hash algorithm implemented by the given provider
+     * customizing the output with the specified mapper.
      *
-     * @param message        texto a encriptar
-     * @param algorithm      algoritmo de encriptacion, puede ser: MD2, MD5, SHA-1,
+     * @param message        text to hash
+     * @param algorithm      hash algorithm, valid values: MD2, MD5, SHA-1,
      *                       SHA-256, SHA-384, SHA-512
-     * @param asTypeMapper mapper to get hash string representation
-     * @return mensaje encriptado
+     * @param asTypeMapper   mapper to get hash string representation
+     * @return hashed message
      */
     public static <T> T hashedTypeFor(String message, HashAlgorithm algorithm, Provider provider, Function<byte[], T> asTypeMapper) {
         byte[] digest = null;
