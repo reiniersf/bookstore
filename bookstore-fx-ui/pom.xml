@@ -162,5 +162,9 @@
             <version>8u76-b04</version> <!-- jdk-9+181 for Java 9 -->
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
     </dependencies>
 </project>
