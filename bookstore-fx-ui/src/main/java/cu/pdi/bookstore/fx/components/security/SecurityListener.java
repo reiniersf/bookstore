@@ -42,10 +42,8 @@ public class SecurityListener {
                 retryTimes.set(4);
                 eventPublisher.publishEvent(SuccessLoginEvent.of(jaasSecurityContext.getAuthenticatedSubject()));
             }
-        } catch (LoginCancelledException lce) {
-            System.exit(0);
         } catch (LoginException le) {
-            if (retryTimes.getAndIncrement() >= 3) {
+            if (retryTimes.getAndIncrement() > 4) {
                 eventPublisher.publishEvent(FailedLoginEvent.with("Ha excedido el número máximo de intentos.", MessageUIConfig.INFORMATION));
             } else {
                 retryTimes.incrementAndGet();
