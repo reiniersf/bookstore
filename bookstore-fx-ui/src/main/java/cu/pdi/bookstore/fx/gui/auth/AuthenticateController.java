@@ -54,8 +54,6 @@ public class AuthenticateController implements Initializable {
         this.resourceLocator = resourceLocator;
         this.eventPublisher = eventPublisher;
         this.messageUIBuilder = messageUIBuilder;
-
-
     }
 
     @FXML
@@ -87,7 +85,6 @@ public class AuthenticateController implements Initializable {
         });
         resourceLocator.urlForImage("user-icon.png")
                 .ifPresent(imageUrl -> imgUser.setImage(new Image(imageUrl)));
-
     }
 
     @FXML
@@ -101,14 +98,12 @@ public class AuthenticateController implements Initializable {
         messageUIBuilder.createMessage(loginEvent.getFailureMessage(), loginEvent.getMessageUIConfig())
                 .show();
         cleanFields();
-
     }
 
     private void cleanFields() {
         txUser.setText("");
         txUser.requestFocus();
         pfPassword.setText("");
-
     }
 
 }
