@@ -9,7 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+import static java.lang.Boolean.FALSE;
 
 
 /**
@@ -49,18 +49,19 @@ public class MessageUIBuilder {
 
     public void show() {
         messageBody.setResizable(false);
-        Optional<ButtonType> buttonTypeResult = messageBody.showAndWait();
-        if (answerWasAccept(buttonTypeResult.get())) {
+        if (answerWasToAccept()) {
             this.acceptMessageAction.execute();
         } else {
             this.denyMessageAction.execute();
         }
     }
 
-    private boolean answerWasAccept(ButtonType buttonType) {
-        return ButtonType.APPLY.equals(buttonType)
-                || ButtonType.OK.equals(buttonType)
-                || ButtonType.YES.equals(buttonType);
+    private boolean answerWasToAccept() {
+        return messageBody.showAndWait()
+                .map(buttonType -> ButtonType.APPLY.equals(buttonType)
+                        || ButtonType.OK.equals(buttonType)
+                        || ButtonType.YES.equals(buttonType))
+                .orElse(FALSE);
     }
 
 }

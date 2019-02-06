@@ -1,6 +1,7 @@
 env:
   global:
     - CC_TEST_REPORTER_ID=b5eaf65b3c1c9676503fa62b8f7ea9f763cffa04260d0e485833f05e9d19a01e
+  - _JAVA_OPTIONS="-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw"
 
 language: java
 sudo: false

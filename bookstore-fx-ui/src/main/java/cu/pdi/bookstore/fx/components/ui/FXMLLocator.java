@@ -17,7 +17,6 @@ import java.util.Objects;
  */
 @Component
 public class FXMLLocator implements ApplicationContextAware {
-    private final String COMMON_PATH = "fxml/";
     private ApplicationContext applicationContext;
     private I18nHandler i18nHandler;
 
@@ -29,7 +28,7 @@ public class FXMLLocator implements ApplicationContextAware {
         try {
             return FXMLLoader.load(
                     Objects.requireNonNull(
-                            getClass().getClassLoader().getResource(COMMON_PATH.concat(fxmlPath))),
+                            getClass().getClassLoader().getResource("fxml/".concat(fxmlPath))),
                     i18nHandler.activeBundle(),
                     new JavaFXBuilderFactory(),
                     (Class<?> param) -> applicationContext.getBean(param),
