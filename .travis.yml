@@ -12,7 +12,6 @@ addons:
     - postgresql-12
     - postgresql-client-12
 
-services: postgresql
 jdk:
   - oraclejdk11
 before_script:
