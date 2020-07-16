@@ -10,7 +10,7 @@ addons:
 
   apt:
     packages:
-      - postgresql-9.6
+      - postgresql-12
 jdk:
   - oraclejdk11
 before_script:
