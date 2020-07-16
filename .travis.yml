@@ -6,7 +6,7 @@ env:
 language: java
 sudo: false
 addons:
-  postgresql: "9.6"
+  postgresql: "12"
 
   apt:
     packages:
