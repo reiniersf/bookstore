@@ -6,16 +6,14 @@ env:
 language: java
 sudo: false
 addons:
-  postgresql: "12"
+  postgresql: "9.6"
   apt:
     packages:
-    - postgresql-12
-    - postgresql-client-12
+    - postgresql-9.6
 
 jdk:
   - oraclejdk11
 before_script:
-  - pg_ctlcluster 12 main start
   - psql -c 'create database bookstore;' -U postgres
   - psql -c "alter user postgres with password 'sqlpq';"
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
