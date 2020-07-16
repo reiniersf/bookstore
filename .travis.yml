@@ -15,6 +15,7 @@ addons:
 jdk:
   - oraclejdk11
 before_script:
+  - sleep 25
   - psql -c 'create database bookstore;' -U postgres
   - psql -c "alter user postgres with password 'sqlpq';"
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
