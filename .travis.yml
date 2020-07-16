@@ -10,10 +10,9 @@ addons:
 
   apt:
     packages:
-      - oracle-java8-installer
       - postgresql-9.6
 jdk:
-  - oraclejdk8
+  - oraclejdk11
 before_script:
   - psql -c 'create database bookstore;' -U postgres
   - psql -c "alter user postgres with password 'sqlpq';"
