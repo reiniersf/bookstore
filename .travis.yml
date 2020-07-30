@@ -20,5 +20,5 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 after_script:
-  - JACOCO_SOURCE_PATH=src/main/java ./cc-test-reporter format-coverage bookstore-domain/target/site/jacoco/jacoco.xml --input-type jacoco
+  - JACOCO_SOURCE_PATH=bookstore-domain/src/main/java ./cc-test-reporter format-coverage bookstore-domain/target/site/jacoco/jacoco.xml --input-type jacoco
   - ./cc-test-reporter upload-coverage
