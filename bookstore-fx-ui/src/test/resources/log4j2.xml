@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+<Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+        <PatternLayout pattern="[%highlight{%-5level}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=green}] %style{[%t] [%d{HH:mm:ss}] [%logger{1.}] - %msg%n}{green}"/>
+    </Console>
+</Appenders>
+<Loggers>
+    <Logger name="cu.pdi.bookstore" level="DEBUG"/>
+    <Logger name="BDDLogger" level="debug"/>
+    <Root level="warn">
+        <AppenderRef ref="Console"/>
+    </Root>
+</Loggers>
+</Configuration>

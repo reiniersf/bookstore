@@ -1,19 +1,18 @@
 env:
   global:
     - CC_TEST_REPORTER_ID=b5eaf65b3c1c9676503fa62b8f7ea9f763cffa04260d0e485833f05e9d19a01e
-  - _JAVA_OPTIONS="-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw"
-
+    - _JAVA_OPTIONS="-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw"
+    - PGPORT=5432
 language: java
 sudo: false
 addons:
-  postgresql: 9.6
-
+  postgresql: "9.6"
   apt:
     packages:
-      - oracle-java8-installer
-      - postgresql-9.6
+    - postgresql-9.6
+
 jdk:
-  - oraclejdk8
+  - oraclejdk11
 before_script:
   - psql -c 'create database bookstore;' -U postgres
   - psql -c "alter user postgres with password 'sqlpq';"
@@ -21,4 +20,5 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - JACOCO_SOURCE_PATH=bookstore-domain/src/main/java ./cc-test-reporter format-coverage bookstore-domain/target/site/jacoco/jacoco.xml --input-type jacoco
+  - ./cc-test-reporter upload-coverage

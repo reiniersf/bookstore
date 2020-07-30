@@ -8,12 +8,13 @@ import javafx.scene.control.MenuButton;
 import javafx.stage.Modality;
 import javafx.stage.Window;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static javafx.scene.input.KeyCode.ENTER;
@@ -61,6 +62,7 @@ class UserLoginApplicationTest extends ApplicationTest {
 
     }
 
+    @DisabledIfSystemProperty(named = "testfx.headless", matches = "true")
     @Scenario("User exceed login retry allowed")
     void shouldRetryLoginUntilMaxRetryAllowedWhenUserProvidesWrongCredentials() {
         //GIVEN
@@ -80,6 +82,7 @@ class UserLoginApplicationTest extends ApplicationTest {
         type(ENTER).release(ENTER);
     }
 
+    @DisabledIfSystemProperty(named = "testfx.headless", matches = "true")
     @Scenario("User login with wrong credentials then with the right ones")
     void shouldAccessAppWhenUserBeforeReachMaxRetriesAllowedProvidesRightCredentials() {
         //GIVEN

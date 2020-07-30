@@ -15,7 +15,7 @@ public class BDDExtension implements BeforeAllCallback, BeforeTestExecutionCallb
 
     @Override
     public void beforeAll(ExtensionContext extensionContext) {
-        Logger logger = LoggerFactory.getLogger("BDDLogger");
+        Logger logger = LoggerFactory.getLogger(BDDExtension.class);
         extensionContext.getTestClass()
                 .flatMap(aClass -> AnnotationSupport.findAnnotation(aClass, ApplicationFeature.class))
                 .ifPresent(applicationFeature -> {

@@ -15,7 +15,6 @@ import java.util.List;
 @Entity
 @Table(name = "document")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn( name = "document_type", discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue("0")
 public class DeliveryVoucher implements Serializable, AccountingInfoHolder {
 

@@ -3,6 +3,7 @@ package cu.pdi.bookstore.domain.inventory.department.entry;
 import cu.pdi.bookstore.domain.kernel.DepartmentCode;
 import cu.pdi.bookstore.domain.kernel.ISBN;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +21,7 @@ import java.io.Serializable;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class InventoryEntryId implements Serializable{
     @Embedded
     @AttributeOverride(name = "isbnCode", column = @Column(name = "isbn_code"))
