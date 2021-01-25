@@ -13,6 +13,8 @@ import org.testfx.api.FxToolkit;
 
 import java.util.concurrent.TimeoutException;
 
+import static java.lang.Thread.sleep;
+
 public class BookstoreUIExtension implements BeforeEachCallback, BeforeTestExecutionCallback, AfterTestExecutionCallback {
     static {
         System.setProperty("spring.profiles.active", "test");
@@ -22,6 +24,8 @@ public class BookstoreUIExtension implements BeforeEachCallback, BeforeTestExecu
     public void beforeEach(ExtensionContext extensionContext) throws Exception {
         restartApplication();
         FxToolkit.showStage();
+        sleep(4000);
+
     }
 
     @Override
