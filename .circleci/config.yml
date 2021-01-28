@@ -3,10 +3,27 @@ version: 2.1
 orbs:
   maven: circleci/maven@1.1.0
 
-machine:
-  image: ubuntu-2004:202008-01
+# workflows:
+#   maven_test:
+jobs:
+  build:
+    docker:
+      - image: circleci/postgres:latest
+        auth:
+          username: $DOCKERHUB_USER
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: bookstore
+          POSTGRES_PASSWORD: sqlpq
+    steps:
+      - checkout
+  mvn_test:
+    machine:
+      image: ubuntu-2004:202008-01
+    steps:
+      - checkout
 
-workflows:
-  maven_test:
-    jobs:
-      - maven/test # checkout, build, test, and upload test results
+      
+
+
