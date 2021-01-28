@@ -3,6 +3,9 @@ version: 2.1
 orbs:
   maven: circleci/maven@0.0.12
 
+machine:
+  image: ubuntu-2004:202008-01
+
 workflows:
   maven_test:
     jobs:
