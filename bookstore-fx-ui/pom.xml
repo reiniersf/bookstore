@@ -101,7 +101,7 @@
         </dependency>
         <dependency>
             <groupId>cu.pdi.bookstore</groupId>
-            <artifactId>bookstore-3c-security</artifactId>
+            <artifactId>bookstore-c3-security</artifactId>
             <version>${bookstore.version}</version>
         </dependency>
 
