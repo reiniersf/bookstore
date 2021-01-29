@@ -34,7 +34,8 @@ jobs:
           name: Run Maven test
           command: |
             mvn clean install -Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw
-      
+      - store_test_results:
+          path: test-results
       
 
       
